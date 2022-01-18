@@ -6,17 +6,22 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:21:45 by anadege           #+#    #+#             */
-/*   Updated: 2022/01/18 17:30:27 by anadege          ###   ########.fr       */
+/*   Updated: 2022/01/18 17:40:03 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
 
+//Must use ft as namespace
+//Containers must be called as ft::<containers>
+//Only C++98
 //Must use std::allocator
 //Must implement system of iterator if present in container
 //STD lib is authorized
 //STL containers are forbidden
+//no need to code vector<bool>
+//pile must use vector container as subjacent container
 
 
 namespace ft
