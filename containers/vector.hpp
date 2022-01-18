@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:21:45 by anadege           #+#    #+#             */
-/*   Updated: 2022/01/18 17:50:57 by anadege          ###   ########.fr       */
+/*   Updated: 2022/01/18 18:02:20 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ namespace ft
     {
         public:
 
-            // Members types
+            // Members types /!\ Error with allocator ?
             typedef T           value_type;
             typedef T*          pointer;
             typedef T&          reference;
