@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:21:45 by anadege           #+#    #+#             */
-/*   Updated: 2022/01/18 17:40:03 by anadege          ###   ########.fr       */
+/*   Updated: 2022/01/18 17:50:57 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ namespace ft
             typedef size_t      size_type;
             typedef ptdrdiff_t  difference_type;
 
-
+            // Constructors
             explicit vector (const allocator_type& alloc = allocator_type())
     };
 };
