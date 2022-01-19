@@ -2,5 +2,6 @@
     "editor.renderWhitespace": "all",
     "editor.insertSpaces": false,
     "files.insertFinalNewline": true,
-    "files.trimTrailingWhitespace": true
+    "files.trimTrailingWhitespace": true,
+    "editor.comments.insertSpace": false
 }
