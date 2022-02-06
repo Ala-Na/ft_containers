@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:57:47 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/06 16:57:09 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/06 17:27:05 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,68 @@ namespace ft
 	{
 		return lhs.base() >= rhs.base());
 	};
+
+	// enable_if reimplementation
+	template <bool Cond, class T = void>
+	struct enable_if {};
+
+	template <class T>
+	struct enable_if<true, T>
+	{
+		typedef T type;
+	};
+
+	// is_integral reimplementation
+	template <bool val>
+	bool const integral_constant<bool, val>::value;
+
+	typedef integral_constant<bool, true> true_type;
+	typedef integral_constant<bool, false> false_type;
+
+	template <class T>
+	struct is_integral : public false_type {};
+
+	template <class T>
+	struct is_integral<const T> : public is_integral<T> {};
+
+	template <class T>
+	struct is_integral<volatile const T> : public is_integral<T> {};
+
+	template <class T>
+	struct is_integral<volatile T> : public is_integral<T> {};
+
+	template <class T>
+	struct is_integral<unsigned char> : public true_type {};
+
+	template <class T>
+	struct is_integral<unsigned short> : public true_type {};
+
+	template <class T>
+	struct is_integral<unsigned int> : public true_type {};
+
+	template <class T>
+	struct is_integral<unsigned long> : public true_type {};
+
+	template <class T>
+	struct is_integral<signed char> : public true_type {};
+
+	template <class T>
+	struct is_integral<short> : public true_type {};
+
+	template <class T>
+	struct is_integral<int> : public true_type {};
+
+	template <class T>
+	struct is_integral<long> : public true_type {};
+
+	template <class T>
+	struct is_integral<char> : public true_type {};
+
+	template <class T>
+	struct is_integral<bool> : public true_type {};
+
+	template <class T>
+	struct is_integral<wchar_t> : public true_type {};
 
 }
 
