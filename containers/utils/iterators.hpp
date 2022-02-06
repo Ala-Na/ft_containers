@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:57:47 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/06 17:27:05 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/06 17:55:46 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,12 +198,18 @@ namespace ft
 	};
 
 	// is_integral reimplementation
-	template <bool val>
-	bool const integral_constant<bool, val>::value;
+	// quick simple implementation of integral_constant to define true_type and false_type
+	template <typename T, bool val>
+	struct integral_constant
+	{
+		typedef T			value_type;
+		static const bool	value = val;
+	};
 
 	typedef integral_constant<bool, true> true_type;
 	typedef integral_constant<bool, false> false_type;
 
+	// Implementation made only for C++98 suported types
 	template <class T>
 	struct is_integral : public false_type {};
 
@@ -249,6 +255,8 @@ namespace ft
 	template <class T>
 	struct is_integral<wchar_t> : public true_type {};
 
-}
+	
+
+};
 
 #endif
