@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:21:45 by anadege           #+#    #+#             */
-/*   Updated: 2022/01/19 14:49:06 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/07 11:19:39 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@
 
 //TODO random_access_iterator_tag and inclue corresponding .hpp
 //TODO Same with reverse iterator
-//TODO Same with iterator_traits
+//TODO Same with InputIterator class
+
 
 namespace ft
 {
@@ -61,13 +62,34 @@ namespace ft
 			T				*first_elem; //pointer to first element of vector
 
 		public:
-			// Constructors
+			// Default constructor
 			explicit vector (const allocator_type &alloc = allocator_type()) :
 				alloc(alloc),
 				capacity(0),
 				filled(0),
 				first_elem(NULL)
-			{};
+			{}
+
+			// Fill constructor
+			explicit vector (size_type n, const value_type &val = value_type(), const allocator_type &alloc = allocator_type()) :
+				alloc(alloc),
+				capacity(n),
+				filled(0)
+			{
+				value_type *array = this->alloc.allocate(this->capacity);
+				for (size_t i = 0; i < this->capacity; i++)
+				{
+					this->alloc.construct(array + i, val);
+					this->filled++;
+				}
+				this->first_elem = array;
+			}
+
+			// Range constructor
+			template <class InputIterator>
+			vector (InputIterator first, InputIterator last, const allocator_type &alloc = allocator_type()) :
+				alloc(alloc)
+
 	};
 };
 
