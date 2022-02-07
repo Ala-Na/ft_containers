@@ -6,28 +6,35 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:57:47 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/07 12:09:18 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/07 16:03:39 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-// iterators_traits, reverse_iterator, enable_if, is_integral, equal/lexicographical com-
-// pare, std : :pair, std : :make_pair, doivent être réimplémenté
 
 #ifndef ITERATORS_HPP
 # define ITERATORS_HPP
 
+// Librairy needed to use ptrdiff_t.
 #include <cstddef>
 
 namespace ft
 {
-	// Tags for iterators identifications, which are empty
+	// -----------------------------------
+	// Implementation of iterator_traits
+	// -----------------------------------
+
+	// It's a trait class defining properties of iterators.
+	// Some algorithms need to identify those properties to use the iterator
+	// accordingly.
+
+	// Tags for iterators identifications.
+	// There're empty and only use to categorize iterators.
 	struct input_iterator_tag {};
 	struct output_iterator_tag {};
 	struct forward_iterator_tag : public input_iterator_tag {};
 	struct bidirectionnal_iterator_tag : public forward_iterator_tag {};
 	struct random_access_iterator_tag : public bidirectionnal_iterator_tag {};
 
-	// Definitions for iterator_traits
+	// Definition for iterator_traits class template.
 	template <class Iterator>
 	struct iterator_traits {
 		typedef typename Iterator::iterator_category	iterator_category;
@@ -37,6 +44,8 @@ namespace ft
 		typedef typename Iterator::reference			reference;
 	};
 
+	// Partial specialization for pointer types. It use a random_access_iterator
+	// by default.
 	template <class T>
 	struct iterator_traits<T*> {
 		typedef ft::random_access_iterator_tag	iterator_category;
@@ -46,6 +55,8 @@ namespace ft
 		typedef T&								reference;
 	};
 
+	// Partial specialization for const pointer types. It use a
+	// random_access_iterator by default.
 	template <class T>
 	struct iterator_traits<const T*> {
 		typedef ft::random_access_iterator_tag	iterator_category;
@@ -55,16 +66,25 @@ namespace ft
 		typedef const T&						reference;
 	};
 
-	// Definition for reverse_iterator
+	// -----------------------------------
+	// Implementation of reverse_iterator
+	// -----------------------------------
+
+	// It's a class template which adapt in order to reverse the direction of a
+	// given iterator which need to be at least a bidirectionnal iterator.
+	// Iterator is set as a random_acces_iterator by default as the partial
+	// specialization for pointer types of iterator_traits is called.
+
+	// Definition for reverse_iterator class template
 	template <class Iterator>
 	class reverse_iterator {
 
 		protected:
-			// Member objects
+			// Member objects :
 			Iterator current;
 
 		public:
-			// Member types
+			// Member types :
 			Iterator															iterator_type;
 			typedef typename ft::iterator_traits<Iterator>::iterator_category	iterator_category;
 			typedef typename ft::iterator_traits<Iterator>::value_type			value_type;
@@ -72,36 +92,41 @@ namespace ft
 			typedef typename ft::iterator_traits<Iterator>::pointer				pointer;
 			typedef typename ft::iterator_traits<Iterator>::reference			reference;
 
-			// Reverse_iterator constructors
-			// Default constructor
+			// Member functions :
+			// - Default constructor
 			reverse_iterator () : current() {};
-			// Initialization constructor
+			// - Initialization constructor
 			explicit reverse_iterator (iterator_type it) : current(it) {};
-			// Copy constructor
+			// - Copy constructor
 			template <class Iter>
 			reverse_iterator (const ft::reverse_iterator<Iter>& rev_it) : current(rev_it.base()) {};
 
-			// Member functions
-
+			// - Base function (returns a copy of the base iterator)
 			iterator_type	base () const { return current; };
 
+			// - Dereference iterator function (returns pointer to the element
+			// pointed by the iterator and decrease a copy of the base iterator)
 			reference	operator* () const
 			{
 				Iterator	tmp = current;
 				return *--tmp;
 			};
 
+			// - Dereference iterator function (returns pointer to the element
+			// pointed by the iterator)
 			pointer	operator-> () const
 			{
 				return &(operator*());
 			};
 
+			// - Pre-increment iterator position modifier
 			reverse_iterator&	operator++ ()
 			{
 				--current;
 				return *this;
 			};
 
+			// - Post-increment iterator position modifier
 			reverse_iterator	operator++ (int)
 			{
 				reverse_iterator tmp = *this;
@@ -109,12 +134,14 @@ namespace ft
 				return tmp;
 			};
 
+			// - Pre-decrement iterator position modifier
 			reverse_iterator&	operator-- ()
 			{
 				++current;
 				return *this;
 			};
 
+			// - Post-decrement iterator position modifier
 			reverse_iterator	operator-- (int)
 			{
 				reverse_iterator tmp = *this;
@@ -122,35 +149,41 @@ namespace ft
 				return tmp;
 			};
 
+			// - Addition operator
 			reverse_iterator	operator+ (difference_type n) const
 			{
 				return (reverse_iterator(base() - n);
 			};
 
+			// - Substraction operator
 			reverse_iterator	operator- (difference_type n) const
 			{
 				return (reverse_iterator(base() + n);
 			};
 
+			// - Advance iterator by n position modifier
 			reverse_iterator&	operator+= (difference_type n)
 			{
 				current -= n;
 				return *this;
 			};
 
+			// - Retrocede iterator by n position modifier
 			reverse_iterator&	operator-= (difference_type n)
 			{
 				current += n;
 				return *this;
 			};
 
+			// - Dereference iterator with offset at n position
 			reference	operator[] (difference_type n) const
 			{
 				return *(base()[-n - 1]);
 			};
 	};
 
-	// Non member functions for reverse_iterator
+	// Non member functions :
+	// - Relationals operators
 	template <class Iterator1, class Iterator2>
 	bool	operator==(const ft::reverse_iterator<Iterator1>& lhs, const ft::reverse_iterator<Iterator2>& rhs)
 	{
@@ -187,150 +220,22 @@ namespace ft
 		return lhs.base() >= rhs.base());
 	};
 
-	// enable_if reimplementation
-	template <bool Cond, class T = void>
-	struct enable_if {};
-
-	template <class T>
-	struct enable_if<true, T>
+	// - Addition and substraction operator overloads
+	template <class Iterator>
+	reverse_iterator<Iterator> operator+
+	(typename reverse_iterator<Iterator>::difference_type n,
+	const reverse_iterator<Iterator>& rev_it)
 	{
-		typedef T type;
+		return reverse_iterator<Iterator>(rev_it.base() - n);
 	};
 
-	// is_integral reimplementation
-	// quick simple implementation of integral_constant to define true_type and false_type
-	template <typename T, bool val>
-	struct integral_constant
+	template <class Iterator>
+	typename reverse_iterator<Iterator>::difference_type operator-
+	(const reverse_iterator<Iterator>& lhs,
+	const reverse_iterator<Iterator>& rhs)
 	{
-		typedef T			value_type;
-		static const bool	value = val;
+		return rhs.base() - lhs.base();
 	};
-
-	typedef integral_constant<bool, true> true_type;
-	typedef integral_constant<bool, false> false_type;
-
-	// Implementation made only for C++98 suported types
-	template <class T>
-	struct is_integral : public false_type {};
-
-	template <class T>
-	struct is_integral<const T> : public is_integral<T> {};
-
-	template <class T>
-	struct is_integral<volatile const T> : public is_integral<T> {};
-
-	template <class T>
-	struct is_integral<volatile T> : public is_integral<T> {};
-
-	template <>
-	struct is_integral<unsigned char> : public true_type {};
-
-	template <>
-	struct is_integral<unsigned short> : public true_type {};
-
-	template <>
-	struct is_integral<unsigned int> : public true_type {};
-
-	template <>
-	struct is_integral<unsigned long> : public true_type {};
-
-	template <>
-	struct is_integral<signed char> : public true_type {};
-
-	template <>
-	struct is_integral<short> : public true_type {};
-
-	template <>
-	struct is_integral<int> : public true_type {};
-
-	template <>
-	struct is_integral<long> : public true_type {};
-
-	template <>
-	struct is_integral<char> : public true_type {};
-
-	template <>
-	struct is_integral<bool> : public true_type {};
-
-	template <>
-	struct is_integral<wchar_t> : public true_type {};
-
-	// equal compare implementation
-	template <class InputIt1, class InputIt2>
-	bool	equal (InputIt1 first1, InputIt1 last1, InputIt2  first2)
-	{
-		for (; first1 != last1; ++first1, ++first2)
-		{
-			if (!(*first1 == *first2))
-				return false;
-		}
-		return true;
-	};
-
-	template <class InputIt1, class InputIt2, class BinaryPredicate>
-	bool	equal (InputIt1 first1, InputIt1 last1, InputIt2 first2, BinaryPredicate p)
-	{
-		for (; first1 != last1; ++first1, ++first2)
-		{
-			if (!p(*first1, *first2))
-			{
-				return false;
-			}
-		}
-		return true;
-	};
-
-	// Lexicographical_compare implementation
-	// Goal is to check if  an element InputIt1 is lexicographically less than element InputIt2
-	// Range matters to make that verification
-	// Comparison made by using operator <
-	template <class InputIt1, class InputIt2>
-	bool	lexicographical_compare (InputIt1 first1, InputIt1 last1, InputIt2 first2, InputIt2 last2)
-	{
-		for (; (first1 != last1) && (first2 != last2); ++first1, ++first2)
-		{
-			if (*first1 < *first2)
-				return true;
-			else if (*first2 < *first1)
-				return false;
-		}
-		return (first1 == last1) && (first2 != last2);
-	};
-
-	// Comparison made by using a function comp
-	template <class InputIt1, class InputIt2, class Compare>
-	bool lexicographical_compare(InputIt1 first1, InputIt1 last1, InputIt2 first2, InputIt2 last2, Compare comp)
-	{
-		for (; (first1 != last1) && (first2 != last2); ++first1, (void) ++first2)
-		{
-			if (comp(*first1, *first2))
-				return true;
-			else if (comp(*first2, *first1))
-				return false;
-		}
-		return (first1 == last1) && (first2 != last2);
-	};
-
-	// std::pair implementation
-	template <class T1, class T2>
-	struct pair
-	{
-		// Member types
-		typedef T1	first_type;
-		typedef T2 second_type;
-
-		// Member objects
-		T1	first;
-		T2	second;
-
-		// Member functions
-		// Default constructor
-		pair () : first(), second() {};
-
-
-
-	};
-
 };
 
 #endif
