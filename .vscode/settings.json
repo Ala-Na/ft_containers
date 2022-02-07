@@ -3,5 +3,12 @@
     "editor.insertSpaces": false,
     "files.insertFinalNewline": true,
     "files.trimTrailingWhitespace": true,
-    "editor.comments.insertSpace": false
+    "editor.comments.insertSpace": false,
+    "files.associations": {
+        "*.tcc": "cpp",
+        "algorithm": "cpp",
+        "random": "cpp",
+        "type_traits": "cpp",
+        "functional": "cpp"
+    }
 }

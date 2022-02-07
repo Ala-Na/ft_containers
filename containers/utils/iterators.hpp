@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:57:47 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/06 19:18:01 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/07 12:09:18 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,37 +222,37 @@ namespace ft
 	template <class T>
 	struct is_integral<volatile T> : public is_integral<T> {};
 
-	template <class T>
+	template <>
 	struct is_integral<unsigned char> : public true_type {};
 
-	template <class T>
+	template <>
 	struct is_integral<unsigned short> : public true_type {};
 
-	template <class T>
+	template <>
 	struct is_integral<unsigned int> : public true_type {};
 
-	template <class T>
+	template <>
 	struct is_integral<unsigned long> : public true_type {};
 
-	template <class T>
+	template <>
 	struct is_integral<signed char> : public true_type {};
 
-	template <class T>
+	template <>
 	struct is_integral<short> : public true_type {};
 
-	template <class T>
+	template <>
 	struct is_integral<int> : public true_type {};
 
-	template <class T>
+	template <>
 	struct is_integral<long> : public true_type {};
 
-	template <class T>
+	template <>
 	struct is_integral<char> : public true_type {};
 
-	template <class T>
+	template <>
 	struct is_integral<bool> : public true_type {};
 
-	template <class T>
+	template <>
 	struct is_integral<wchar_t> : public true_type {};
 
 	// equal compare implementation
@@ -268,19 +268,68 @@ namespace ft
 	};
 
 	template <class InputIt1, class InputIt2, class BinaryPredicate>
-	bool	equal (InputIt1 first1, InputIt1 last1, InputIt2 first2, BinaryPredicate p);
+	bool	equal (InputIt1 first1, InputIt1 last1, InputIt2 first2, BinaryPredicate p)
 	{
-		for (; first1 != last1; ++first1, ++first2) {
-			if (!p(*first1, *first2)) {
+		for (; first1 != last1; ++first1, ++first2)
+		{
+			if (!p(*first1, *first2))
+			{
 				return false;
 			}
 		}
 		return true;
 	};
 
-	// lexicographical_compare implementation
+	// Lexicographical_compare implementation
+	// Goal is to check if  an element InputIt1 is lexicographically less than element InputIt2
+	// Range matters to make that verification
+	// Comparison made by using operator <
 	template <class InputIt1, class InputIt2>
-	bool	lexicographical_compare (InputIt1 )
+	bool	lexicographical_compare (InputIt1 first1, InputIt1 last1, InputIt2 first2, InputIt2 last2)
+	{
+		for (; (first1 != last1) && (first2 != last2); ++first1, ++first2)
+		{
+			if (*first1 < *first2)
+				return true;
+			else if (*first2 < *first1)
+				return false;
+		}
+		return (first1 == last1) && (first2 != last2);
+	};
+
+	// Comparison made by using a function comp
+	template <class InputIt1, class InputIt2, class Compare>
+	bool lexicographical_compare(InputIt1 first1, InputIt1 last1, InputIt2 first2, InputIt2 last2, Compare comp)
+	{
+		for (; (first1 != last1) && (first2 != last2); ++first1, (void) ++first2)
+		{
+			if (comp(*first1, *first2))
+				return true;
+			else if (comp(*first2, *first1))
+				return false;
+		}
+		return (first1 == last1) && (first2 != last2);
+	};
+
+	// std::pair implementation
+	template <class T1, class T2>
+	struct pair
+	{
+		// Member types
+		typedef T1	first_type;
+		typedef T2 second_type;
+
+		// Member objects
+		T1	first;
+		T2	second;
+
+		// Member functions
+		// Default constructor
+		pair () : first(), second() {};
+
+
+
+	};
 
 };
 
