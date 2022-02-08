@@ -6,12 +6,15 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:27:59 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/07 14:58:16 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/07 23:27:26 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ID_COMP_HPP
 # define ID_COMP_HPP
+
+// Librairy to avoid reimplementation of true_type and false_type.
+#include <type_traits>
 
 namespace ft
 {
@@ -30,6 +33,7 @@ namespace ft
 	{
 		typedef T type;
 	};
+
 	// ------------------------------
 	// Implementation of is_integral
 	// ------------------------------
@@ -38,21 +42,9 @@ namespace ft
 	// or false_type.
 	// Only C++98 integrals types are taken into account here.
 
-	// Quick simplified implementation of integral_constant in order to define
-	// true/false_type.
-	template <typename T, bool val>
-	struct integral_constant
-	{
-		typedef T			value_type;
-		static const bool	value = val;
-	};
-
-	typedef integral_constant<bool, true> true_type;
-	typedef integral_constant<bool, false> false_type;
-
 	// Implementation for differents integral or general types.
 	template <class T>
-	struct is_integral : public false_type {};
+	struct is_integral : public std::false_type {};
 
 	template <class T>
 	struct is_integral<const T> : public is_integral<T> {};
@@ -64,37 +56,38 @@ namespace ft
 	struct is_integral<volatile T> : public is_integral<T> {};
 
 	template <>
-	struct is_integral<unsigned char> : public true_type {};
+	struct is_integral<unsigned char> : public std::true_type {};
 
 	template <>
-	struct is_integral<unsigned short> : public true_type {};
+	struct is_integral<unsigned short> : public std::true_type {};
 
 	template <>
-	struct is_integral<unsigned int> : public true_type {};
+	struct is_integral<unsigned int> : public std::true_type {};
 
 	template <>
-	struct is_integral<unsigned long> : public true_type {};
+	struct is_integral<unsigned long> : public std::true_type {};
 
 	template <>
-	struct is_integral<signed char> : public true_type {};
+	struct is_integral<signed char> : public std::true_type {};
 
 	template <>
-	struct is_integral<short> : public true_type {};
+	struct is_integral<short> : public std::true_type {};
 
 	template <>
-	struct is_integral<int> : public true_type {};
+	struct is_integral<int> : public std::true_type {};
 
 	template <>
-	struct is_integral<long> : public true_type {};
+	struct is_integral<long> : public std::true_type {};
 
 	template <>
-	struct is_integral<char> : public true_type {};
+	struct is_integral<char> : public std::true_type {};
 
 	template <>
-	struct is_integral<bool> : public true_type {};
+	struct is_integral<bool> : public std::true_type {};
 
 	template <>
-	struct is_integral<wchar_t> : public true_type {};
+	struct is_integral<wchar_t> : public std::true_type {};
+
 	// ------------------------------------------
 	// Implementation of equal function template
 	// ------------------------------------------
@@ -128,6 +121,7 @@ namespace ft
 		}
 		return true;
 	};
+
 	// ------------------------------------------------------------
 	// Implementation of lexicographical_compare template function
 	// ------------------------------------------------------------

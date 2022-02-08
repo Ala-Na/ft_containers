@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:15:01 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/07 15:19:20 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/07 17:08:43 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ namespace ft
 
 		// Member functions :
 		// - Default constructor
-		pair () : first(), second() {};
+		pair () : first(), second() {}
 
 		// - Copy constructor
 		template <class U, class V>
-		pair (const pair <U, V>& pr) : first(pr.first), second(pr.second) {};
+		pair (const pair <U, V>& pr) : first(pr.first), second(pr.second) {}
 
 		// - Initialization constructor
-		pair (const T1& a, const T2& b) : first(a), second(b) {};
+		pair (const T1& a, const T2& b) : first(a), second(b) {}
 
 		// - Assignment operator
 		pair&	operator= (const pair& pr)
@@ -47,7 +47,7 @@ namespace ft
 			first = pr.first;
 			second = pr.second;
 			return *this;
-		};
+		}
 	};
 
 	// Non member functions :
