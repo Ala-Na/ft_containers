@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:21:45 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/09 12:05:53 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/09 12:26:02 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <cstddef>
 #include <memory>
 #include <iterator>
+#include <cstdio> //TODO delete, only for tests
 #include "./utils/iterators.hpp"
 #include "./utils/id_comp.hpp"
 
@@ -80,9 +81,12 @@ namespace ft
 			// - Range constructor
 			template <class InputIterator>
 			vector (InputIterator first, InputIterator last,
-			const allocator_type &alloc = allocator_type()) :
+			const allocator_type &alloc = allocator_type(), typename
+			ft::enable_if<ft::iterator_traits<InputIterator>::iterator_category
+			== std::input_iterator_tag, InputIterator>) :
 				alloc(alloc), capacity(0), filled(0)
 			{
+				printf(%s, "yo");
 				// need to check that ft::iterator_traits<InputIterator>::iterator_category
 				// is std::input_iterator_tag
 				// if not, std::abort()
