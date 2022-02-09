@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:57:47 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/09 12:05:57 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/09 15:54:42 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -425,6 +425,47 @@ namespace ft
 		return lhs.base() - rhs.base();
 	};
 
+	// -------------------------------------------
+	// Home made is_valid_input_iterator function
+	// -------------------------------------------
+
+	// Function to check if an iterator is a valid input iterator (including
+	// forward, bidirectionnal and random access iterator).
+	// It's quite ugly and use typeid.
+	// Another solution could be to create template struct/class which returns a
+	// true/false type depending of the iterator_tag.
+
+	// Or templated functions for each kind of valid input iterator_tag.
+
+	// Example from stackoverflow :
+	//	template <typename Iterator>
+	//	void FooImpl(Iterator first, Iterator last, std::random_access_iterator_tag) {
+	//	}
+	//
+	//	template <typename Iterator>
+	//	void Foo(Iterator first, Iterator last) {
+	//		typedef typename std::iterator_traits<Iterator>::iterator_category category;
+	//		return FooImpl(first, last, category());
+	//	}
+
+	// Another solution would be to reimplement is_base_of (CPP20) in order to
+	// verify InputIterator type inside a specialized class template.
+
+	// Either of those solutions need a lot of lines. But maybe they're quicker
+	// to use than multiple typeid checks.
+
+	template <class Iterator>
+	bool	is_valid_input_iterator(Iterator it)
+	{
+		const std::type_info&	it_cat = typeid(typename \
+			ft::iterator_traits<Iterator>::iterator_category);
+		if (it_cat != typeid(std::input_iterator_tag)
+			&& it_cat != typeid(std::forward_iterator_tag)
+			&& it_cat != typeid(std::bidirectional_iterator_tag)
+			&& it_cat != typeid(std::random_access_iterator_tag))
+			return false;
+		return true;
+	};
 };
 
 #endif

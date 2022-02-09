@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:27:59 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/07 23:27:26 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/09 16:29:58 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ namespace ft
 
 	// Custom template function, using a function comp to compare elements.
 	template <class InputIt1, class InputIt2, class Compare>
-	bool lexicographical_compare(InputIt1 first1, InputIt1 last1,
+	bool	lexicographical_compare(InputIt1 first1, InputIt1 last1,
 	InputIt2 first2, InputIt2 last2, Compare comp)
 	{
 		for (; (first1 != last1) && (first2 != last2); ++first1, ++first2)

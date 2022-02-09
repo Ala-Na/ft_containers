@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:21:45 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/09 12:26:02 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/09 16:40:27 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <cstdio> //TODO delete, only for tests
 #include "./utils/iterators.hpp"
 #include "./utils/id_comp.hpp"
+#include "./utils/exceptions.hpp"
 
 //Must use ft as namespace
 //Containers must be called as ft::<containers>
@@ -69,29 +70,40 @@ namespace ft
 			const allocator_type &alloc = allocator_type()) :
 				alloc(alloc), capacity(n), filled(0)
 			{
-				value_type *array = this->alloc.allocate(this->capacity);
+				this->first_elem = this->alloc.allocate(this->capacity);
 				for (size_t i = 0; i < this->capacity; i++)
 				{
-					this->alloc.construct(array + i, val);
+					this->alloc.construct(first_elem + i, val);
 					this->filled++;
 				}
-				this->first_elem = array;
 			}
 
 			// - Range constructor
 			template <class InputIterator>
 			vector (InputIterator first, InputIterator last,
-			const allocator_type &alloc = allocator_type(), typename
-			ft::enable_if<ft::iterator_traits<InputIterator>::iterator_category
-			== std::input_iterator_tag, InputIterator>) :
+			const allocator_type &alloc = allocator_type()) :
 				alloc(alloc), capacity(0), filled(0)
 			{
-				printf(%s, "yo");
-				// need to check that ft::iterator_traits<InputIterator>::iterator_category
-				// is std::input_iterator_tag
-				// if not, std::abort()
+				if (is_valid_input_iterator(first) == false)
+					throw InvalidIteratorTypeException();
+				if (first == last)
+				{
+					this->first_elem = NULL;
+					return ;
+				}
+				if ((this->capacity = std::distance(first, last)) > alloc.max_size())
+					throw MaxSizeExceeded();
+				this->first_elem = this->alloc.allocate(this->capacity);
+				for (size_t i = 0; i < this->capacity; i++)
+				{
+					printf("new elem : %i\n", *first);
+					this->alloc.construct(first_elem + i, *first);
+					this->filled++;
+					first++;
+				}
 			}
 
+			
 	};
 };
 
