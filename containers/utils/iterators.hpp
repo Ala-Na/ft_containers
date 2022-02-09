@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:57:47 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/07 23:47:51 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/09 12:05:57 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,14 +101,22 @@ namespace ft
 			// - Base function (returns a copy of the base iterator)
 			iterator_type	base () const
 			{
-				return current;
+				return this->current;
+			}
+
+			// - Assignment operator
+			template <class U>
+			reverse_iterator& operator= (const reverse_iterator<U>& other)
+			{
+				current = other.base();
+				return *this;
 			}
 
 			// - Dereference iterator function (returns pointer to the element
 			// pointed by the iterator and decrease a copy of the base iterator)
 			reference	operator* () const
 			{
-				Iterator	tmp = current;
+				Iterator	tmp = this->current;
 				return *--tmp;
 			}
 
@@ -122,7 +130,7 @@ namespace ft
 			// - Pre-increment iterator position modifier
 			reverse_iterator&	operator++ ()
 			{
-				--current;
+				--(this->current);
 				return *this;
 			}
 
@@ -130,14 +138,14 @@ namespace ft
 			reverse_iterator	operator++ (int)
 			{
 				reverse_iterator tmp = *this;
-				--current;
+				--(this->current);
 				return tmp;
 			}
 
 			// - Pre-decrement iterator position modifier
 			reverse_iterator&	operator-- ()
 			{
-				++current;
+				++(this->current);
 				return *this;
 			}
 
@@ -145,7 +153,7 @@ namespace ft
 			reverse_iterator	operator-- (int)
 			{
 				reverse_iterator tmp = *this;
-				++current;
+				++(this->current);
 				return tmp;
 			}
 
@@ -164,14 +172,14 @@ namespace ft
 			// - Advance iterator by n position modifier
 			reverse_iterator&	operator+= (difference_type n)
 			{
-				current -= n;
+				this->current -= n;
 				return *this;
 			}
 
 			// - Retrocede iterator by n position modifier
 			reverse_iterator&	operator-= (difference_type n)
 			{
-				current += n;
+				this->current += n;
 				return *this;
 			}
 
@@ -236,6 +244,187 @@ namespace ft
 	{
 		return rhs.base() - lhs.base();
 	};
+
+	// -----------------------------------------
+	// Implementation of random_access_iterator
+	// -----------------------------------------
+
+	// It's a bidirectionnal iterator which can be used to access elements at an
+	// abritrary offset position.
+	template <class Iterator>
+	class random_access_iterator {
+
+		protected:
+			// Member objects :
+			Iterator*	current;
+
+		public:
+			// Member types :
+			typedef Iterator													iterator_type;
+			typedef typename ft::iterator_traits<Iterator>::iterator_category	iterator_category;
+			typedef typename ft::iterator_traits<Iterator>::value_type			value_type;
+			typedef typename ft::iterator_traits<Iterator>::difference_type		difference_type;
+			typedef typename ft::iterator_traits<Iterator>::pointer				pointer;
+			typedef typename ft::iterator_traits<Iterator>::reference			reference;
+
+			// Member functions :
+			// - Default constructor
+			random_access_iterator () : current() {}
+
+			// - Initialization constructor
+			explicit random_access_iterator (iterator_type* it) : current(it) {}
+
+			// - Copy constructor
+			template <class Iter>
+			random_access_iterator (const ft::random_access_iterator<Iter>& it) :
+			current(it.base()) {}
+
+			// - Base function (returns a copy of the base iterator)
+			Iterator*	base () const
+			{
+				return this->current;
+			}
+
+			// - Assignment operator
+			template <class U>
+			random_access_iterator& operator= (const reverse_iterator<U>& other)
+			{
+				this->current = other.base();
+				return *this;
+			}
+
+			// - Dereference iterator function (returns pointer to the element
+			// pointed by the iterator and decrease a copy of the base iterator)
+			reference	operator* () const
+			{
+				return *(this->current);
+			}
+
+			// - Dereference iterator function (returns pointer to the element
+			// pointed by the iterator)
+			pointer	operator-> () const
+			{
+				return &(operator*());
+			}
+
+			// - Pre-increment iterator position modifier
+			random_access_iterator&	operator++ ()
+			{
+				++(this->current);
+				return *this;
+			}
+
+			// - Post-increment iterator position modifier
+			random_access_iterator	operator++ (int)
+			{
+				random_access_iterator tmp = *this;
+				++(this->current);
+				return tmp;
+			}
+
+			// - Pre-decrement iterator position modifier
+			random_access_iterator&	operator-- ()
+			{
+				--(this->current);
+				return *this;
+			}
+
+			// - Post-decrement iterator position modifier
+			random_access_iterator	operator-- (int)
+			{
+				random_access_iterator tmp = *this;
+				--(this->current);
+				return tmp;
+			}
+
+			// - Addition operator
+			random_access_iterator	operator+ (difference_type n) const
+			{
+				return random_access_iterator(base() + n);
+			}
+
+			// - Substraction operator
+			random_access_iterator	operator- (difference_type n) const
+			{
+				return random_access_iterator(base() - n);
+			}
+
+			// - Advance iterator by n position modifier
+			random_access_iterator&	operator+= (difference_type n)
+			{
+				this->current += n;
+				return *this;
+			}
+
+			// - Retrocede iterator by n position modifier
+			random_access_iterator&	operator-= (difference_type n)
+			{
+				this->current -= n;
+				return *this;
+			}
+
+			// - Dereference iterator with offset at n position
+			reference	operator[] (difference_type n) const
+			{
+				return *(base()[n - 1]);
+			}
+	};
+
+	// Non member functions :
+	// - Relationals operators
+	template <class Iterator1, class Iterator2>
+	bool	operator==(const ft::random_access_iterator<Iterator1>& lhs, const ft::random_access_iterator<Iterator2>& rhs)
+	{
+		return lhs.base() == rhs.base();
+	};
+
+	template <class Iterator1, class Iterator2>
+	bool	operator!=(const ft::random_access_iterator<Iterator1>& lhs, const ft::random_access_iterator<Iterator2>& rhs)
+	{
+		return lhs.base() != rhs.base();
+	};
+
+	template <class Iterator1, class Iterator2>
+	bool	operator<(const ft::random_access_iterator<Iterator1>& lhs, const ft::random_access_iterator<Iterator2>& rhs)
+	{
+		return lhs.base() < rhs.base();
+	};
+
+	template <class Iterator1, class Iterator2>
+	bool	operator<=(const ft::random_access_iterator<Iterator1>& lhs, const ft::random_access_iterator<Iterator2>& rhs)
+	{
+		return lhs.base() <= rhs.base();
+	};
+
+	template <class Iterator1, class Iterator2>
+	bool	operator>(const ft::random_access_iterator<Iterator1>& lhs, const ft::random_access_iterator<Iterator2>& rhs)
+	{
+		return lhs.base() > rhs.base();
+	};
+
+	template <class Iterator1, class Iterator2>
+	bool	operator>=(const ft::random_access_iterator<Iterator1>& lhs, const ft::random_access_iterator<Iterator2>& rhs)
+	{
+		return lhs.base() >= rhs.base();
+	};
+
+	// - Addition and substraction operator overloads
+	template <class Iterator>
+	random_access_iterator<Iterator> operator+
+	(typename random_access_iterator<Iterator>::difference_type n,
+	const random_access_iterator<Iterator>& it)
+	{
+		return random_access_iterator<Iterator>(it.base() + n);
+	};
+
+	template <class Iterator>
+	typename random_access_iterator<Iterator>::difference_type operator-
+	(const random_access_iterator<Iterator>& lhs,
+	const random_access_iterator<Iterator>& rhs)
+	{
+		return lhs.base() - rhs.base();
+	};
+
 };
 
 #endif
