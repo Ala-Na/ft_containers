@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:21:45 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/09 16:40:27 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/09 18:15:21 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ namespace ft
 	{
 		public:
 
+			// ---------------------------
 			// Members types definitions :
+			// ---------------------------
+
 			typedef T												value_type;
 			typedef Alloc											allocator_type;
 			typedef typename allocator_type::reference				reference;
@@ -54,13 +57,23 @@ namespace ft
 
 		private:
 
-			//Parameters (choosen by me)
+			// -----------------
+			// Member objects :
+			// -----------------
+
 			allocator_type	alloc; //allocator object
 			size_type		capacity; //max capacity of vector
 			size_type		filled; //present number of element in vector
-			T				*first_elem; //pointer to first element of vector
+			T*				first_elem; //pointer to first element of vector
 
 		public:
+
+			// -----------------
+			// Member functions :
+			// -----------------
+
+			// --- CONSTRUCTORS ---
+
 			// - Default constructor
 			explicit vector (const allocator_type &alloc = allocator_type()) :
 				alloc(alloc), capacity(0), filled(0), first_elem(NULL) {}
@@ -73,15 +86,17 @@ namespace ft
 				this->first_elem = this->alloc.allocate(this->capacity);
 				for (size_t i = 0; i < this->capacity; i++)
 				{
-					this->alloc.construct(first_elem + i, val);
+					this->alloc.construct(this->first_elem + i, val);
 					this->filled++;
 				}
 			}
 
-			// - Range constructor
+			// - Range constructor (enable_if is use to differenciate from
+			// fill constructor)
 			template <class InputIterator>
 			vector (InputIterator first, InputIterator last,
-			const allocator_type &alloc = allocator_type()) :
+			const allocator_type &alloc = allocator_type(),
+			typename std::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0) :
 				alloc(alloc), capacity(0), filled(0)
 			{
 				if (is_valid_input_iterator(first) == false)
@@ -94,16 +109,66 @@ namespace ft
 				if ((this->capacity = std::distance(first, last)) > alloc.max_size())
 					throw MaxSizeExceeded();
 				this->first_elem = this->alloc.allocate(this->capacity);
-				for (size_t i = 0; i < this->capacity; i++)
+				for (size_t i = 0; i < this->capacity; i++, first++)
 				{
-					printf("new elem : %i\n", *first);
-					this->alloc.construct(first_elem + i, *first);
+					this->alloc.construct(this->first_elem + i, *first);
 					this->filled++;
-					first++;
 				}
 			}
 
-			
+			// - Copy constructor (deep)
+			vector (const vector& x) :
+				alloc(x.alloc), capacity(x.capacity), filled (0)
+			{
+				this->first_elem = this->alloc.allocate(this->capacity);
+				for (size_t i = 0; i < x->filled; i++)
+				{
+					this->alloc.construct(this->first_elem + i, x[i]);
+					this->filled++;
+				}
+			}
+
+			// --- DESTRUCTOR ---
+			~vector ()
+			{
+				value_type*	elem = first_elem;
+				for (size_t i = 0; i < this->filled; i++)
+				{
+					this->alloc.destroy(elem);
+					elem++;
+				}
+				this->alloc.deallocate(this->first_elem, this->capacity);
+			}
+
+			// -- ASSIGNMENT OPERATOR ---
+			// TODO cut function when clear and insert functions are made
+			vector&	operator= (const vector& other)
+			{
+				value_type*	elem = first_elem;
+				for (size_t i = 0; i < this->filled; i++)
+				{
+					this->alloc.destroy(elem);
+					elem++;
+				}
+				this->filled = 0;
+				this->alloc.deallocate(this->first_elem, this->capacity);
+				this->first_elem = NULL;
+				this->first_elem = this->alloc.allocate(other->capacity);
+				for (size_t i = 0; i < x->filled; i++)
+				{
+					this->alloc.construct(this->first_elem + i, x[i]);
+					this->filled++;
+				}
+				return *this;
+			}
+
+			// --- ALLOCATOR ---
+			allocator_type	get_allocator() const
+			{
+
+			}
+
+
 	};
 };
 
