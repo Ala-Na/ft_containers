@@ -8,6 +8,11 @@ int main()
 	std::vector<int> first (1, 42);
 	printf("%li\n", first.capacity());
 	std::vector<int> second (first);
+	printf("%li %li\n", second.capacity(), second.size());
+	second.assign(3, 100);
+	printf("%li %li\n", second.capacity(), second.size());
+	second.assign(2, 33);
+	printf("%li %li\n", second.capacity(), second.size());
 	ft::vector<int> *machin = new ft::vector<int> (4, 42);
   	ft::vector<int> third (second.begin(), second.end());
   	//ft::vector<int> truc ("a","a");
@@ -22,3 +27,4 @@ int main()
 	std::cout << '\n';
 	delete machin;
 }
+
