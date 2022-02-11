@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:21:45 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/11 17:06:58 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/11 21:06:00 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,9 @@ namespace ft
 			// Member functions :
 			// -----------------
 
+			// --------------------
 			// --- CONSTRUCTORS ---
+			// --------------------
 
 			// - Default constructor
 			explicit vector (const allocator_type &alloc = allocator_type()) :
@@ -91,8 +93,9 @@ namespace ft
 				}
 			}
 
-			// - Range constructor (enable_if is use to differenciate from
-			// fill constructor)
+			// - Range constructor
+
+			// Memo : enable_if is use to differenciate from fill constructor.
 			template <class InputIterator>
 			vector (InputIterator first, InputIterator last,
 			const allocator_type &alloc = allocator_type(),
@@ -106,7 +109,8 @@ namespace ft
 					this->first_elem = NULL;
 					return ;
 				}
-				if ((this->capacity = std::distance(first, last)) > alloc.max_size())
+				if ((this->capacity = std::distance(first, last))
+					> alloc.max_size())
 					throw MaxSizeExceeded();
 				this->first_elem = this->alloc.allocate(this->capacity);
 				for (size_type i = 0; i < this->capacity; i++, first++)
@@ -116,7 +120,9 @@ namespace ft
 				}
 			}
 
-			// - Copy constructor (deep)
+			// - Copy constructor
+
+			// Deep copy is created
 			vector (const vector& x) :
 				alloc(x.alloc), capacity(x.capacity), filled (0)
 			{
@@ -128,7 +134,10 @@ namespace ft
 				}
 			}
 
+			// ------------------
 			// --- DESTRUCTOR ---
+			// ------------------
+
 			~vector ()
 			{
 				value_type*	elem = first_elem;
@@ -140,7 +149,9 @@ namespace ft
 				this->alloc.deallocate(this->first_elem, this->capacity);
 			}
 
+			// --------------------------
 			// -- ASSIGNMENT OPERATOR ---
+			// --------------------------
 
 			// TODO cut function when clear and insert functions are made
 			vector&	operator= (const vector& other)
@@ -163,7 +174,9 @@ namespace ft
 				return *this;
 			}
 
+			// -----------------
 			// --- ALLOCATOR ---
+			// -----------------
 
 			// Returns the allocator object of vector
 			allocator_type	get_allocator() const
@@ -171,8 +184,9 @@ namespace ft
 				return this->alloc;
 			}
 
-
+			// -----------------
 			// --- ITERATORS ---
+			// -----------------
 
 			// - Begin functions
 
@@ -199,7 +213,8 @@ namespace ft
 			// Returns constant iterator to last element.
 			const_iterator	end() const
 			{
-				return static_cast<const_iterator>(this->first_elem + this->filled);
+				return static_cast<const_iterator>(this->first_elem
+					+ this->filled);
 			}
 
 			// - Reverse begin functions
@@ -230,7 +245,9 @@ namespace ft
 				return static_cast<const_reverse_iterator>(this->begin());
 			}
 
+			// ----------------
 			// --- CAPACITY ---
+			// -----------------
 
 			// - Size function
 
@@ -265,7 +282,8 @@ namespace ft
 					this->reserve(n);
 				if (n > this->filled)
 					for (; this->filled < n; this->filled++)
-						this->alloc.construct(this->first_elem[this->filled], val);
+						this->alloc.construct(this->first_elem[this->filled],
+							val);
 				else if (n < this->filled)
 					for (; this->filled != n; this->filled--)
 						this->alloc.destroy(this->first_elem[this->filled - 1]);
@@ -310,7 +328,9 @@ namespace ft
 				this->first_elem = new_first_elem;
 			}
 
+			// -----------------
 			// --- MODIFIERS ---
+			// -----------------
 
 			// - Fill assign function
 
