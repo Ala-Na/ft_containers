@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:42:46 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/09 16:12:49 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/13 15:37:58 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,19 @@ namespace ft
 		}
 	};
 
-	struct MaxSizeExceeded : public std::exception
+	struct MaxSizeExceededException : public std::exception
 	{
 		const char*	what () const throw ()
 		{
-			return "Container max size is exceeded.";
+			return "Container max size is or will be exceeded.";
+		}
+	};
+
+	struct OutOfRangeException : public std::exception
+	{
+		const char*	what () const throw ()
+		{
+			return "Element is out of container's range.";
 		}
 	};
 
