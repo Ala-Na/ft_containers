@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:21:45 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/15 23:27:25 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/15 23:49:49 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,9 @@
 #include "./utils/id_comp.hpp"
 #include "./utils/exceptions.hpp"
 
-namespace ft
-{
+namespace ft {
 	template <typename T, class Alloc = std::allocator<T>>
-	class vector
-	{
+	class vector {
 		public:
 
 			// ---------------------------
@@ -43,7 +41,7 @@ namespace ft
 			typedef typename std::ptrdiff_t							difference_type;
 			typedef typename std::size_t							size_type;
 
-		private:
+		protected:
 
 			// -----------------
 			// Member objects :
@@ -613,43 +611,44 @@ namespace ft
 			return false;
 		}
 		return equal(lhs.begin(), lhs.end(), rhs.begin());
-	}
+	};
+
 	template <typename T, class Alloc>
 	bool	operator!= (const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
 	{
 		return !(lhs == rhs);
-	}
+	};
 
 	template <typename T, class Alloc>
 	bool	operator< (const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
 	{
 		return lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
-	}
+	};
 
 	template <typename T, class Alloc>
 	bool	operator> (const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
 	{
 		return (rhs < lhs);
-	}
+	};
 
 	template <typename T, class Alloc>
 	bool	operator<= (const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
 	{
 		return !(rhs < lhs);
-	}
+	};
 
 	template <typename T, class Alloc>
 	bool	operator>= (const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
 	{
 		return !(lhs < rhs);
-	}
+	};
 
 	// - Swap function, non member overload
 	template <typename T, class Alloc>
 	void	swap (vector<T, Alloc>& x, vector<T, Alloc>& y)
 	{
 		x.swap(y);
-	}
+	};
 };
 
 #endif
