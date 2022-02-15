@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:21:45 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/15 12:14:58 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/15 15:53:13 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,9 @@
 #include "./utils/id_comp.hpp"
 #include "./utils/exceptions.hpp"
 
-//Must use ft as namespace
-//Containers must be called as ft::<containers>
-//Only C++98
-//Must use std::allocator
-//Must implement system of iterator if present in container
-//STD lib is authorized
-//STL containers are forbidden
-//no need to code vector<bool>
-//pile must use vector container as subjacent container
-
 namespace ft
 {
-	template <class T, class Alloc = std::allocator<T>>
+	template <typename T, class Alloc = std::allocator<T>>
 	class vector
 	{
 		public:
@@ -85,6 +75,8 @@ namespace ft
 			const allocator_type &alloc = allocator_type()) :
 				alloc(alloc), vec_capacity(n), filled(0)
 			{
+				if (this->vec_capacity > alloc.max_size())
+				{	throw MaxSizeExceededException();}
 				this->first_elem = this->alloc.allocate(this->vec_capacity);
 				for (size_type i = 0; i < this->vec_capacity; i++)
 				{
@@ -103,7 +95,7 @@ namespace ft
 				alloc(alloc), vec_capacity(0), filled(0)
 			{
 				if (is_valid_input_iterator(first) == false)
-					throw InvalidIteratorTypeException();
+				{	throw InvalidIteratorTypeException();}
 				if (first == last)
 				{
 					this->first_elem = NULL;
@@ -111,7 +103,7 @@ namespace ft
 				}
 				if ((this->vec_capacity = std::distance(first, last))
 					> alloc.max_size())
-					throw MaxSizeExceededException();
+				{	throw MaxSizeExceededException();}
 				this->first_elem = this->alloc.allocate(this->vec_capacity);
 				for (size_type i = 0; i < this->vec_capacity; i++, first++)
 				{
@@ -127,9 +119,9 @@ namespace ft
 				alloc(x.alloc), vec_capacity(x.vec_capacity), filled (0)
 			{
 				this->first_elem = this->alloc.allocate(this->vec_capacity);
-				for (size_type i = 0; i < x->filled; i++)
+				for (size_type i = 0; i < x.filled; i++)
 				{
-					this->alloc.construct(this->first_elem + i, x[i]);
+					this->alloc.construct(this->first_elem + i, *(x.first_elem + i));
 					this->filled++;
 				}
 			}
@@ -657,45 +649,45 @@ namespace ft
 
 	// - Relational operators functions
 
-	template <class T, class Alloc>
+	template <typename T, class Alloc>
 	bool	operator== (const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
 	{
 		if (lhs.size() != rhs.size())
 			return false;
 		return equal(lhs.begin(), lhs.end(), rhs.begin());
 	}
-	template <class T, class Alloc>
+	template <typename T, class Alloc>
 	bool	operator!= (const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
 	{
 		return !(lhs == rhs);
 	}
 
-	template <class T, class Alloc>
+	template <typename T, class Alloc>
 	bool	operator< (const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
 	{
 		return lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
 	}
 
-	template <class T, class Alloc>
+	template <typename T, class Alloc>
 	bool	operator> (const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
 	{
 		return (rhs < lhs);
 	}
 
-	template <class T, class Alloc>
+	template <typename T, class Alloc>
 	bool	operator<= (const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
 	{
 		return !(rhs < lhs);
 	}
 
-	template <class T, class Alloc>
+	template <typename T, class Alloc>
 	bool	operator>= (const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
 	{
 		return !(lhs < rhs);
 	}
 
 	// - Swap function, non member overload
-	template <class T, class Alloc>
+	template <typename T, class Alloc>
 	void	swap (vector<T, Alloc>& x, vector<T, Alloc>& y)
 	{
 		x.swap(y);
