@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:21:45 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/13 23:34:14 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/15 12:14:58 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -649,6 +649,57 @@ namespace ft
 				this->filled = 0;
 			}
 	};
+
+
+	// ----------------------
+	// Non member functions :
+	// ----------------------
+
+	// - Relational operators functions
+
+	template <class T, class Alloc>
+	bool	operator== (const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
+	{
+		if (lhs.size() != rhs.size())
+			return false;
+		return equal(lhs.begin(), lhs.end(), rhs.begin());
+	}
+	template <class T, class Alloc>
+	bool	operator!= (const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
+	{
+		return !(lhs == rhs);
+	}
+
+	template <class T, class Alloc>
+	bool	operator< (const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
+	{
+		return lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+	}
+
+	template <class T, class Alloc>
+	bool	operator> (const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
+	{
+		return (rhs < lhs);
+	}
+
+	template <class T, class Alloc>
+	bool	operator<= (const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
+	{
+		return !(rhs < lhs);
+	}
+
+	template <class T, class Alloc>
+	bool	operator>= (const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
+	{
+		return !(lhs < rhs);
+	}
+
+	// - Swap function, non member overload
+	template <class T, class Alloc>
+	void	swap (vector<T, Alloc>& x, vector<T, Alloc>& y)
+	{
+		x.swap(y);
+	}
 };
 
 #endif
