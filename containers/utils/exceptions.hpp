@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:42:46 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/13 15:37:58 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/15 22:37:58 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,14 @@ namespace ft
 	};
 
 	struct OutOfRangeException : public std::exception
+	{
+		const char*	what () const throw ()
+		{
+			return "Element is out of container's range.";
+		}
+	};
+
+	struct InvalidSizeException : public std::exception
 	{
 		const char*	what () const throw ()
 		{
