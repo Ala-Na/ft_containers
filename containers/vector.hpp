@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:21:45 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/15 23:49:49 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/16 12:03:14 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@
 #include "./utils/id_comp.hpp"
 #include "./utils/exceptions.hpp"
 
-namespace ft {
+namespace ft
+{
 	template <typename T, class Alloc = std::allocator<T>>
-	class vector {
+	class vector
+	{
 		public:
 
 			// ---------------------------
