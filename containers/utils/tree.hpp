@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 12:11:55 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/16 18:28:21 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/17 12:41:30 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,6 +259,72 @@ namespace ft
 				node_y->get_parent() = node_x->get_parent();
 			}
 
+			void	fix_delete(node* to_fix)
+			{
+				while (to_fix != NULL and to_fix->get_color() == black) {
+					if (to_fix == (to_fix->get_parent())->get_left_child()) {
+						node*	sibling = (to_fix->get_parent())->get_right_child();
+						if (sibling->get_color() == red) {
+							sibing->set_to_black();
+							(to_fix->get_parent())->set_to_red();
+							this->left_rotate(to_fix->get_parent());
+							sibling = (to_fix->get_parent())->get_right_child();
+						}
+						if ((sibling->get_left_child())->get_color() == black
+							&& (sibling->get_right_child())->get_color() == black) {
+								sibling->set_to_red();
+								to_fix = to_fix->get_parent();
+						} else {
+							if ((sibling->get_right_child())->get_color() == black) {
+								(sibling->get_left_child())->set_to_black();
+								sibling->set_to_red();
+								this->right_rotate(sibling);
+								sibling = (to_fix->get_parent())->get_right_child();
+							}
+							if ((to_fix->get_parent())->get_color() == red) {
+								sibling->set_to_red();
+							} else {
+								sibling->set_to_black();
+							}
+							(to_fix->get_parent())->set_to_black();
+							(sibling->get_right_child())->set_to_black();
+							this->left_rotate(to_fix->get_parent());
+							to_fix = this->root;
+						}
+					} else {
+						node*	sibling = (to_fix->get_parent())->get_left_child();
+						if (sibling->get_color() == red) {
+							sibing->set_to_black();
+							(to_fix->get_parent())->set_to_red();
+							this->right_rotate(to_fix->get_parent());
+							sibling = (to_fix->get_parent())->get_left_child();
+						}
+						if ((sibling->get_right_child())->get_color() == black
+							&& (sibling->get_left_child())->get_color() == black) {
+								sibling->set_to_red();
+								to_fix = to_fix->get_parent();
+						} else {
+							if ((sibling->get_left_child())->get_color() == black) {
+								(sibling->get_right_child())->set_to_black();
+								sibling->set_to_red();
+								this->left_rotate(sibling);
+								sibling = (to_fix->get_parent())->get_left_child();
+							}
+							if ((to_fix->get_parent())->get_color() == red) {
+								sibling->set_to_red();
+							} else {
+								sibling->set_to_black();
+							}
+							(to_fix->get_parent())->set_to_black();
+							(sibling->get_left_child())->set_to_black();
+							this->right_rotate(to_fix->get_parent());
+							to_fix = this->root;
+						}
+					}
+				}
+				to_fix->set_to_black();
+			}
+
 			// - Delete function
 			void	delete(node* to_del) {
 				node*	track = to_del;
@@ -290,8 +356,7 @@ namespace ft
 					}
 				}
 				if (track_color == black)
-					this->delete_fix(to_del_child);
-					// TODO implement to_del_child
+					this->fix_delete(to_del_child);
 			}
 	};
 
