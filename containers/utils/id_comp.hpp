@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:27:59 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/09 16:29:58 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/16 12:11:12 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,33 @@ namespace ft
 				return false;
 		}
 		return (first1 == last1) && (first2 != last2);
+	};
+
+	// --------------------------------------------
+	// Implementation of binary_function structure
+	// --------------------------------------------
+
+	// Needed to reimplement less structure, needed by map
+	template <typename Arg1, typename Arg2, typename Result>
+	struct binary_function
+	{
+		typedef Arg1	first_argument_type;
+		typedef Arg2	second_argument_type;
+		typedef Result	result_type;
+	};
+
+	// ---------------------------------
+	// Implementation of less structure
+	// ---------------------------------
+
+	// Needed by map.
+	// It just contains a comparison function, using the < operator.
+	template <typename T>
+	struct less : public binary_function<T, T, bool>
+	{
+		bool	operator() (const T& x, const T& y) const {
+			return x < y;
+		}
 	};
 };
 

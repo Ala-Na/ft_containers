@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:21:38 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/16 00:06:36 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/18 14:40:38 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@
 #include "./utils/id_comp.hpp"
 #include "./utils/exceptions.hpp"
 
-namespace ft {
+namespace ft
+{
 	template <class T, class Container = vector<T>>
-	class stack {
+	class stack
+	{
 		public:
 
 			// ---------------------------
