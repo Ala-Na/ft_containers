@@ -1,6 +1,5 @@
 #include <bits/stdc++.h>
-#include "./tree_iterator.hpp"
-#include "./iterators.hpp"
+#include "./tree.hpp"
 
 void menu(){
 		std::cout << "\n__________________________________________";
@@ -19,6 +18,12 @@ void menu(){
 
 int main(){
 	ft::rb_tree<int, std::less<int>> demo;
+	demo.insert_value(2);
+	demo.insert_value(1);
+	demo.insert_value(0);
+	demo.insert_value(3);
+	demo.insert_value(4);
+	demo.insert_value(10);
 	int info, input;
 	menu();
 	std::cin >> info;
@@ -30,7 +35,7 @@ int main(){
 
 			case 2: std::cout << "\nElement to be searched -- ";
 					std::cin >> input;
-					if(demo.TreeSearch(input)) { std::cout << "Element found.\n"; }
+					if(demo.seek_node(input)) { std::cout << "Element found.\n"; }
 					else { std::cout << "Element not found.\n"; }
 					break;
 
@@ -46,8 +51,8 @@ int main(){
 
 			case 5: std::cout << "\nElement to be deleted? -- ";
 					std::cin >> input;
-					if(demo.TreeSearch(input)) { std::cout << "Element found.\n"; }
-					demo.remove_node(demo.TreeSearch(input));
+					if(demo.seek_node(input)) { std::cout << "Element found.\n";
+					demo.remove_node(demo.seek_node(input)); }
 					break;
 
 			default: std::cout << "Wrong Choice.\n";

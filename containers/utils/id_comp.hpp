@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:27:59 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/16 12:11:12 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/21 16:28:49 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,6 +183,18 @@ namespace ft
 		bool	operator() (const T& x, const T& y) const {
 			return x < y;
 		}
+	};
+
+
+	// --------------------------------
+	// Implementation of swap function
+	// --------------------------------
+
+	template <class T>
+	void swap(T& a, T& b) {
+		T	tmp = a;
+		a = b;
+		b = tmp;
 	};
 };
 

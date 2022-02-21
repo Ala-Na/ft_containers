@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 13:48:52 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/17 16:31:58 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/21 17:24:11 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 #include <iterator>
 #include "./iterators.hpp"
-#include "./tree.hpp"
 
 namespace ft
 {
@@ -30,7 +29,7 @@ namespace ft
 			typedef typename ft::iterator<std::bidirectional_iterator_tag, Type>::difference_type	difference_type;
 			typedef typename ft::iterator<std::bidirectional_iterator_tag, Type>::pointer			pointer;
 			typedef typename ft::iterator<std::bidirectional_iterator_tag, Type>::reference			reference;
-			typedef ft::node<Type>																		node_type;
+			typedef Type																			node_type;
 
 		protected:
 
