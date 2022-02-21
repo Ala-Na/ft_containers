@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 12:11:55 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/21 22:13:44 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/21 22:22:06 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,11 @@ namespace ft
 			allocator_type		alloc;
 
 		public:
-			// - Constructors
+
+			// --------------------
+			// --- CONSTRUCTORS ---
+			// --------------------
+
 			rb_tree (const allocator_type &alloc = allocator_type()) :
 				alloc(alloc), root(NULL), node_count(0) {}
 
@@ -350,6 +354,7 @@ namespace ft
 					}
 				}
 				delete_node(node);
+				this->node_count -= 1;
 			}
 
 			node_type* seek_node(value_type node_value) {
