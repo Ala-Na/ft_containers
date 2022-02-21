@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:21:47 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/21 21:20:13 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/21 21:46:30 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <functional>
 #include <cstddef>
 #include <memory>
+#include "./utils/exceptions.hpp"
 #include "./utils/pair.hpp"
 #include "./utils/id_comp.hpp"
 #include "./utils/iterators.hpp"
@@ -72,6 +73,7 @@ namespace ft
 			explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) :
 				compare_function(comp), alloc(alloc) {}
 
+			// - Range consructor
 			template <class InputIterator>
 			map (InputIterator first, InputIterator last,
 			const key_compare& comp= key_compare(),
@@ -84,8 +86,30 @@ namespace ft
 				if (first == last) {
 					this->tree = NULL;
 					return ;
-				//TODO continue
+				//TODO continue by copying tree into new one
 				}
+			}
+
+			// - Copy constructor
+			map (const map& other) :
+				compare_function(other.compare_function), alloc(other.alloc) {
+					//TODO continue by copying tree into new one
+			}
+
+			// ------------------
+			// --- DESTRUCTOR ---
+			// ------------------
+
+			~map () {
+				//TODO deallocate memory
+			}
+
+			// --------------------------
+			// -- ASSIGNMENT OPERATOR ---
+			// --------------------------
+
+			map&	operator= (const map& other) {
+				//TODO deallocate memory and reallocate copying other tree
 			}
 
 	};
