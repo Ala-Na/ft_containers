@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 22:11:57 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/21 22:12:36 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/22 11:48:16 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,13 @@ namespace ft
 		node<Value>*	right_child;
 		rb_tree_color	color;
 
-		// - Constructor
+		// - Constructors
 		node (Value& data) :
 			data(data), parent(NULL), left_child(NULL), right_child(NULL), color(black)
+		{}
+
+		node (node*& other) :
+			data(other->data), parent(other->parent), left_child(other->left_child), right_child(other->right_child), color(other->color)
 		{}
 
 		node&	operator* () const {
@@ -167,9 +171,9 @@ namespace ft
 	template <typename T>
 	ft::node<T>*	decrement_tree(const ft::node<T>* node) {
 		ft::node<T>*	tmp_node;
-		if ((node->get_grandparent() == node) && (node->get_color() == red)) {
+		/*if ((node->get_grandparent() == node) && (node->get_color() == red)) {
 			return node->get_right_node();
-		} else if (node->get_left_child() != NULL) {
+		} else */if (node->get_left_child() != NULL) {
 			tmp_node = node->get_left_child();
 			while(tmp_node->get_right_child() != NULL) {
 				tmp_node = tmp_node->get_right_child();

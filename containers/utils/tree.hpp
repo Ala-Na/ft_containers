@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 12:11:55 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/21 22:22:06 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/22 13:38:53 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,15 @@ namespace ft
 			typedef const value_type&						const_reference;
 			typedef value_type*								pointer;
 			typedef const value_type*						const_pointer;
-			typedef ft::rb_tree_iterator<node_type>			iterator;
-			typedef ft::rb_tree_iterator<const node_type>	const_iterator;
+			typedef ft::rb_tree_iterator<value_type>		iterator;
+			typedef ft::rb_tree_iterator<const value_type>	const_iterator;
 			typedef ft::reverse_iterator<iterator>			reverse_iterator;
 			typedef ft::reverse_iterator<const iterator>	const_reverse_iterator;
 
 		private:
 			node_type*			root;
 			size_type			node_count;
-			compare_function	compare;
+			compare_function	comp;
 			allocator_type		alloc;
 
 		public:
@@ -62,35 +62,186 @@ namespace ft
 			// --- CONSTRUCTORS ---
 			// --------------------
 
-			rb_tree (const allocator_type &alloc = allocator_type()) :
-				alloc(alloc), root(NULL), node_count(0) {}
+			// - Default constructor
+			rb_tree (const compare_function& comp = compare_function(), const allocator_type &alloc = allocator_type()) :
+				root(NULL), node_count(0), comp(comp), alloc(alloc) {}
 
-			rb_tree (compare_function compare, const allocator_type &alloc = allocator_type()) :
-				root(NULL), node_count(0), compare(compare) {}
+			// - Compare specification constructor
+			rb_tree (compare_function comp, const allocator_type &alloc = allocator_type()) :
+				root(NULL), node_count(0), comp(comp), alloc(alloc) {}
 
-			rb_tree(const rb_tree& other, const allocator_type &alloc = allocator_type()) :
-				alloc(alloc), root(other.root), node_count(other.root_count), compare(other.compare) {}
+			// - Range constructor
+			template <typename InputIterator>
+			rb_tree (InputIterator first, InputIterator last, const compare_function& comp = compare_function(), const allocator_type &alloc = allocator_type()) :
+				root(NULL), node_count(0), comp(comp), alloc(alloc)
+			{
+				if (is_valid_input_iterator(first) == false) {
+					throw InvalidIteratorTypeException();
+				}
+				if (first == last) {
+					this->first_elem = NULL;
+					return ;
+				}
+				for (; first != last; ++first)
+					this->insert(*first);
+			}
+
+			// - Copy constructor
+			rb_tree (const rb_tree& other, const allocator_type &alloc = allocator_type()) :
+				alloc(alloc), root(other.root), node_count(other.root_count), comp(other.comp) {}
+
+			// ------------------
+			// --- DESTRUCTOR ---
+			// ------------------
+
+			~rb_tree () {
+				delete_tree(this->root);
+			}
+
+			// ---------------------------
+			// --- ASSIGNMENT OPERATOR ---
+			// ---------------------------
+
+			rb_tree&	operator= (cons this type& other) {
+				if (this == &other) {
+					return *this;
+				}
+				delete_tree(this->root);
+				this->comp = other.comp;
+				this->node_count = other.node_count;
+				this->alloc = other.alloc;
+				iterator	first = other.begin();
+				iterator	last = other.last();
+				for (; first != last; first++) {
+					this->insert(*first);
+				}
+				return *this;
+			}
+
+			// ---------------
+			// --- GETTERS ---
+			// ---------------
 
 			// - Root getter
 			node_type*	get_root () {
 				return this->root;
 			}
 
-			// - Size function
+			// - Size function / get size_count function
 			size_t	size () {
 				return this->node_count;
 			}
+
+			// - Allocator getter
+			allocator_type&	get_allocator() {
+				return this->alloc;
+			}
+
+			compare_function&	get_compare_function() {
+				return this->comp;
+			}
+
+			// ----------------------
+			// --- BOOLEAN STATES ---
+			// ----------------------
 
 			// - Empty function
 			bool	empty() {
 				return (this->node_count == 0);
 			}
 
-			// --------------------------------------------------------
-			// Functions for RBTree algorithm (insert, delete, rotate)
-			// --------------------------------------------------------
+			// -----------------
+			// --- ITERATORS ---
+			// -----------------
 
-			// - Left rotate function
+			// - Begin functions (returns iterator to smallest element)
+
+			// Non constant begin function
+			iterator begin () {
+				return iterator(static_cast<node_type*>(tree_minimum(this->root)));
+			}
+
+			// Constant begin function
+			const_iterator begin() const {
+				return const_iterator(static_cast<node_type*>(const_cast<node_type*>(tree_minimum(this->root))));
+			}
+
+			// - End functions (returns iterator to biggest element)
+
+			// Non constant end function
+			iterator end () {
+				return iterator(static_cast<node_type*>(tree_maximum(this->root)));
+			}
+
+			// Constant end function
+			const_iterator end() const {
+				return const_iterator(static_cast<node_type*>(const_cast<node_type*>(tree_maximum(this->root))));
+			}
+
+			// - Reverse begin functions
+
+			// Returns reverse iterator, starting from last element.
+			reverse_iterator	rbegin() {
+				return static_cast<reverse_iterator>(this->end());
+			}
+
+			// Returns constant reverse iterator, starting from last element.
+			const_reverse_iterator	rbegin() const {
+				return static_cast<const_reverse_iterator>(this->end());
+			}
+
+			// - Reverse end functions
+
+			// Returns reverse iterator, starting from first element.
+			reverse_iterator	rend() {
+				return static_cast<reverse_iterator>(this->begin());
+			}
+
+			// Returns constant reverse iterator, starting from first element.
+			const_reverse_iterator	rend() const {
+				return static_cast<const_reverse_iterator>(this->begin());
+			}
+
+			// --------------
+			// --- MEMORY ---
+			// --------------
+
+			// - Function to create and allocate memory for a new node of data
+			// value.
+			node_type*	create_node(value_type data) {
+				node_type*	new_node = this->alloc.allocate(1);
+				node_type	filler(data);
+				alloc.construct(new_node, filler);
+				return new_node;
+			}
+
+			node_type*	create_node(node_type* other) {
+				node_type*	new_node = this->alloc.allocate(1);
+				node_type	filler(other);
+				alloc.construct(new_node, filler);
+				return new_node;
+			}
+
+			void	delete_node(node_type* to_delete) {
+				this->alloc.destroy(to_delete);
+				this->alloc.deallocate(to_delete, 1);
+			}
+
+			void	delete_tree(node_type* curr_root) {
+				while (curr_root) {
+					delete_tree(curr_root->get_right_child());
+					node_type* left_child = curr_root->get_left_child();
+					delete_node(curr_root);
+					curr_root = left_child;
+				}
+			}
+
+			// ---------------------------
+			// --- ROTATIONS FUNCTIONS ---
+			// ---------------------------
+
+			// - Left rotate function, used to exchange two nodes in insertion
+			// and deletion.
 			void	left_rotate (node_type* node) {
 				node_type*	next_node = node->get_right_child();
 				node->set_right_child(next_node->get_left_child());
@@ -109,7 +260,8 @@ namespace ft
 				node->set_parent(next_node);
 			}
 
-			// - Right rotate function
+			// - Right rotate function, used to exchange two nodes in insertion
+			// and deletion.
 			void	right_rotate (node_type* node) {
 				node_type*	next_node = node->get_left_child();
 				node->set_left_child(next_node->get_right_child());
@@ -128,7 +280,35 @@ namespace ft
 				node->set_parent(next_node);
 			}
 
-			// - Insert fixup function
+			// --------------
+			// --- SEARCH ---
+			// --------------
+
+			// - Function to seek a node of node_value data. Return pointer to
+			// corresponding node.
+			node_type* seek_node(value_type node_value) {
+				node_type* tmp = this->root;
+				if(!tmp) {
+					return NULL;
+				}
+				while(tmp) {
+					if (tmp->get_data() == node_value) {
+						return tmp;
+					} else if (this->comp(node_value, tmp->get_data())) {
+						tmp = tmp->get_left_child();
+					} else {
+						tmp = tmp->get_right_child();
+					}
+				}
+				return NULL;
+			}
+
+			// -----------------
+			// --- INSERTION ---
+			// -----------------
+
+			// - Function to fix colors and order inside tree after insertion
+			// of new_node.
 			void	fix_tree(node_type*	new_node) {
 				node_type*	uncle_node;
 				while (new_node->get_parent() && (new_node->get_parent())->get_color() == red) {
@@ -171,13 +351,6 @@ namespace ft
 				(this->root)->set_to_black();
 			}
 
-			node_type*	create_node(value_type data) {
-				node_type*	new_node = this->alloc.allocate(1);
-				node_type	filler(data);
-				alloc.construct(new_node, filler);
-				return new_node;
-			}
-
 			// - Insert node function
 			void	insert_value(value_type data) {
 				node_type*	new_node = create_node(data);
@@ -185,7 +358,7 @@ namespace ft
 				node_type*	node_y = NULL;
 				while (node_x != NULL) {
 					node_y = node_x;
-					if (compare(data, node_x->get_data())) { // new_node key < node_x key
+					if (this->comp(data, node_x->get_data())) { // new_node key < node_x key
 						node_x = node_x->get_left_child();
 					} else {
 						node_x = node_x->get_right_child();
@@ -194,7 +367,7 @@ namespace ft
 				new_node->set_parent(node_y);
 				if (node_y == NULL) {
 					this->root = new_node;
-				} else if (compare(new_node->get_data(), node_y->get_data())) { // new_node key < node_y key
+				} else if (this->comp(new_node->get_data(), node_y->get_data())) { // new_node key < node_y key
 					node_y->set_left_child(new_node);
 				} else {
 					node_y->set_right_child(new_node);
@@ -205,10 +378,9 @@ namespace ft
 				std::cout << "Element inserted\n";
 			}
 
-			void	delete_node(node_type* to_delete) {
-				this->alloc.destroy(to_delete);
-				this->alloc.deallocate(to_delete, 1);
-			}
+			// ----------------
+			// --- DELETION ---
+			// ----------------
 
 			// - Node deletion function
 			void	remove_node(node_type* node) {
@@ -355,23 +527,6 @@ namespace ft
 				}
 				delete_node(node);
 				this->node_count -= 1;
-			}
-
-			node_type* seek_node(value_type node_value) {
-				node_type* tmp = this->root;
-				if(!tmp) {
-					return NULL;
-				}
-				while(tmp) {
-					if (tmp->get_data() == node_value) {
-						return tmp;
-					} else if (compare(node_value, tmp->get_data())) {
-						tmp = tmp->get_left_child();
-					} else {
-						tmp = tmp->get_right_child();
-					}
-				}
-				return NULL;
 			}
 
 			// TODO DELETE FOLLOWING

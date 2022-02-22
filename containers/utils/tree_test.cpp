@@ -20,10 +20,11 @@ int main(){
 	ft::rb_tree<int, std::less<int>> demo;
 	demo.insert_value(2);
 	demo.insert_value(1);
-	demo.insert_value(0);
+	demo.insert_value(6);
 	demo.insert_value(3);
 	demo.insert_value(4);
 	demo.insert_value(10);
+	std::cout << *(demo.begin()) << std::endl;
 	int info, input;
 	menu();
 	std::cin >> info;
