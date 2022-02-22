@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 22:11:57 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/22 11:48:16 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/22 16:47:47 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@ namespace ft
 		rb_tree_color	color;
 
 		// - Constructors
+		node () :
+			data(), parent(NULL), left_child(NULL), right_child(NULL), color(black)
+		{}
+
+
 		node (Value& data) :
 			data(data), parent(NULL), left_child(NULL), right_child(NULL), color(black)
 		{}
@@ -148,7 +153,7 @@ namespace ft
 	};
 
 	template <typename T>
-	ft::node<T>*	increment_tree(const ft::node<T>* node) {
+	ft::node<T>*	increment_tree(ft::node<T>* node) {
 		ft::node<T>*(tmp_node);
 		if (node->get_right_child() != NULL) {
 			node = node->get_right_child();
@@ -157,7 +162,7 @@ namespace ft
 			}
 		} else {
 			tmp_node = node->get_parent();
-			while (node == tmp_node->get_right_node() != NULL) {
+			while (tmp_node && node == tmp_node->get_right_child()) {
 				node = tmp_node;
 				tmp_node = tmp_node->get_parent();
 			}
@@ -169,11 +174,9 @@ namespace ft
 	};
 
 	template <typename T>
-	ft::node<T>*	decrement_tree(const ft::node<T>* node) {
+	ft::node<T>*	decrement_tree(ft::node<T>* node) {
 		ft::node<T>*	tmp_node;
-		/*if ((node->get_grandparent() == node) && (node->get_color() == red)) {
-			return node->get_right_node();
-		} else */if (node->get_left_child() != NULL) {
+		if (node->get_left_child() != NULL) {
 			tmp_node = node->get_left_child();
 			while(tmp_node->get_right_child() != NULL) {
 				tmp_node = tmp_node->get_right_child();

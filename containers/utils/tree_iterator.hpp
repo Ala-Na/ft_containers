@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 13:48:52 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/21 22:11:16 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/22 16:38:25 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,10 @@ namespace ft
 				return this->node;
 			}
 
+			node_type*	base() const {
+				return this->node;
+			}
+
 			// - Assignment operator
 			template <typename T>
 			rb_tree_iterator& operator= (const rb_tree_iterator<T>& other)
@@ -72,12 +76,18 @@ namespace ft
 
 			// - Pre-increment iterator position modifier
 			rb_tree_iterator&	operator++ () {
+				if (!this->node) {
+					return *this;
+				}
 				this->node = static_cast<node_type*>(increment_tree(this->node));
 				return *this;
 			}
 
 			// - Post-increment iterator position modifier
 			rb_tree_iterator	operator++ (int) {
+				if (!this->node) {
+					return *this;
+				}
 				rb_tree_iterator tmp = *this;
 				this->node = static_cast<node_type*>(increment_tree(this->node));
 				return tmp;
@@ -85,12 +95,18 @@ namespace ft
 
 			// - Pre-decrement iterator position modifier
 			rb_tree_iterator&	operator-- () {
+				if (!this->node) {
+					return *this;
+				}
 				this->node = static_cast<node_type*>(decrement_tree(this->node));
 				return *this;
 			}
 
 			// - Post-decrement iterator position modifier
 			rb_tree_iterator	operator-- (int) {
+				if (!this->node) {
+					return *this;
+				}
 				rb_tree_iterator tmp = *this;
 				this->node = static_cast<node_type*>(decrement_tree(this->node));
 				return tmp;

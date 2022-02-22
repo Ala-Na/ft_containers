@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:15:01 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/07 17:08:43 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/22 23:02:29 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,16 @@ namespace ft
 	bool	operator>= (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
 	{
 		return !(lhs < rhs);
+	};
+
+	// - Use first structure for use of key during comparisons in map.
+	template <typename Pair>
+	struct use_first {
+		typedef typename	Pair::first_type result_type;
+
+		const result_type&	operator() (const Pair& x) const {
+			return x.first;
+		}
 	};
 };
 
