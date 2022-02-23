@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:21:47 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/23 15:23:33 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/23 17:34:18 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ namespace ft
 			// Here, member definitions of binary_function are made inside
 			// value_compare class.
 
-			class value_compare
+			class value_compare :
+				public ft::binary_function<value_type, value_type, bool>
 			{
 				protected :
 					friend class	map<Key, T, Compare, Alloc>;
@@ -84,10 +85,6 @@ namespace ft
 					value_compare(Compare c) : comp(c) {}
 
 				public:
-					typedef	bool		result_type;
-					typedef value_type	first_argument_type;
-					typedef value_type	second_argument_type;
-
 					bool operator() (const value_type& x, const value_type& y) const {
 						return comp(x.first, y.first);
 					}
@@ -130,8 +127,7 @@ namespace ft
 			// ------------------
 
 			~map () {
-				tree.delete_tree();
-				// TODO deallocate all memory
+				this->clean();
 			}
 
 			// --------------------------
@@ -216,7 +212,7 @@ namespace ft
 
 			// - Insert single element function
 			ft::pair<iterator, bool>	insert (const value_type& val) {
-				node_type*	node = this->tree.seek_node(val);
+				tree_type::node_type*	node = this->tree.seek_node(val);
 				bool		is_inserted = false;
 				if (node == NULL) {
 					node = this->tree.insert_value(val);
@@ -244,8 +240,45 @@ namespace ft
 				}
 			}
 
+			// - Erase function for element at position iterator
 			void	erase (iterator position) {
-				
+				this->tree.remove_node(static_cast<tree_type::node_type*>(position));
+			}
+
+			// - Erase function for element witk k key.
+			size_type	erase (const key_type& k) {
+				return this->tree.remove_node(k);
+			}
+
+			void	erase (iterator first, iterator last) {
+				for (; first != last; first++) {
+					this->tree.remove_node(static_cast<tree_type::node_type*>(first));
+				}
+			}
+
+			void	swap (map &other) {
+				if (*this == other) {
+					return ;
+				}
+				tree_type	tmp = other.tree;
+				other.tree = this->tree;
+				this->tree = tmp;
+			}
+
+			void	clear () {
+				this->tree.delete_tree();
+			}
+
+			// -----------------
+			// --- OBSERVERS ---
+			// -----------------
+
+			key_compare	key_comp () const {
+				return key_compare();
+			}
+
+			value_compare	value_comp() const {
+				return value_compare(keycompare());
 			}
 
 			// ------------------
@@ -253,11 +286,39 @@ namespace ft
 			// ------------------
 
 			iterator	find (const key_type& k) {
-				//TODO continue
+				tree_type::node_type*	found = this->tree.seek_node(k);
+				if (found == NULL)	{
+					return this->end();
+				}
+				return iterator(found);
 			}
 
 			const_iterator	find (const key_type& k) const {
-				//TODO continue
+				tree_type::node_type*	found = this->tree.seek_node(k);
+				if (found == NULL)	{
+					return this->end();
+				}
+				return iterator(found);
+			}
+
+			size_type	count (const key_type& k) {
+					return (this->tree.seek_node(k) == NULL ? 0 : 1);
+			}
+
+			iterator	lower_bound (const key_type& k) {
+				return iterator(this->tree.lower_bound(k));
+			}
+
+			const_iterator	lower_bound (const key_type& k) const {
+				return const_iterator(this->tree.lower_bound(k));
+			}
+
+			iterator	upper_bound (const key_type& k) {
+				return iterator(this->tree.upper_bound(k));
+			}
+
+			const_iterator	upper_bound (const key_type& k) const {
+				return const_iterator(this->tree.upper_bound(k));
 			}
 	};
 

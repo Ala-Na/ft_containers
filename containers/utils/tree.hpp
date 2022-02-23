@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 12:11:55 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/23 14:17:11 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/23 17:32:26 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,6 +249,7 @@ namespace ft
 					delete_node(curr_root);
 					curr_root = left_child;
 				}
+				this->node_count = 0;
 			}
 
 			void	forget_null_leave () {
@@ -317,13 +318,13 @@ namespace ft
 
 			// - Function to seek a node of node_value data. Return pointer to
 			// corresponding node.
-			node_type* seek_node(key_type node_key) {
+			node_type*	seek_node (key_type node_key) {
 				node_type* tmp = this->root;
 				extract_key	extract;
-				if(!tmp) {
+				if (!tmp) {
 					return NULL;
 				}
-				while(tmp) {
+				while (tmp) {
 					key_type	tmp_key = extract(tmp->get_data());
 					if (tmp_key == node_key) {
 						return tmp;
@@ -342,6 +343,27 @@ namespace ft
 				return seek_node(node_key);
 			}
 
+			iterator	lower_bound (key_type k) {
+				extract_key	extract;
+				iterator	last = this->end();
+				for (iterator first = this->begin(); first != last; first++) {
+					if (comp(extract(*first), k) == false)	{
+						return first;
+					}
+				}
+				return last;
+			}
+
+			iterator	upper_bound (key_type k) {
+				extract_key	extract;
+				iterator	last = this->end();
+				for (iterator first = this->begin(); first != last; first++) {
+					if (comp(extract(*first), k) == true)	{
+						return first;
+					}
+				}
+				return last;
+			}
 			// -----------------
 			// --- INSERTION ---
 			// -----------------
@@ -434,6 +456,8 @@ namespace ft
 
 			// - Node deletion function
 			void	remove_node(node_type* node) {
+				if (node == NULL)
+					return ;
 				node_type*&	root_track = this->root;
 				node_type*	min = tree_minimum(this->root);
 				node_type*	max = tree_maximum(this->root);
@@ -583,6 +607,14 @@ namespace ft
 				if (this->null_leave) {
 					assign_parent_null_leave();
 				}
+			}
+
+			size_t	remove_node (key_type& val) {
+				node_type *to_del = seek_node(val);
+				if (to_del == NULL)
+					return 0;
+				remove_node(to_del);
+				return 1;
 			}
 
 			// TODO DELETE FOLLOWING
