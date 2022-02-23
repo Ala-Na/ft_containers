@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:21:47 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/22 22:59:19 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/23 15:23:33 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,13 @@ namespace ft
 			typedef ft::pair<const Key, T>									value_type;
 			typedef Compare													key_compare;
 			typedef Alloc													allocator_type;
+
+		protected:
+
+			typedef rb_tree<key_type, value_type, key_compare, allocator_type::template rebind<value_type>::other,
+							ft::use_first<ft::pair<const Key, T>>>	tree_type;
+
+		public:
 			typedef typename allocator_type::reference						reference;
 			typedef typename allocator_type::const_reference				const_reference;
 			typedef typename allocator_type::pointer						pointer;
@@ -52,17 +59,39 @@ namespace ft
 
 		protected:
 
-			typedef rb_tree<key_type, value_type, key_compare, allocator_type::template rebind<value_type>::other,
-							ft::use_first<ft::pair<const Key, T>>>	tree_type;
-
 			// -----------------
 			// Member objects :
 			// -----------------
-			key_compare			comp;
-			allocator_type		alloc;
 			tree_type			tree;
 
 		public:
+
+			// ---------------------------
+			// --- VALUE COMPARE CLASS ---
+			// ---------------------------
+
+			// Class needed to define return value of value_comp function.
+			// Value compare inherite from binary_function in cpp source code.
+			// Here, member definitions of binary_function are made inside
+			// value_compare class.
+
+			class value_compare
+			{
+				protected :
+					friend class	map<Key, T, Compare, Alloc>;
+					Compare			comp;
+
+					value_compare(Compare c) : comp(c) {}
+
+				public:
+					typedef	bool		result_type;
+					typedef value_type	first_argument_type;
+					typedef value_type	second_argument_type;
+
+					bool operator() (const value_type& x, const value_type& y) const {
+						return comp(x.first, y.first);
+					}
+			}
 
 			// -----------------
 			// Member functions :
@@ -74,7 +103,7 @@ namespace ft
 
 			// - Default constructor
 			explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) :
-				comp(comp), alloc(alloc), tree()
+				tree(comp, alloc)
 			{}
 
 			// - Range consructor
@@ -83,29 +112,18 @@ namespace ft
 			const key_compare& comp= key_compare(),
 			const allocator_type& alloc = allocator_type(),
 			typename std::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0) :
-				comp(comp), alloc(alloc), tree()
+				tree(comp, alloc)
 			{
 				if (is_valid_input_iterator(first) == false) {
 					throw InvalidIteratorTypeException();
 				}
-				if (first == last) {
-					this->tree = NULL;
-					return ;
-				}
-				for(; first != last; first++)
-					this->insert(*first);
+				this->insert(first, last);
 			}
 
 			// - Copy constructor
 			map (const map& other) :
-				comp(other.compare_function), alloc(other.alloc), tree()
-			{
-				if (other.empty() == true)
-					return ;
-				for (iterator it = other.begin(); it != other.end(); ++it) {
-					this->insert(*it);
-				}
-			}
+				tree(other.tree)
+			{}
 
 			// ------------------
 			// --- DESTRUCTOR ---
@@ -189,9 +207,7 @@ namespace ft
 			// ----------------------
 
 			mapped_type&	operator[] (const key_type& k) {
-				// TODO first check if key is already present an return *found.second
-				// TODO else : insert value
-				return (*((this->insert(make_pair(k,mapped_type()))).first)).second;
+				return this->insert(ft::make_pair(k, mapped_type()))->get_data().second;
 			};
 
 			// -----------------
@@ -200,10 +216,48 @@ namespace ft
 
 			// - Insert single element function
 			ft::pair<iterator, bool>	insert (const value_type& val) {
-				node_type*	node = tree.seek_node(val.first);
-				if (node != NULL)
-					return make_pair(static_cast<iterator>(node), false);
-				tree.insert_value(val);
+				node_type*	node = this->tree.seek_node(val);
+				bool		is_inserted = false;
+				if (node == NULL) {
+					node = this->tree.insert_value(val);
+					is_inserted = true;
+				}
+				return ft::make_pair(iterator(node), is_inserted);
+			}
+
+			// - Insert with hint
+			iterator	insert (iterator position, const value_type& val) {
+				(void)position;
+				return iterator(this->tree.insert_value(val));
+			}
+
+			// - Insert range of iterators
+			template <class InputIterator>
+			void	insert (InputIterator first, InputIterator last) {
+				if (is_valid_input_iterator(first) == false) {
+					throw InvalidIteratorTypeException();
+				} else if (first == last) {
+					return;
+				}
+				for (; first != last; first++) {
+					this->tree.insert_value(*first);
+				}
+			}
+
+			void	erase (iterator position) {
+				
+			}
+
+			// ------------------
+			// --- OPERATIONS ---
+			// ------------------
+
+			iterator	find (const key_type& k) {
+				//TODO continue
+			}
+
+			const_iterator	find (const key_type& k) const {
+				//TODO continue
 			}
 	};
 

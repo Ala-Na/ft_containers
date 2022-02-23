@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 12:11:55 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/22 23:34:12 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/23 14:17:11 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,6 @@ namespace ft
 
 			// - Default constructor
 			rb_tree (const compare_function& comp = compare_function(), const allocator_type &alloc = allocator_type()) :
-				root(NULL), null_leave(NULL), node_count(0), comp(comp), alloc(alloc) {}
-
-			// - Compare specification constructor
-			rb_tree (compare_function comp, const allocator_type &alloc = allocator_type()) :
 				root(NULL), null_leave(NULL), node_count(0), comp(comp), alloc(alloc) {}
 
 			// - Range constructor
@@ -395,8 +391,12 @@ namespace ft
 			}
 
 			// - Insert node function
-			void	insert_value(value_type data) {
-				node_type*	new_node = create_node(data);
+			node_type*	insert_value(value_type data) {
+				node_type*	new_node = this->seek_node(data);
+				if (new_node != NULL) {
+					return new_node;
+				}
+				new_node = create_node(data);
 				node_type*	node_x = this->root;
 				node_type*	node_y = NULL;
 				extract_key	extract;
@@ -425,7 +425,7 @@ namespace ft
 				this->fix_tree(new_node);
 				this->node_count += 1;
 				assign_parent_null_leave();
-				std::cout << "Element inserted\n";
+				return new_node;
 			}
 
 			// ----------------
