@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 13:48:52 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/22 16:38:25 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/23 21:59:07 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ namespace ft
 			typedef typename ft::iterator<std::bidirectional_iterator_tag, Type>::difference_type	difference_type;
 			typedef typename ft::iterator<std::bidirectional_iterator_tag, Type>::pointer			pointer;
 			typedef typename ft::iterator<std::bidirectional_iterator_tag, Type>::reference			reference;
-			typedef ft::node<Type>																	node_type;
+			typedef typename ft::node<Type>															node_type;
 
 		protected:
 

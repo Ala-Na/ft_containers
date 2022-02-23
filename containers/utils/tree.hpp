@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 12:11:55 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/23 21:48:30 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/23 22:16:10 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ namespace ft
 			// ------------------
 
 			~rb_tree () {
-				delete_tree(this->root);
+				delete_tree();
 			}
 
 			// ---------------------------
@@ -113,7 +113,7 @@ namespace ft
 				if (this == &other) {
 					return *this;
 				}
-				delete_tree(this->root);
+				delete_tree();
 				this->comp = other.comp;
 				this->node_count = other.node_count;
 				this->alloc = other.alloc;
@@ -246,24 +246,23 @@ namespace ft
 				this->alloc.deallocate(to_delete, 1);
 			}
 
-			void	delete_tree(node_type* curr_root) {
+			void	delete_tree() {
+				// TODO retravailler cette section. Pb avec "liens" des noeuds tj en place malgré deletion
+				std::cout << "GO TO DELETiON\n";
+				iterator it = this->begin();
+				while (it != this->end()) {
+					std::cout << "Dlt key: " << (*it).first << std::endl;
+					delete_node(it.base());
+					it = this->begin();
+				}
 				if (this->null_leave) {
 					delete_node(this->null_leave);
 					this->null_leave = NULL;
 				}
-				while (curr_root) {
-					delete_tree(curr_root->get_right_child());
-					node_type* left_child = curr_root->get_left_child();
-					delete_node(curr_root);
-					curr_root = NULL;
-					curr_root = left_child;
-				}
+				this->root = NULL;
 				this->node_count = 0;
 			}
 
-			void	delete_tree() {
-				delete_tree(this->root);
-			}
 
 			void	forget_null_leave () {
 				node_type*	max = this->null_leave->get_parent();
