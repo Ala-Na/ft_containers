@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:27:59 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/23 17:13:40 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/23 21:05:01 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,17 +195,6 @@ namespace ft
 		T	tmp = a;
 		a = b;
 		b = tmp;
-	};
-
-	// --------------------------
-	// Binary function structure
-	// --------------------------
-
-	template <typename Arg1, typename Arg2, typename Result>
-	struct binary_function {
-		typedef Arg1	first_argument_type;
-		typedef Arg2	second_argument_type;
-		typedef Result	result_type;
 	};
 
 };

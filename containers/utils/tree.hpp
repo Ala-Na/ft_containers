@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 12:11:55 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/23 17:32:26 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/23 21:48:30 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,6 +221,10 @@ namespace ft
 			// --- MEMORY ---
 			// --------------
 
+			allocator_type	get_allocator() const {
+				return this->tree.alloc;
+			}
+
 			// - Function to create and allocate memory for a new node of data
 			// value.
 			node_type*	create_node(value_type data) {
@@ -243,13 +247,22 @@ namespace ft
 			}
 
 			void	delete_tree(node_type* curr_root) {
+				if (this->null_leave) {
+					delete_node(this->null_leave);
+					this->null_leave = NULL;
+				}
 				while (curr_root) {
 					delete_tree(curr_root->get_right_child());
 					node_type* left_child = curr_root->get_left_child();
 					delete_node(curr_root);
+					curr_root = NULL;
 					curr_root = left_child;
 				}
 				this->node_count = 0;
+			}
+
+			void	delete_tree() {
+				delete_tree(this->root);
 			}
 
 			void	forget_null_leave () {
@@ -259,7 +272,7 @@ namespace ft
 			}
 
 			void	assign_parent_null_leave () {
-				if (!this->root) {
+				if (!this->root && this->null_leave) {
 					delete_node(this->null_leave);
 					return ;
 				}

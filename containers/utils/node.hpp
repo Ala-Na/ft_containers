@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 22:11:57 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/22 16:47:47 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/23 21:35:30 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,7 @@ namespace ft
 	// - Minimum function
 	template <typename T>
 	ft::node<T>*	tree_minimum(ft::node<T>* current) {
-		while (current->get_left_child() != NULL) {
+		while (current && current->get_left_child() != NULL) {
 			current = current->get_left_child();
 		}
 		return current;
@@ -203,7 +203,7 @@ namespace ft
 	// - Maximum function
 	template <typename T>
 	ft::node<T>*	tree_maximum(ft::node<T>* current) {
-		while (current->get_right_child() != NULL) {
+		while (current && current->get_right_child() != NULL) {
 			current = current->get_right_child();
 		}
 		return current;
