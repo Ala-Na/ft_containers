@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:21:47 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/23 21:33:17 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/24 17:42:24 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 namespace ft
 {
-	template <class Key, class T, class Compare = ft::less<Key>, class Alloc = std::allocator<pair<const Key, T>>>
+	template <class Key, class T, class Compare = ft::less<Key>, class Alloc = std::allocator< pair<const Key, T> > >
 	class map
 	{
 		public:
@@ -43,7 +43,7 @@ namespace ft
 		protected:
 			typedef typename allocator_type::template rebind<value_type>::other	tree_alloc;
 			typedef rb_tree<key_type, value_type, key_compare, tree_alloc,
-							ft::use_first<ft::pair<const Key, T>>>				tree_type;
+							ft::use_first< ft::pair<const Key, T> > >				tree_type;
 			typedef typename tree_type::node_type								node_type;
 
 		public:
@@ -109,7 +109,7 @@ namespace ft
 			map (InputIterator first, InputIterator last,
 			const key_compare& comp= key_compare(),
 			const allocator_type& alloc = allocator_type(),
-			typename std::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0) :
+			typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0) :
 				tree(comp, alloc)
 			{
 				if (is_valid_input_iterator(first) == false) {

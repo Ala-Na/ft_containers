@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:57:47 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/15 16:00:34 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/24 17:39:03 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <cstddef>
 // Librairy needed to use iterators tags
 #include <iterator>
+#include <typeinfo>
 
 namespace ft
 {

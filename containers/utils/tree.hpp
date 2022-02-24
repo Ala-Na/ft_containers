@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 12:11:55 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/23 22:16:10 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/24 21:13:50 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ namespace ft
 
 			typedef Key										key_type;
 			typedef Value									value_type;
-			typedef typename Allocator::template rebind<ft::node<Value>>::other
+			typedef typename Allocator::template rebind< ft::node<Value> >::other
 															allocator_type;
 			typedef Compare									compare_function;
 			typedef ft::node<Value>							node_type;
@@ -48,9 +48,9 @@ namespace ft
 			typedef value_type*								pointer;
 			typedef const value_type*						const_pointer;
 			typedef ft::rb_tree_iterator<value_type>		iterator;
-			typedef ft::rb_tree_iterator<const value_type>	const_iterator;
+			typedef ft::rb_tree_const_iterator<value_type>	const_iterator;
 			typedef ft::reverse_iterator<iterator>			reverse_iterator;
-			typedef ft::reverse_iterator<const iterator>	const_reverse_iterator;
+			typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 			typedef ExtractKey								extract_key;
 
 		private:
@@ -87,12 +87,12 @@ namespace ft
 			}
 
 			// - Copy constructor
-			rb_tree (rb_tree& other, const allocator_type &alloc = allocator_type()) :
+			rb_tree (const rb_tree& other, const allocator_type &alloc = allocator_type()) :
 				root(NULL), null_leave(NULL), node_count(other.node_count), comp(other.comp)
 			{
 				if (other.empty() ==  true)
 					return;
-				for (iterator it = other.begin(); it != other.end(); ++it) {
+				for (const_iterator it = other.begin(); it != other.end(); ++it) {
 					this->insert_value(*it);
 				}
 			}
@@ -115,12 +115,11 @@ namespace ft
 				}
 				delete_tree();
 				this->comp = other.comp;
-				this->node_count = other.node_count;
 				this->alloc = other.alloc;
-				iterator	first = other.begin();
-				iterator	last = other.end();
+				const_iterator	first = other.begin();
+				const_iterator	last = other.end();
 				for (; first != last; first++) {
-					this->insert(*first);
+					this->insert_value(*first);
 				}
 				return *this;
 			}
@@ -173,24 +172,24 @@ namespace ft
 
 			// Non constant begin function
 			iterator begin () {
-				return iterator(static_cast<node_type*>(tree_minimum(this->root)));
+				return iterator(tree_minimum(this->root));
 			}
 
 			// Constant begin function
 			const_iterator begin() const {
-				return const_iterator(static_cast<node_type*>(const_cast<node_type*>(tree_minimum(this->root))));
+				return const_iterator(tree_minimum(this->root));
 			}
 
 			// - End functions (returns iterator to biggest element)
 
 			// Non constant end function
 			iterator end () {
-				return iterator(static_cast<node_type*>(this->null_leave));
+				return iterator(this->null_leave);
 			}
 
 			// Constant end function
 			const_iterator end() const {
-				return const_iterator(static_cast<node_type*>(const_cast<node_type*>(this->null_leave)));
+				return const_iterator(this->null_leave);
 			}
 
 			// - Reverse begin functions
@@ -246,18 +245,21 @@ namespace ft
 				this->alloc.deallocate(to_delete, 1);
 			}
 
-			void	delete_tree() {
-				// TODO retravailler cette section. Pb avec "liens" des noeuds tj en place malgré deletion
-				std::cout << "GO TO DELETiON\n";
-				iterator it = this->begin();
-				while (it != this->end()) {
-					std::cout << "Dlt key: " << (*it).first << std::endl;
-					delete_node(it.base());
-					it = this->begin();
+			void	delete_tree(node_type* to_del = NULL) {
+				if (to_del == NULL) {
+					to_del = this->root;
 				}
-				if (this->null_leave) {
-					delete_node(this->null_leave);
-					this->null_leave = NULL;
+				node_type*	tmp;
+				while (to_del) {
+					node_type*	tmp = NULL;
+					if (to_del->get_right_child()) {
+						delete_tree(to_del->get_right_child());
+					}
+					if (to_del->get_left_child()) {
+						tmp = to_del->get_left_child();
+					}
+					delete_node(to_del);
+					to_del = tmp;
 				}
 				this->root = NULL;
 				this->node_count = 0;
