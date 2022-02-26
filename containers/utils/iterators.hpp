@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:57:47 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/24 17:39:03 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/26 17:39:57 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -489,6 +489,7 @@ namespace ft
 	template <class Iterator>
 	bool	is_valid_input_iterator(Iterator it)
 	{
+		(void)it;
 		const std::type_info&	it_cat = typeid(typename \
 			ft::iterator_traits<Iterator>::iterator_category);
 		if (it_cat != typeid(std::input_iterator_tag)
