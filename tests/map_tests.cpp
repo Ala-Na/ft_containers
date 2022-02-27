@@ -10,9 +10,6 @@
  #include <map>
 #endif
 
-
-
-
 bool fncomp (char lhs, char rhs) {return lhs<rhs;}
 
 struct classcomp {
