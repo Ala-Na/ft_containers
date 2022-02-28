@@ -12,7 +12,7 @@
 #define GREEN "\033[0;32m"
 #define END "\033[0m"
 
-bool fncomp (char lhs, char rhs) {return lhs<rhs;}
+bool fncomp (char lhs, char rhs) {return lhs<rhs;};
 
 struct classcomp {
 	bool operator() (const char& lhs, const char& rhs) const
@@ -65,8 +65,21 @@ void	map_constructor(bool benchmark, std::fstream &out) {
 	}
 }
 
+void	BM_ft_map(benchmark::State& state) {
+	std::fstream Null;
+	for (benchmark::State::StateIterator it = state.begin(); it != state.end(); ++it) {
+		map_constructor<ft::map, ft::less, ft::pair>(true, Null);
+	}
+}
 
-int main() {
+void	BM_std_map(benchmark::State& state) {
+	std::fstream Null;
+	for (benchmark::State::StateIterator it = state.begin(); it != state.end(); ++it) {
+		map_constructor<std::map, std::less, std::pair>(true, Null);
+	}
+}
+
+int main(int argc, char **argv) {
 	struct stat st;
 	std::fstream ft_res;
 	std::fstream std_res;
@@ -108,12 +121,17 @@ int main() {
 		std::cout << "===> " << GREEN << "OK" << END << std::endl;
 	}
 
-	std::cout << YELLOW << "Benchmark testing" << END << std::endl;
-
-	map_constructor<ft::map, ft::less, ft::pair>(true, ft_res);
-	map_constructor<std::map, std::less, std::pair>(true, std_res);
-
 	ft_res.close();
 	std_res.close();
+
+	std::cout << YELLOW << "Benchmark testing" << END << std::endl;
+
+	BENCHMARK(BM_ft_map);
+	BENCHMARK(BM_std_map);
+
+  benchmark::Initialize(&argc, argv);
+  benchmark::RunSpecifiedBenchmarks();
+  benchmark::Shutdown();
+
 	return 0;
 }
