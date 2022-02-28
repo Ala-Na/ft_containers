@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:27:59 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/24 17:38:17 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/28 14:58:10 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,12 +188,13 @@ namespace ft
 
 	// Needed by map.
 	// It just contains a comparison function, using the < operator.
-	template <typename T>
-	struct less : public binary_function<T, T, bool>
+	template <typename Type>
+	class less : public binary_function<Type, Type, bool>
 	{
-		bool	operator() (const T& x, const T& y) const {
-			return x < y;
-		}
+		public:
+			bool	operator() (const Type& x, const Type& y) const {
+				return x < y;
+			}
 	};
 
 

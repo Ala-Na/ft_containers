@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 12:11:55 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/26 17:41:22 by anadege          ###   ########.fr       */
+/*   Updated: 2022/02/28 15:29:41 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ namespace ft
 
 			// - Copy constructor
 			rb_tree (const rb_tree& other, const allocator_type &alloc = allocator_type()) :
-				root(NULL), null_leave(NULL), node_count(other.node_count), comp(other.comp), alloc(alloc)
+				root(NULL), null_leave(NULL), node_count(0), comp(other.comp), alloc(alloc)
 			{
 				if (other.empty() ==  true)
 					return;

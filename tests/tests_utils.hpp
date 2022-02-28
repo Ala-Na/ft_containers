@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
 
 template <typename Tvecstack>
 void	print_vector_or_stack (std::string comment, const Tvecstack& vecstack)
@@ -19,15 +20,15 @@ void	print_vector_or_stack (std::string comment, const Tvecstack& vecstack)
 };
 
 template <typename Tmap>
-void	print_map (std::string comment, const Tmap& map)
+void	print_map (std::string comment, const Tmap& map, std::fstream& out)
 {
-	std::cout << "------------------ " << std::endl;
-	std::cout << comment << std::endl << std::endl;
-	std::cout << "Size: " << map.size() << std::endl;
+	out << "------------------ " << std::endl;
+	out << comment << std::endl << std::endl;
+	out << "Size: " << map.size() << std::endl;
 	typename Tmap::const_iterator	start = map.begin();
 	typename Tmap::const_iterator	stop = map.end();
 	for (; start != stop; start++) {
-		std::cout << start->first << " => " << start->second << std::endl;
+		out << start->first << " => " << start->second << std::endl;
 	}
 };
 
