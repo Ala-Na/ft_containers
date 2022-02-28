@@ -64,24 +64,33 @@ void	map_constructor(bool benchmark, std::fstream &out) {
 	}
 }
 
-void	benchmark_ft_map(benchmark::State& state) {
-	std::fstream Null;
-	for (benchmark::State::StateIterator it = state.begin(); it != state.end(); ++it) {
-	//for (auto _ : state) {
+double	benchmark_ft_map() {
+	std::fstream	null;
+	time_t	timer_start;
+	time_t	timer_end;
 
-		map_constructor<ft::map, ft::less, ft::pair>(true, Null);
+	time(&timer_start);
+	for (int i = 0; i < 1000; i++) {
+		map_constructor<ft::map, ft::less, ft::pair>(true, null);
 	}
+	time(&timer_end);
+	return difftime(timer_end, timer_start);
 }
 
-void	BM_std_map(benchmark::State& state) {
-	std::fstream Null;
-	for (benchmark::State::StateIterator it = state.begin(); it != state.end(); ++it) {
-	//for (auto _ : state) {
-		map_constructor<std::map, std::less, std::pair>(true, Null);
+double	benchmark_std_map() {
+	std::fstream	null;
+	time_t	timer_start;
+	time_t	timer_end;
+
+	time(&timer_start);
+	for (int i = 0; i < 1000; i++) {
+		map_constructor<std::map, std::less, std::pair>(true, null);
 	}
+	time(&timer_end);
+	return difftime(timer_end, timer_start);
 }
 
-int main(int argc, char **argv) {
+int main() {
 	struct stat st;
 	std::fstream ft_res;
 	std::fstream std_res;
@@ -128,13 +137,15 @@ int main(int argc, char **argv) {
 
 	std::cout << YELLOW << "Benchmark testing" << END << std::endl;
 
-	benchmark::Initialize(&argc, argv);
+	double ft_time = benchmark_ft_map();
+	double std_time = benchmark_std_map();
 
-	BENCHMARK(BM_ft_map);
-	BENCHMARK(BM_std_map);
-
-	benchmark::RunSpecifiedBenchmarks();
-	benchmark::Shutdown();
+	std::cout << "Std: " << std_time << " | " << "Ft: " << ft_time << std::endl;
+	if (ft_time > std_time * 20) {
+		std::cout << "===> " << RED << "TIMEOUT !" << END << std::endl;
+	} else {
+		std::cout << "===> " << GREEN << "OK" << END << std::endl;
+	}
 
 	return 0;
 }
