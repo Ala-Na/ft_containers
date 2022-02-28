@@ -1,5 +1,4 @@
 #include "tests_utils.hpp"
-#include <benchmark/benchmark.h>
 #include <map>
 #include "../containers/map.hpp"
 #include <fstream>
@@ -65,9 +64,11 @@ void	map_constructor(bool benchmark, std::fstream &out) {
 	}
 }
 
-void	BM_ft_map(benchmark::State& state) {
+void	benchmark_ft_map(benchmark::State& state) {
 	std::fstream Null;
 	for (benchmark::State::StateIterator it = state.begin(); it != state.end(); ++it) {
+	//for (auto _ : state) {
+
 		map_constructor<ft::map, ft::less, ft::pair>(true, Null);
 	}
 }
@@ -75,6 +76,7 @@ void	BM_ft_map(benchmark::State& state) {
 void	BM_std_map(benchmark::State& state) {
 	std::fstream Null;
 	for (benchmark::State::StateIterator it = state.begin(); it != state.end(); ++it) {
+	//for (auto _ : state) {
 		map_constructor<std::map, std::less, std::pair>(true, Null);
 	}
 }
@@ -126,12 +128,13 @@ int main(int argc, char **argv) {
 
 	std::cout << YELLOW << "Benchmark testing" << END << std::endl;
 
+	benchmark::Initialize(&argc, argv);
+
 	BENCHMARK(BM_ft_map);
 	BENCHMARK(BM_std_map);
 
-  benchmark::Initialize(&argc, argv);
-  benchmark::RunSpecifiedBenchmarks();
-  benchmark::Shutdown();
+	benchmark::RunSpecifiedBenchmarks();
+	benchmark::Shutdown();
 
 	return 0;
 }
