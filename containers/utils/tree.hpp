@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 12:11:55 by anadege           #+#    #+#             */
-/*   Updated: 2022/03/01 16:07:10 by anadege          ###   ########.fr       */
+/*   Updated: 2022/03/01 16:23:10 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -380,9 +380,10 @@ namespace ft
 
 			iterator	upper_bound (key_type k) {
 				extract_key	extract;
+				iterator	first = this->begin();
 				iterator	last = this->end();
-				for (iterator first = this->begin(); first != last; first++) {
-					if (comp(extract(*first), k) == true)	{
+				for (; first != last; first++) {
+					if (extract(*first) != k && comp(extract(*first), k) == false)	{
 						return first;
 					}
 				}
@@ -391,9 +392,10 @@ namespace ft
 
 			const_iterator	upper_bound (key_type k) const {
 				extract_key	extract;
+				const_iterator	first = this->begin();
 				const_iterator	last = this->end();
-				for (const_iterator first = this->begin(); first != last; first++) {
-					if (comp(extract(*first), k) == true)	{
+				for (; first != last; first++) {
+					if (extract(*first) != k && comp(extract(*first), k) == false)	{
 						return first;
 					}
 				}
