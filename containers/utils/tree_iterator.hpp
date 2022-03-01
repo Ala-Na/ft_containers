@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 13:48:52 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/24 17:54:08 by anadege          ###   ########.fr       */
+/*   Updated: 2022/03/01 17:01:21 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ namespace ft
 			rb_tree_const_iterator(const ft::rb_tree_const_iterator<T>& x) : node(x.node) {}
 
 			template <typename T>
-			rb_tree_const_iterator(const ft::rb_tree_iterator<T>& x) : node(x.node) {}
+			rb_tree_const_iterator(const ft::rb_tree_iterator<T>& x) : node(x.base()) {}
 
 			// - Base function
 			node_type*	base() {
@@ -237,8 +237,36 @@ namespace ft
 	};
 
 	template <typename T>
+	bool	operator==(const ft::rb_tree_iterator<T>& lhs,
+		const ft::rb_tree_const_iterator<T>& rhs)
+	{
+		return lhs.base() == rhs.base();
+	};
+
+	template <typename T>
+	bool	operator==(const ft::rb_tree_const_iterator<T>& lhs,
+		const ft::rb_tree_iterator<T>& rhs)
+	{
+		return lhs.base() == rhs.base();
+	};
+
+	template <typename T>
 	bool	operator!=(const ft::rb_tree_const_iterator<T>& lhs,
 		const ft::rb_tree_const_iterator<T>& rhs)
+	{
+		return lhs.base() != rhs.base();
+	};
+
+	template <typename T>
+	bool	operator!=(const ft::rb_tree_iterator<T>& lhs,
+		const ft::rb_tree_const_iterator<T>& rhs)
+	{
+		return lhs.base() != rhs.base();
+	};
+
+	template <typename T>
+	bool	operator!=(const ft::rb_tree_const_iterator<T>& lhs,
+		const ft::rb_tree_iterator<T>& rhs)
 	{
 		return lhs.base() != rhs.base();
 	};

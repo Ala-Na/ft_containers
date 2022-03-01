@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 22:11:57 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/26 17:38:21 by anadege          ###   ########.fr       */
+/*   Updated: 2022/03/01 21:12:31 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,24 @@ namespace ft
 
 	template <typename T>
 	ft::node<T>*	decrement_tree(ft::node<T>* node) {
+		ft::node<T>*	tmp_node;
+		if (node->get_left_child() != NULL) {
+			tmp_node = node->get_left_child();
+			while(tmp_node->get_right_child() != NULL) {
+				tmp_node = tmp_node->get_right_child();
+			}
+			return tmp_node;
+		}
+		tmp_node = node->get_parent();
+		while (node == tmp_node->get_left_child()) {
+			node = tmp_node;
+			tmp_node = tmp_node->get_parent();
+		}
+		return tmp_node;
+	};
+
+	template <typename T>
+	const ft::node<T>*	decrement_tree(const ft::node<T>* node) {
 		ft::node<T>*	tmp_node;
 		if (node->get_left_child() != NULL) {
 			tmp_node = node->get_left_child();

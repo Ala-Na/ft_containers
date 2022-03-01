@@ -3,7 +3,13 @@
 
 #include <iostream>
 #include <string>
+#include <map>
+#include "../containers/map.hpp"
+#include <list>
 #include <fstream>
+#include <sys/stat.h>
+#include <cstddef>
+#include <string>
 
 template <typename Tvecstack>
 void	print_vector_or_stack (std::string comment, const Tvecstack& vecstack)

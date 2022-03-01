@@ -1,11 +1,9 @@
 #include "tests_utils.hpp"
-#include <map>
-#include "../containers/map.hpp"
-#include <fstream>
-#include <sys/stat.h>
-#include <cstddef>
 #include "./map_subtests/constructors.cpp"
 #include "./map_subtests/bounds.cpp"
+#include "./map_subtests/comp.cpp"
+#include "./map_subtests/empty.cpp"
+#include "./map_subtests/erase.cpp"
 
 
 #define RED "\033[0;31m"
@@ -17,6 +15,9 @@ template <template <class, class, class, class> class Map, template <class> clas
 void	map_tests(bool benchmark, std::fstream& out) {
 	map_constructor<Map, Comp, Pair>(benchmark, out);
 	map_bounds<Map, Comp, Pair>(benchmark, out);
+	map_comp<Map, Comp, Pair>(benchmark, out);
+	map_empty<Map, Comp, Pair>(benchmark, out);
+	map_erase<Map, Comp, Pair>(benchmark, out);
 }
 
 double	benchmark_ft_map() {
@@ -90,20 +91,20 @@ int main() {
 	ft_res.close();
 	std_res.close();
 
-	std::cout << YELLOW << "Benchmark testing" << END << std::endl;
+	//std::cout << YELLOW << "Benchmark testing" << END << std::endl;
 
-	double ft_time = benchmark_ft_map();
-	double std_time = benchmark_std_map();
+	//double ft_time = benchmark_ft_map();
+	//double std_time = benchmark_std_map();
 
-	if (std_time == 0 && ft_time != std_time) {
-		std_time += 1;
-	}
+	//if (std_time == 0 && ft_time != std_time) {
+	//	std_time += 1;
+	//}
 
-	if (ft_time > std_time * 20) {
-		std::cout << "===> " << RED << "TIMEOUT !" << END << std::endl;
-	} else {
-		std::cout << "===> " << GREEN << "OK" << END << std::endl;
-	}
+	//if (ft_time > std_time * 20) {
+	//	std::cout << "===> " << RED << "TIMEOUT !" << END << std::endl;
+	//} else {
+	//	std::cout << "===> " << GREEN << "OK" << END << std::endl;
+	//}
 
 	return 0;
 }

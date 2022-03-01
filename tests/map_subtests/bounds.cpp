@@ -1,12 +1,7 @@
 #include "../tests_utils.hpp"
-#include <map>
-#include "../../containers/map.hpp"
-#include <list>
-#include <fstream>
-#include <cstddef>
-
 
 // Taken and adapted from mli42 ft_containers tester
+
 template <class Map, template <class, class> class Pair>
 void	ft_bound(Map &mp, const int &param, bool benchmark, std::fstream &out)
 {
@@ -68,7 +63,7 @@ void	ft_const_bound(const Map &mp, const int &param, bool benchmark, std::fstrea
 }
 
 template <template <class, class, class, class> class Map, template <class> class Comp, template <class, class> class Pair>
-void	map_bounds(bool benchmark, std::fstream &out) {
+void	map_bounds(bool benchmark, std::fstream& out) {
 	std::list<Pair<int, int> > lst;
 	unsigned int lst_size = 10;
 	for (unsigned int i = 0; i < lst_size; ++i)

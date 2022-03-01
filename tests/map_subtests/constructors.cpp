@@ -1,8 +1,4 @@
 #include "../tests_utils.hpp"
-#include <map>
-#include "../../containers/map.hpp"
-#include <fstream>
-#include <cstddef>
 
 bool fncomp (char lhs, char rhs) {return lhs<rhs;};
 
@@ -55,4 +51,40 @@ void	map_constructor(bool benchmark, std::fstream &out) {
 	if (benchmark == false) {
 		print_map("Assignment operator test:", copy, out);
 	}
+
+	// Taken and adapted from mli42 ft_containers tester
+
+	std::list<Pair<const int, int> > lst;
+	unsigned int lst_size = 7;
+	for (unsigned int i = 0; i < lst_size; ++i)
+		lst.push_back(Pair<const int, int>(lst_size - i, i));
+	Map<int, int, Comp<int>, std::allocator<Pair<const int, int> > > mp(lst.begin(), lst.end());
+	typename Map<int, int, Comp<int>, std::allocator<Pair<const int, int> > >::iterator it =mp.begin(), ite = mp.end();
+
+	Map<int, int, Comp<int>, std::allocator<Pair<const int, int> > > mp_range(it, --(--ite));
+	for (int i = 0; it != ite; ++it)
+		it->second = ++i * 5;
+
+	it = mp.begin(); ite = --(--mp.end());
+	Map<int, int, Comp<int>, std::allocator<Pair<const int, int> > > mp_copy(mp);
+	for (int i = 0; it != ite; ++it)
+		it->second = ++i * 7;
+
+	if (benchmark == false) {
+		print_map("Original:", mp, out);
+		print_map("Range constructor:", mp_range, out);
+		print_map("Copy:", mp_copy, out);
+	}
+
+	mp = mp_copy;
+	mp_copy = mp_range;
+	mp_range.clear();
+
+	if (benchmark == false) {
+		out << "\nAfter modifications\n" << std::endl;
+		print_map("Original:", mp, out);
+		print_map("Range constructor:", mp_range, out);
+		print_map("Copy:", mp_copy, out);
+	}
+
 }

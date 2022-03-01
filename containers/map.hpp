@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:21:47 by anadege           #+#    #+#             */
-/*   Updated: 2022/03/01 15:49:10 by anadege          ###   ########.fr       */
+/*   Updated: 2022/03/01 20:27:48 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,7 +242,7 @@ namespace ft
 
 			// - Erase function for element at position iterator
 			void	erase (iterator position) {
-				this->tree.remove_node(static_cast<node_type*>(position));
+				this->tree.remove_node(position.base());
 			}
 
 			// - Erase function for element witk k key.
@@ -252,7 +252,7 @@ namespace ft
 
 			void	erase (iterator first, iterator last) {
 				for (; first != last; first++) {
-					this->tree.remove_node(static_cast<node_type*>(first));
+					this->tree.remove_node(first.base());
 				}
 			}
 

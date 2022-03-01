@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 12:11:55 by anadege           #+#    #+#             */
-/*   Updated: 2022/03/01 16:23:10 by anadege          ###   ########.fr       */
+/*   Updated: 2022/03/01 21:17:00 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,8 @@ namespace ft
 					return *this;
 				}
 				delete_tree();
+				this->null_leave = NULL;
+				this->root = NULL;
 				this->comp = other.comp;
 				this->alloc = other.alloc;
 				const_iterator	first = other.begin();
@@ -172,11 +174,17 @@ namespace ft
 
 			// Non constant begin function
 			iterator begin () {
+				if (this->root == NULL) {
+					return iterator(this->null_leave);
+				}
 				return iterator(tree_minimum(this->root));
 			}
 
 			// Constant begin function
 			const_iterator begin() const {
+				if (this->root == NULL) {
+					return const_iterator(this->null_leave);
+				}
 				return const_iterator(tree_minimum(this->root));
 			}
 
@@ -184,12 +192,18 @@ namespace ft
 
 			// Non constant end function
 			iterator end () {
-				return iterator(this->null_leave);
+				if (this->root == NULL) {
+					return iterator(this->null_leave);
+				}
+				return (iterator((tree_maximum(this->root))));
 			}
 
 			// Constant end function
 			const_iterator end() const {
-				return const_iterator(this->null_leave);
+				if (this->root == NULL) {
+					return const_iterator(this->null_leave);
+				}
+				return (const_iterator((tree_maximum(this->root))));
 			}
 
 			// - Reverse begin functions
@@ -230,6 +244,9 @@ namespace ft
 				node_type*	new_node = this->alloc.allocate(1);
 				node_type	filler(data);
 				alloc.construct(new_node, filler);
+				new_node->set_parent(NULL);
+				new_node->set_right_child(NULL);
+				new_node->set_left_child(NULL);
 				return new_node;
 			}
 
@@ -237,6 +254,9 @@ namespace ft
 				node_type*	new_node = this->alloc.allocate(1);
 				node_type	filler(other);
 				alloc.construct(new_node, filler);
+				new_node->set_parent(NULL);
+				new_node->set_right_child(NULL);
+				new_node->set_left_child(NULL);
 				return new_node;
 			}
 
@@ -266,19 +286,22 @@ namespace ft
 
 
 			void	forget_null_leave () {
-				node_type*	max = this->null_leave->get_parent();
-				max->set_right_child(NULL);
+				if (this->null_leave->get_parent() != NULL) {
+					node_type*	max = this->null_leave->get_parent();
+					max->set_right_child(NULL);
+				}
 				null_leave->set_parent(NULL);
 			}
 
 			void	assign_parent_null_leave () {
 				if (!this->root && this->null_leave) {
 					delete_node(this->null_leave);
+					this->null_leave = NULL;
 					return ;
 				}
 				node_type*	max = tree_maximum(this->root);
 				max->set_right_child(this->null_leave);
-				null_leave->set_parent(max);
+				this->null_leave->set_parent(max);
 			}
 
 			// ---------------------------
@@ -460,7 +483,7 @@ namespace ft
 				node_type*	node_x = this->root;
 				node_type*	node_y = NULL;
 				extract_key	extract;
-				if (!this->null_leave) {
+				if (this->null_leave == NULL) {
 					this->null_leave = create_node(data);
 				} else {
 					forget_null_leave();
