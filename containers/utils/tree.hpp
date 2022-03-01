@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 12:11:55 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/28 15:29:41 by anadege          ###   ########.fr       */
+/*   Updated: 2022/03/01 16:07:10 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -367,6 +367,17 @@ namespace ft
 				return last;
 			}
 
+			const_iterator	lower_bound (key_type k) const {
+				extract_key	extract;
+				const_iterator	last = this->end();
+				for (const_iterator first = this->begin(); first != last; first++) {
+					if (comp(extract(*first), k) == false)	{
+						return first;
+					}
+				}
+				return last;
+			}
+
 			iterator	upper_bound (key_type k) {
 				extract_key	extract;
 				iterator	last = this->end();
@@ -377,6 +388,18 @@ namespace ft
 				}
 				return last;
 			}
+
+			const_iterator	upper_bound (key_type k) const {
+				extract_key	extract;
+				const_iterator	last = this->end();
+				for (const_iterator first = this->begin(); first != last; first++) {
+					if (comp(extract(*first), k) == true)	{
+						return first;
+					}
+				}
+				return last;
+			}
+
 			// -----------------
 			// --- INSERTION ---
 			// -----------------

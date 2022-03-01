@@ -4,6 +4,8 @@
 #include <fstream>
 #include <sys/stat.h>
 #include <cstddef>
+#include "./map_subtests/constructors.cpp"
+#include "./map_subtests/bounds.cpp"
 
 
 #define RED "\033[0;31m"
@@ -11,57 +13,10 @@
 #define GREEN "\033[0;32m"
 #define END "\033[0m"
 
-bool fncomp (char lhs, char rhs) {return lhs<rhs;};
-
-struct classcomp {
-	bool operator() (const char& lhs, const char& rhs) const
-	{return lhs>rhs;}
-};
-
-
 template <template <class, class, class, class> class Map, template <class> class Comp, template <class, class> class Pair>
-void	map_constructor(bool benchmark, std::fstream &out) {
-
-	Map<char,int, Comp<char>, std::allocator<Pair<const char,int> > > first;
-
-	first['a']=10;
-	first['b']=30;
-	first['c']=50;
-	first['d']=70;
-	if (benchmark == false) {
-		print_map("Example map:", first, out);
-	}
-
-	Map<char,int, Comp<char>, std::allocator<Pair<const char,int> > > second (first.begin(),first.end());
-	if (benchmark == false) {
-		print_map("Iterator construct map:", second, out);
-	}
-
-	Map<char,int, Comp<char>, std::allocator<Pair<const char,int> > > third (second);
-	if (benchmark == false) {
-		print_map("Copy constructor map:", third, out);
-	}
-
-	Map<char, int, classcomp, std::allocator<Pair<const char,int> > > fourth;
-	fourth['a']=10;
-	fourth['b']=30;
-	fourth['c']=50;
-	fourth['d']=70;
-	if (benchmark == false) {
-		print_map("Special compare class map:", fourth, out);
-	}
-
-	bool(*fn_pt)(char,char) = fncomp;
-	Map<char,int,bool(*)(char,char), std::allocator<Pair<const char,int> > > fifth (fn_pt);
-	if (benchmark == false) {
-		print_map("Pointer function compare map:", fifth, out);
-	}
-
-	Map<char,int, Comp<char>, std::allocator<Pair<const char,int> > > copy;
-	copy = first;
-	if (benchmark == false) {
-		print_map("Assignment operator test:", copy, out);
-	}
+void	map_tests(bool benchmark, std::fstream& out) {
+	map_constructor<Map, Comp, Pair>(benchmark, out);
+	map_bounds<Map, Comp, Pair>(benchmark, out);
 }
 
 double	benchmark_ft_map() {
@@ -70,8 +25,8 @@ double	benchmark_ft_map() {
 	time_t	timer_end;
 
 	time(&timer_start);
-	for (int i = 0; i < 1000; i++) {
-		map_constructor<ft::map, ft::less, ft::pair>(true, null);
+	for (int i = 0; i < 10000; i++) {
+		map_tests<ft::map, ft::less, ft::pair>(true, null);
 	}
 	time(&timer_end);
 	return difftime(timer_end, timer_start);
@@ -83,8 +38,8 @@ double	benchmark_std_map() {
 	time_t	timer_end;
 
 	time(&timer_start);
-	for (int i = 0; i < 1000; i++) {
-		map_constructor<std::map, std::less, std::pair>(true, null);
+	for (int i = 0; i < 10000; i++) {
+		map_tests<std::map, std::less, std::pair>(true, null);
 	}
 	time(&timer_end);
 	return difftime(timer_end, timer_start);
@@ -111,8 +66,8 @@ int main() {
 		return -1;
 	}
 
-	map_constructor<ft::map, ft::less, ft::pair>(true, ft_res);
-	map_constructor<std::map, std::less, std::pair>(true, std_res);
+	map_tests<ft::map, ft::less, ft::pair>(false, ft_res);
+	map_tests<std::map, std::less, std::pair>(false, std_res);
 
 	if (ft_res.tellg() != std_res.tellg()) {
 		std::cout << "===> " << RED << "DIFF !" << END << std::endl;
@@ -135,17 +90,20 @@ int main() {
 	ft_res.close();
 	std_res.close();
 
-	std::cout << YELLOW << "Benchmark testing" << END << std::endl;
+	//std::cout << YELLOW << "Benchmark testing" << END << std::endl;
 
-	double ft_time = benchmark_ft_map();
-	double std_time = benchmark_std_map();
+	////double ft_time = benchmark_ft_map();
+	////double std_time = benchmark_std_map();
 
-	std::cout << "Std: " << std_time << " | " << "Ft: " << ft_time << std::endl;
-	if (ft_time > std_time * 20) {
-		std::cout << "===> " << RED << "TIMEOUT !" << END << std::endl;
-	} else {
-		std::cout << "===> " << GREEN << "OK" << END << std::endl;
-	}
+	//if (std_time == 0 && ft_time != std_time) {
+	//	std_time += 0.00001;
+	//}
+
+	//if (ft_time > std_time * 20) {
+	//	std::cout << "===> " << RED << "TIMEOUT !" << END << std::endl;
+	//} else {
+	//	std::cout << "===> " << GREEN << "OK" << END << std::endl;
+	//}
 
 	return 0;
 }
