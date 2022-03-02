@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 12:11:55 by anadege           #+#    #+#             */
-/*   Updated: 2022/03/01 21:17:00 by anadege          ###   ########.fr       */
+/*   Updated: 2022/03/02 01:13:57 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,18 +192,12 @@ namespace ft
 
 			// Non constant end function
 			iterator end () {
-				if (this->root == NULL) {
-					return iterator(this->null_leave);
-				}
-				return (iterator((tree_maximum(this->root))));
+				return iterator(this->null_leave);
 			}
 
 			// Constant end function
 			const_iterator end() const {
-				if (this->root == NULL) {
-					return const_iterator(this->null_leave);
-				}
-				return (const_iterator((tree_maximum(this->root))));
+				return const_iterator(this->null_leave);
 			}
 
 			// - Reverse begin functions
@@ -479,6 +473,8 @@ namespace ft
 				if (new_node != NULL) {
 					return new_node;
 				}
+				std::cout << std::endl;
+				this->PreorderTraversal(this->root);
 				new_node = create_node(data);
 				node_type*	node_x = this->root;
 				node_type*	node_y = NULL;
@@ -519,6 +515,14 @@ namespace ft
 			void	remove_node(node_type* node) {
 				if (node == NULL)
 					return ;
+				std::cout << "\nentering\n";
+				std::cout << "node: " << (node->get_data()).first << std::endl;
+				std::cout << "node parent: " << (node->get_parent()->get_data()).first << std::endl;
+				std::cout << "root left: " << (this->root->get_left_child()->get_data()).first << std::endl;
+				std::cout << "root right: " << (this->root->get_right_child()->get_data()).first << std::endl;
+				this->PreorderTraversal(this->root);
+				ExtractKey extract;
+				std::cout << "null: " << (this->null_leave->get_data()).first << std::endl;
 				node_type*&	root_track = this->root;
 				node_type*	min = tree_minimum(this->root);
 				node_type*	max = tree_maximum(this->root);
@@ -529,10 +533,15 @@ namespace ft
 					forget_null_leave();
 				}
 				if (successor->get_left_child() == NULL) {
+					std::cout << "Successor 1\n";
 					child = node->get_right_child();
+					if (child)
+						std::cout << "child: " << child->get_data().first << std::endl;
 				} else if (successor->get_right_child() == NULL) {
+					std::cout << "Successor 2\n";
 					child = node->get_left_child();
 				} else {
+					std::cout << "Successor 3\n";
 					successor = successor->get_right_child();
 					while (successor->get_left_child()) {
 						successor = successor->get_left_child();
@@ -540,27 +549,41 @@ namespace ft
 					child = successor->get_right_child();
 				}
 				if (successor == node) {
+					std::cout << "Case 1\n";
 					child_parent = successor->get_parent();
+					std::cout << "child parent: " << child_parent->get_data().first << std::endl;
 					if (child != NULL) {
+						std::cout << "Subcase 1\n";
 						child->set_parent(successor->get_parent());
 					}
 					if (node == root_track) {
+						std::cout << "Subcase 2\n";
 						root_track = child;
 					} else {
+						std::cout << "Subcase 3\n";
+						std::cout << "node: " << node->get_data().first << std::endl;
+						std::cout << "node parent: " << node->get_parent()->get_data().first << std::endl;
 						if (node == node->get_parent()->get_left_child()) {
+							std::cout << "is left child\n";
 							node->get_parent()->set_left_child(child);
 						} else {
+							std::cout << "is right child\n";
 							node->get_parent()->set_right_child(child);
 						}
 					}
 					if (node == min) {
+						std::cout << "Subcase 4\n";
 						if (node->get_right_child() && child) {
+							std::cout << "there's a right child\n";
 							min = tree_minimum(child);
 						} else {
+							std::cout << "was min\n";
 							min = node->get_parent();
+							std::cout << "new min: " << min->get_data().first << std::endl;
 						}
 					}
 					if (node == max) {
+						std::cout << "Subcase 5\n";
 						if (node->get_left_child() && child) {
 							max = tree_maximum(child);
 						} else {
@@ -593,8 +616,16 @@ namespace ft
 					ft::swap(successor->get_color(), node->get_color());
 				}
 				if (node->get_color() == black) {
+					std::cout << "Was black\n";
 					while (child != root_track && (child == NULL || child->get_color() == black)) {
+						std::cout << "While\n";
+						if (child)
+							std::cout << "child: " << child->get_data().first << std::endl;
+						std::cout << "child parent: " << child_parent->get_data().first << std::endl;
+						if (child_parent->get_left_child())
+							std::cout << "child parent left: " << child_parent->get_left_child()->get_data().first << std::endl;
 						if (child == child_parent->get_left_child()) {
+							std::cout << "Case 1\n";
 							node_type*	tmp = child_parent->get_right_child();
 							if (tmp->get_color() == red) {
 								tmp->set_to_black();
@@ -605,10 +636,12 @@ namespace ft
 							}
 							if ((tmp->get_left_child() == NULL || tmp->get_left_child()->get_color() == black)
 							&& (tmp->get_right_child() ==  NULL || tmp->get_right_child()->get_color() == black)) {
+								std::cout << "Case 2\n";
 								tmp->set_to_red();
 								child = child_parent;
 								child_parent = child_parent->get_parent();
 							} else {
+								std::cout << "Case 3\n";
 								if ((tmp->get_right_child() == NULL || tmp->get_right_child()->get_color() == black)) {
 									tmp->get_left_child()->set_to_black();
 									tmp->set_to_red();
@@ -682,9 +715,14 @@ namespace ft
 			void PreorderTraversal(node_type* temp) {
 				extract_key extract;
 				if(!temp){
-					std::cout << "--> end branch |";
+					std::cout << "--> end branch |\n";
 					return; }
-				std::cout << "--> " << extract(temp->get_data()) << "<" << temp->get_color() << ">";
+				std::cout << "--> " << temp << " " << extract(temp->get_data()) << "<" << temp->get_color() << "> (parent: ";
+				if (temp->get_parent()) {
+					std::cout << extract(temp->get_parent()->get_data()) << ")\n";
+				} else {
+					std::cout << "null)\n";
+				}
 				PreorderTraversal(temp->get_left_child());
 				PreorderTraversal(temp->get_right_child());
 			}
@@ -696,6 +734,7 @@ namespace ft
 				PostorderTraversal(temp->get_right_child());
 				std::cout << "--> " << extract(temp->get_data()) << "<" << temp->get_color() << ">";
 			}
+
 	};
 };
 

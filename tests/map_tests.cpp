@@ -13,10 +13,10 @@
 
 template <template <class, class, class, class> class Map, template <class> class Comp, template <class, class> class Pair>
 void	map_tests(bool benchmark, std::fstream& out) {
-	map_constructor<Map, Comp, Pair>(benchmark, out);
-	map_bounds<Map, Comp, Pair>(benchmark, out);
-	map_comp<Map, Comp, Pair>(benchmark, out);
-	map_empty<Map, Comp, Pair>(benchmark, out);
+	//map_constructor<Map, Comp, Pair>(benchmark, out);
+	//map_bounds<Map, Comp, Pair>(benchmark, out);
+	//map_comp<Map, Comp, Pair>(benchmark, out);
+	//map_empty<Map, Comp, Pair>(benchmark, out);
 	map_erase<Map, Comp, Pair>(benchmark, out);
 }
 

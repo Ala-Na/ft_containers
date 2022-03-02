@@ -40,14 +40,12 @@ void	map_erase(bool benchmark, std::fstream& out)
 		print_map("Map for erase testing:", mp, out);
 	}
 
-	//ft_erase(mp, ++mp.begin(), benchmark, out);
+	ft_erase(mp, ++mp.begin(), benchmark, out);
 
-	//ft_erase(mp, mp.begin(), benchmark, out);
-	//ft_erase(mp, --mp.end(), benchmark, out);
-
-	std::cout << "ERASE\n";
+	ft_erase(mp, mp.begin(), benchmark, out);
+	ft_erase(mp, --mp.end(), benchmark, out);
 	ft_erase(mp, mp.begin(), ++(++(++mp.begin())), benchmark, out);
-	//ft_erase(mp, --(--(--mp.end())), --mp.end(), benchmark, out);
+	ft_erase(mp, --(--(--mp.end())), --mp.end(), benchmark, out);
 
 	//mp[10] = "Hello";
 	//mp[11] = "Hi there";
