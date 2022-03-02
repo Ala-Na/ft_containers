@@ -7,6 +7,12 @@ struct classcomp {
 	{return lhs>rhs;}
 };
 
+template <class T1>
+struct ft_more {
+	bool	operator()(const T1 &first, const T1 &second) const {
+		return (first > second);
+	}
+};
 
 template <template <class, class, class, class> class Map, template <class> class Comp, template <class, class> class Pair>
 void	map_constructor(bool benchmark, std::fstream &out) {
@@ -115,5 +121,16 @@ void	map_constructor(bool benchmark, std::fstream &out) {
 		print_map("Mplst:", mplst, out);
 	}
 
+	Map<int, std::string, ft_more<int>, std::allocator<Pair<const int, std::string> > > mpmore;
+	typename 	Map<int, std::string, ft_more<int>, std::allocator<Pair<const int, std::string> > >::iterator it_mpmore;
 
+	mpmore[42] = "fgzgxfn";
+	mpmore[25] = "funny";
+	mpmore[80] = "hey";
+	mpmore[12] = "no";
+	mpmore[27] = "bee";
+	mpmore[90] = "8";
+	if (benchmark == false) {
+		print_map("Constructor with ft_more function map:", mpmore, out);
+	}
 }

@@ -123,6 +123,16 @@ Size: 7
 50 => mdr
 55 => fuzzy
 ------------------ 
+Constructor with ft_more function map:
+
+Size: 6
+90 => 8
+80 => hey
+42 => fgzgxfn
+27 => bee
+25 => funny
+12 => no
+------------------ 
 Map for bounds testing - 1: 
 
 Size: 10
@@ -986,3 +996,202 @@ Size: 6
 90 => 8
 const map.find(42)->second: [fgzgxfn]
 const map.count(80): [1]
+	-- [0] --
+insert return: 42lol
+Created new node: 1
+------------------ 
+After insert:
+
+Size: 1
+42 => lol
+	-- [0] --
+insert return: 42lol
+Created new node: 0
+------------------ 
+After insert:
+
+Size: 1
+42 => lol
+	-- [0] --
+insert return: 50mdr
+Created new node: 1
+------------------ 
+After insert:
+
+Size: 2
+42 => lol
+50 => mdr
+	-- [0] --
+insert return: 35funny
+Created new node: 1
+------------------ 
+After insert:
+
+Size: 3
+35 => funny
+42 => lol
+50 => mdr
+	-- [0] --
+insert return: 45bunny
+Created new node: 1
+------------------ 
+After insert:
+
+Size: 4
+35 => funny
+42 => lol
+45 => bunny
+50 => mdr
+	-- [0] --
+insert return: 21fizz
+Created new node: 1
+------------------ 
+After insert:
+
+Size: 5
+21 => fizz
+35 => funny
+42 => lol
+45 => bunny
+50 => mdr
+	-- [0] --
+insert return: 38buzz
+Created new node: 1
+------------------ 
+After insert:
+
+Size: 6
+21 => fizz
+35 => funny
+38 => buzz
+42 => lol
+45 => bunny
+50 => mdr
+	-- [0] --
+insert return: 55 & fuzzy
+------------------ 
+After insert:
+
+Size: 7
+21 => fizz
+35 => funny
+38 => buzz
+42 => lol
+45 => bunny
+50 => mdr
+55 => fuzzy
+	-- [0] --
+insert return: 1337 & beauty
+------------------ 
+After insert:
+
+Size: 1
+1337 => beauty
+	-- [0] --
+insert return: 1000 & Hello
+------------------ 
+After insert:
+
+Size: 2
+1000 => Hello
+1337 => beauty
+	-- [0] --
+insert return: 1500 & World
+------------------ 
+After insert:
+
+Size: 3
+1000 => Hello
+1337 => beauty
+1500 => World
+List contains:
+42 => lol
+50 => mdr
+35 => funny
+45 => bunny
+21 => fizz
+38 => buzz
+55 => fuzzy
+	-- [0] --
+------------------ 
+After insert:
+
+Size: 7
+21 => fizz
+35 => funny
+38 => buzz
+42 => lol
+45 => bunny
+50 => mdr
+55 => fuzzy
+List contains:
+87 => hey
+47 => eqweqweq
+35 => this key is already inside
+23 => but not that one
+1 => surprising isnt it?
+100 => is it enough??
+55 => inside map too
+	-- [0] --
+------------------ 
+After insert:
+
+Size: 0
+	-- [0] --
+------------------ 
+After insert:
+
+Size: 7
+1 => surprising isnt it?
+23 => but not that one
+35 => this key is already inside
+47 => eqweqweq
+55 => inside map too
+87 => hey
+100 => is it enough??
+------------------ 
+Map for iteration:
+
+Size: 5
+2.5 => 1
+3.5 => 2
+4.5 => 3
+5.5 => 4
+6.5 => 5
+3.5 => 2
+3.5 => 2
+4.5 => 3
+6.5 => 5
+foo::m called [1]
+foo::m called [5]
+3.5 => 2
+3.5 => 2
+4.5 => 3
+6.5 => 5
+5.5 => 4
+5.5 => 4
+3.5 => 2
+3.5 => 2
+foo::m called [5]
+foo::m called [1]
+5.5 => 4
+5.5 => 4
+4.5 => 3
+2.5 => 1
+0
+------------------ 
+Map for operator at[]:
+
+Size: 3
+97 => an element
+98 => old element
+99 => another element
+insert a new element via operator[]: 
+------------------ 
+After insert with operator at[]:
+
+Size: 4
+97 => an element
+98 => old element
+99 => another element
+100 => 
