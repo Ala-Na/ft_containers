@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 12:11:55 by anadege           #+#    #+#             */
-/*   Updated: 2022/03/02 14:08:17 by anadege          ###   ########.fr       */
+/*   Updated: 2022/03/02 17:19:27 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,11 @@ namespace ft
 			// - Root getter
 			node_type*	get_root () {
 				return this->root;
+			}
+
+			// - Null leave getter
+			node_type*	get_null () {
+				return this->null_leave;
 			}
 
 			// - Size function / get size_count function
@@ -296,6 +301,24 @@ namespace ft
 				node_type*	max = tree_maximum(this->root);
 				max->set_right_child(this->null_leave);
 				this->null_leave->set_parent(max);
+			}
+
+			// ---------------------
+			// --- SWAP FUNCTION ---
+			// ---------------------
+			void	swap (rb_tree& other) {
+				if (&other == this) {
+					return ;
+				}
+				node_type*	save_root = this->root;
+				node_type*	save_null = this->null_leave;
+				size_type	save_count = this->node_count;
+				this->root = other.root;
+				this->node_count = other.node_count;
+				this->null_leave = other.null_leave;
+				other.root = save_root;
+				other.null_leave = save_null;
+				other.node_count = save_count;
 			}
 
 			// ---------------------------

@@ -8,7 +8,9 @@
 #include "./map_subtests/insert.cpp"
 #include "./map_subtests/ite.cpp"
 #include "./map_subtests/op_sqbr.cpp"
-
+#include "./map_subtests/relationnal_ope.cpp"
+#include "./map_subtests/rev_it.cpp"
+#include "./map_subtests/swap.cpp"
 
 #define RED "\033[0;31m"
 #define YELLOW "\033[0;33m"
@@ -26,6 +28,9 @@ void	map_tests(bool benchmark, std::fstream& out) {
 	map_insert<Map, Comp, Pair>(benchmark, out);
 	map_ite<Map, Comp, Pair>(benchmark, out);
 	map_op_sqbr<Map, Comp, Pair>(benchmark, out);
+	map_relationnal<Map, Comp, Pair>(benchmark, out);
+	map_rev_it<Map, Comp, Pair>(benchmark, out);
+	map_swap<Map, Comp, Pair>(benchmark, out);
 }
 
 double	benchmark_ft_map() {

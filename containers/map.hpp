@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:21:47 by anadege           #+#    #+#             */
-/*   Updated: 2022/03/02 14:07:55 by anadege          ###   ########.fr       */
+/*   Updated: 2022/03/02 17:05:44 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ namespace ft
 			typedef typename tree_type::iterator								iterator;
 			typedef typename tree_type::const_iterator							const_iterator;
 			typedef ft::reverse_iterator<iterator>								reverse_iterator;
-			typedef ft::reverse_iterator<const iterator>						const_reverse_iterator;
+			typedef ft::reverse_iterator<const_iterator>						const_reverse_iterator;
 			typedef typename std::ptrdiff_t										difference_type;
 			typedef typename std::size_t										size_type;
 
@@ -160,20 +160,20 @@ namespace ft
 				return const_iterator(this->tree.end());
 			}
 
-			iterator	rbegin () {
-				return iterator(this->tree.rbegin());
+			reverse_iterator	rbegin () {
+				return reverse_iterator(this->tree.rbegin());
 			}
 
-			const_iterator	rbegin () const {
-				return const_iterator(this->tree.rbegin());
+			const_reverse_iterator	rbegin () const {
+				return const_reverse_iterator(this->tree.rbegin());
 			}
 
-			iterator	rend () {
-				return iterator(this->tree.rend());
+			reverse_iterator	rend () {
+				return reverse_iterator(this->tree.rend());
 			}
 
-			const_iterator	rend () const {
-				return const_iterator(this->tree.rend());
+			const_reverse_iterator	rend () const {
+				return const_reverse_iterator(this->tree.rend());
 			}
 
 			// ----------------
@@ -264,9 +264,7 @@ namespace ft
 				if (*this == other) {
 					return ;
 				}
-				tree_type	tmp = other.tree;
-				other.tree = this->tree;
-				this->tree = tmp;
+				this->tree.swap(other.tree);
 			}
 
 			void	clear () {
