@@ -47,22 +47,22 @@ void	map_erase(bool benchmark, std::fstream& out)
 	ft_erase(mp, mp.begin(), ++(++(++mp.begin())), benchmark, out);
 	ft_erase(mp, --(--(--mp.end())), --mp.end(), benchmark, out);
 
-	//mp[10] = "Hello";
-	//mp[11] = "Hi there";
-	//if (benchmark == false) {
-	//	print_map("Map after some erasing:", mp, out);
-	//}
-	//ft_erase(mp, --(--(--mp.end())), mp.end(), benchmark, out);
+	mp[10] = "Hello";
+	mp[11] = "Hi there";
+	if (benchmark == false) {
+		print_map("Map after some erasing:", mp, out);
+	}
+	ft_erase(mp, --(--(--mp.end())), mp.end(), benchmark, out);
 
-	//mp[12] = "ONE";
-	//mp[13] = "TWO";
-	//mp[14] = "THREE";
-	//mp[15] = "FOUR";
-	//if (benchmark == false) {
-	//	print_map("Map after some adding:", mp, out);
-	//}
-	//ft_erase(mp, mp.begin(), mp.end(), benchmark, out);
-	//if (benchmark == false) {
-	//	print_map("Map after complete erasing:", mp, out);
-	//}
+	mp[12] = "ONE";
+	mp[13] = "TWO";
+	mp[14] = "THREE";
+	mp[15] = "FOUR";
+	if (benchmark == false) {
+		print_map("Map after some adding:", mp, out);
+	}
+	ft_erase(mp, mp.begin(), mp.end(), benchmark, out);
+	if (benchmark == false) {
+		print_map("Map after complete erasing:", mp, out);
+	}
 }
