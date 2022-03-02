@@ -87,4 +87,33 @@ void	map_constructor(bool benchmark, std::fstream &out) {
 		print_map("Copy:", mp_copy, out);
 	}
 
+	// Tricky construct from mli42
+	std::list<Pair<int, std::string> > lst2;
+	typename std::list<Pair<int, std::string> >::iterator itlst;
+
+	lst2.push_back(Pair<int, std::string>(42, "lol"));
+	lst2.push_back(Pair<int, std::string>(50, "mdr"));
+	lst2.push_back(Pair<int, std::string>(35, "funny"));
+	lst2.push_back(Pair<int, std::string>(45, "bunny"));
+	lst2.push_back(Pair<int, std::string>(21, "fizz"));
+	lst2.push_back(Pair<int, std::string>(35, "this key is already inside"));
+	lst2.push_back(Pair<int, std::string>(55, "fuzzy"));
+	lst2.push_back(Pair<int, std::string>(38, "buzz"));
+	lst2.push_back(Pair<int, std::string>(55, "inside too"));
+
+	if (benchmark == false) {
+		out << "List contains: " << lst2.size() << " elements." << std::endl;
+		for (itlst = lst2.begin(); itlst != lst2.end(); ++itlst)
+			out << itlst->first << " => " << itlst->second << std::endl;
+		out << "---------------------------------------------" << std::endl;
+	}
+
+	Map<int, std::string, Comp<int>, std::allocator<Pair<const int, std::string> > > mplst(lst2.begin(), lst2.end());
+	lst2.clear();
+
+	if (benchmark == false) {
+		print_map("Mplst:", mplst, out);
+	}
+
+
 }

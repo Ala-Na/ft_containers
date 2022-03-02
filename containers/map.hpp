@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:21:47 by anadege           #+#    #+#             */
-/*   Updated: 2022/03/01 23:55:14 by anadege          ###   ########.fr       */
+/*   Updated: 2022/03/02 14:07:55 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,7 +305,7 @@ namespace ft
 				return iterator(found);
 			}
 
-			size_type	count (const key_type& k) {
+			size_type	count (const key_type& k) const {
 					return (this->tree.seek_node(k) == NULL ? 0 : 1);
 			}
 

@@ -100,6 +100,28 @@ Size: 5
 3 => 4
 4 => 3
 5 => 2
+List contains: 9 elements.
+42 => lol
+50 => mdr
+35 => funny
+45 => bunny
+21 => fizz
+35 => this key is already inside
+55 => fuzzy
+38 => buzz
+55 => inside too
+---------------------------------------------
+------------------ 
+Mplst:
+
+Size: 7
+21 => fizz
+35 => funny
+38 => buzz
+42 => lol
+45 => bunny
+50 => mdr
+55 => fuzzy
 ------------------ 
 Map for bounds testing - 1: 
 
@@ -362,3 +384,605 @@ Size: 0
 Map after complete erasing:
 
 Size: 0
+------------------ 
+Map for 2nd erase testing:
+
+Size: 10
+0 => AAAAAAAAAA
+1 => BBBBBBBBB
+2 => CCCCCCCC
+3 => DDDDDDD
+4 => EEEEEE
+5 => FFFFF
+6 => GGGG
+7 => HHH
+8 => II
+9 => J
+-- [0] --
+------------------ 
+After erase:
+
+Size: 9
+0 => AAAAAAAAAA
+1 => BBBBBBBBB
+3 => DDDDDDD
+4 => EEEEEE
+5 => FFFFF
+6 => GGGG
+7 => HHH
+8 => II
+9 => J
+-- [0] --
+------------------ 
+After erase:
+
+Size: 8
+0 => AAAAAAAAAA
+1 => BBBBBBBBB
+4 => EEEEEE
+5 => FFFFF
+6 => GGGG
+7 => HHH
+8 => II
+9 => J
+-- [0] --
+------------------ 
+After erase:
+
+Size: 7
+1 => BBBBBBBBB
+4 => EEEEEE
+5 => FFFFF
+6 => GGGG
+7 => HHH
+8 => II
+9 => J
+-- [0] --
+------------------ 
+After erase:
+
+Size: 6
+1 => BBBBBBBBB
+4 => EEEEEE
+5 => FFFFF
+6 => GGGG
+7 => HHH
+8 => II
+------------------ 
+Map after deletions/additions:
+
+Size: 8
+-1 => Hello
+1 => BBBBBBBBB
+4 => EEEEEE
+5 => FFFFF
+6 => GGGG
+7 => HHH
+8 => II
+10 => Hi there
+-- [0] --
+------------------ 
+After erase:
+
+Size: 8
+-1 => Hello
+1 => BBBBBBBBB
+4 => EEEEEE
+5 => FFFFF
+6 => GGGG
+7 => HHH
+8 => II
+10 => Hi there
+-- [0] --
+------------------ 
+After erase:
+
+Size: 7
+-1 => Hello
+4 => EEEEEE
+5 => FFFFF
+6 => GGGG
+7 => HHH
+8 => II
+10 => Hi there
+------------------ 
+Map after finale deletions:
+
+Size: 7
+-1 => Hello
+4 => EEEEEE
+5 => FFFFF
+6 => GGGG
+7 => HHH
+8 => II
+10 => Hi there
+------------------ 
+Map for tricky erase testing:
+
+Size: 31
+12 => no
+18 => bee
+20 => idea
+21 => fizz
+22 => 123
+23 => coconut
+24 => 345
+25 => funny
+27 => 27
+28 => diary
+29 => 29
+30 => buzz
+33 => 33
+35 => fiesta
+38 => 38
+42 => lol
+43 => 1
+44 => hello
+45 => 2
+46 => bunny
+47 => 3
+48 => world
+49 => 4
+50 => mdr
+51 => 5
+53 => this is a test
+54 => 6
+55 => fuzzy
+60 => 7
+80 => hey
+90 => 8
+-- [0] --
+------------------ 
+After erase:
+
+Size: 30
+12 => no
+18 => bee
+20 => idea
+21 => fizz
+22 => 123
+23 => coconut
+24 => 345
+27 => 27
+28 => diary
+29 => 29
+30 => buzz
+33 => 33
+35 => fiesta
+38 => 38
+42 => lol
+43 => 1
+44 => hello
+45 => 2
+46 => bunny
+47 => 3
+48 => world
+49 => 4
+50 => mdr
+51 => 5
+53 => this is a test
+54 => 6
+55 => fuzzy
+60 => 7
+80 => hey
+90 => 8
+-- [0] --
+------------------ 
+After erase:
+
+Size: 29
+12 => no
+18 => bee
+20 => idea
+21 => fizz
+22 => 123
+23 => coconut
+24 => 345
+27 => 27
+28 => diary
+29 => 29
+30 => buzz
+33 => 33
+35 => fiesta
+38 => 38
+42 => lol
+43 => 1
+44 => hello
+45 => 2
+46 => bunny
+47 => 3
+48 => world
+49 => 4
+50 => mdr
+51 => 5
+53 => this is a test
+54 => 6
+60 => 7
+80 => hey
+90 => 8
+-- [0] --
+------------------ 
+After erase:
+
+Size: 28
+12 => no
+18 => bee
+20 => idea
+21 => fizz
+22 => 123
+23 => coconut
+27 => 27
+28 => diary
+29 => 29
+30 => buzz
+33 => 33
+35 => fiesta
+38 => 38
+42 => lol
+43 => 1
+44 => hello
+45 => 2
+46 => bunny
+47 => 3
+48 => world
+49 => 4
+50 => mdr
+51 => 5
+53 => this is a test
+54 => 6
+60 => 7
+80 => hey
+90 => 8
+-- [0] --
+------------------ 
+After erase:
+
+Size: 27
+12 => no
+18 => bee
+20 => idea
+21 => fizz
+22 => 123
+23 => coconut
+27 => 27
+28 => diary
+29 => 29
+30 => buzz
+33 => 33
+35 => fiesta
+38 => 38
+42 => lol
+43 => 1
+44 => hello
+45 => 2
+46 => bunny
+47 => 3
+48 => world
+49 => 4
+50 => mdr
+51 => 5
+53 => this is a test
+60 => 7
+80 => hey
+90 => 8
+-- [0] --
+------------------ 
+After erase:
+
+Size: 26
+12 => no
+18 => bee
+20 => idea
+21 => fizz
+23 => coconut
+27 => 27
+28 => diary
+29 => 29
+30 => buzz
+33 => 33
+35 => fiesta
+38 => 38
+42 => lol
+43 => 1
+44 => hello
+45 => 2
+46 => bunny
+47 => 3
+48 => world
+49 => 4
+50 => mdr
+51 => 5
+53 => this is a test
+60 => 7
+80 => hey
+90 => 8
+-- [0] --
+------------------ 
+After erase:
+
+Size: 25
+12 => no
+18 => bee
+20 => idea
+21 => fizz
+23 => coconut
+27 => 27
+28 => diary
+29 => 29
+30 => buzz
+33 => 33
+35 => fiesta
+38 => 38
+42 => lol
+43 => 1
+44 => hello
+45 => 2
+46 => bunny
+47 => 3
+48 => world
+49 => 4
+50 => mdr
+53 => this is a test
+60 => 7
+80 => hey
+90 => 8
+-- [0] --
+------------------ 
+After erase:
+
+Size: 24
+12 => no
+18 => bee
+20 => idea
+23 => coconut
+27 => 27
+28 => diary
+29 => 29
+30 => buzz
+33 => 33
+35 => fiesta
+38 => 38
+42 => lol
+43 => 1
+44 => hello
+45 => 2
+46 => bunny
+47 => 3
+48 => world
+49 => 4
+50 => mdr
+53 => this is a test
+60 => 7
+80 => hey
+90 => 8
+-- [0] --
+------------------ 
+After erase:
+
+Size: 23
+12 => no
+18 => bee
+20 => idea
+23 => coconut
+27 => 27
+28 => diary
+29 => 29
+30 => buzz
+33 => 33
+35 => fiesta
+38 => 38
+42 => lol
+43 => 1
+44 => hello
+45 => 2
+46 => bunny
+47 => 3
+48 => world
+49 => 4
+50 => mdr
+60 => 7
+80 => hey
+90 => 8
+-- [0] --
+------------------ 
+After erase:
+
+Size: 22
+12 => no
+18 => bee
+23 => coconut
+27 => 27
+28 => diary
+29 => 29
+30 => buzz
+33 => 33
+35 => fiesta
+38 => 38
+42 => lol
+43 => 1
+44 => hello
+45 => 2
+46 => bunny
+47 => 3
+48 => world
+49 => 4
+50 => mdr
+60 => 7
+80 => hey
+90 => 8
+-- [0] --
+------------------ 
+After erase:
+
+Size: 21
+12 => no
+18 => bee
+27 => 27
+28 => diary
+29 => 29
+30 => buzz
+33 => 33
+35 => fiesta
+38 => 38
+42 => lol
+43 => 1
+44 => hello
+45 => 2
+46 => bunny
+47 => 3
+48 => world
+49 => 4
+50 => mdr
+60 => 7
+80 => hey
+90 => 8
+-- [0] --
+------------------ 
+After erase:
+
+Size: 20
+12 => no
+18 => bee
+27 => 27
+28 => diary
+29 => 29
+30 => buzz
+33 => 33
+35 => fiesta
+38 => 38
+43 => 1
+44 => hello
+45 => 2
+46 => bunny
+47 => 3
+48 => world
+49 => 4
+50 => mdr
+60 => 7
+80 => hey
+90 => 8
+-- [0] --
+------------------ 
+After erase:
+
+Size: 19
+12 => no
+18 => bee
+27 => 27
+28 => diary
+29 => 29
+30 => buzz
+33 => 33
+35 => fiesta
+43 => 1
+44 => hello
+45 => 2
+46 => bunny
+47 => 3
+48 => world
+49 => 4
+50 => mdr
+60 => 7
+80 => hey
+90 => 8
+-- [0] --
+------------------ 
+After erase:
+
+Size: 18
+12 => no
+18 => bee
+27 => 27
+28 => diary
+29 => 29
+30 => buzz
+33 => 33
+43 => 1
+44 => hello
+45 => 2
+46 => bunny
+47 => 3
+48 => world
+49 => 4
+50 => mdr
+60 => 7
+80 => hey
+90 => 8
+-- [0] --
+------------------ 
+After erase:
+
+Size: 17
+12 => no
+18 => bee
+27 => 27
+28 => diary
+29 => 29
+30 => buzz
+43 => 1
+44 => hello
+45 => 2
+46 => bunny
+47 => 3
+48 => world
+49 => 4
+50 => mdr
+60 => 7
+80 => hey
+90 => 8
+------------------ 
+Map after tricky erase testing:
+
+Size: 17
+12 => no
+18 => bee
+27 => 27
+28 => diary
+29 => 29
+30 => buzz
+43 => 1
+44 => hello
+45 => 2
+46 => bunny
+47 => 3
+48 => world
+49 => 4
+50 => mdr
+60 => 7
+80 => hey
+90 => 8
+------------------ 
+Map for find:
+
+Size: 6
+12 => no
+25 => funny
+27 => bee
+42 => fgzgxfn
+80 => hey
+90 => 8
+	-- FIND --
+12 => no
+map::find(3) returned end()
+map::find(35) returned end()
+90 => 8
+map::find(100) returned end()
+	-- COUNT --
+map::count(-3)	returned [0]
+map::count(12)	returned [1]
+map::count(3)	returned [0]
+map::count(35)	returned [0]
+map::count(90)	returned [1]
+map::count(100)	returned [0]
+------------------ 
+After some modifications:
+
+Size: 6
+12 => no
+25 => funny
+27 => newly inserted mapped_value
+42 => fgzgxfn
+80 => hey
+90 => 8
+const map.find(42)->second: [fgzgxfn]
+const map.count(80): [1]

@@ -4,6 +4,7 @@
 #include "./map_subtests/comp.cpp"
 #include "./map_subtests/empty.cpp"
 #include "./map_subtests/erase.cpp"
+#include "./map_subtests/find_count.cpp"
 
 
 #define RED "\033[0;31m"
@@ -18,6 +19,7 @@ void	map_tests(bool benchmark, std::fstream& out) {
 	map_comp<Map, Comp, Pair>(benchmark, out);
 	map_empty<Map, Comp, Pair>(benchmark, out);
 	map_erase<Map, Comp, Pair>(benchmark, out);
+	map_find_count<Map, Comp, Pair>(benchmark, out);
 }
 
 double	benchmark_ft_map() {

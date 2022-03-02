@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 12:11:55 by anadege           #+#    #+#             */
-/*   Updated: 2022/03/02 12:01:31 by anadege          ###   ########.fr       */
+/*   Updated: 2022/03/02 14:08:17 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -367,6 +367,25 @@ namespace ft
 				return NULL;
 			}
 
+			node_type*	seek_node (const key_type node_key) const {
+				node_type* tmp = this->root;
+				extract_key	extract;
+				if (!tmp) {
+					return NULL;
+				}
+				while (tmp) {
+					key_type	tmp_key = extract(tmp->get_data());
+					if (tmp_key == node_key) {
+						return tmp;
+					} else if (this->comp(node_key, tmp_key)) {
+						tmp = tmp->get_left_child();
+					} else {
+						tmp = tmp->get_right_child();
+					}
+				}
+				return NULL;
+			}
+
 			node_type* seek_node(value_type node_value) {
 				extract_key	extract;
 				key_type	node_key = extract(node_value);
@@ -665,6 +684,14 @@ namespace ft
 			}
 
 			size_t	remove_node (key_type& val) {
+				node_type *to_del = seek_node(val);
+				if (to_del == NULL)
+					return 0;
+				remove_node(to_del);
+				return 1;
+			}
+
+			size_t	remove_node (const key_type& val) {
 				node_type *to_del = seek_node(val);
 				if (to_del == NULL)
 					return 0;
