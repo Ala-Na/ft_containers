@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:21:45 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/16 12:03:14 by anadege          ###   ########.fr       */
+/*   Updated: 2022/03/03 22:16:02 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 namespace ft
 {
-	template <typename T, class Alloc = std::allocator<T>>
+	template <typename T, class Alloc = std::allocator<T> >
 	class vector
 	{
 		public:
@@ -39,7 +39,7 @@ namespace ft
 			typedef ft::random_access_iterator<value_type>			iterator;
 			typedef ft::random_access_iterator<const value_type>	const_iterator;
 			typedef ft::reverse_iterator<iterator>					reverse_iterator;
-			typedef ft::reverse_iterator<const iterator>			const_reverse_iterator;
+			typedef ft::reverse_iterator<const_iterator>		const_reverse_iterator;
 			typedef typename std::ptrdiff_t							difference_type;
 			typedef typename std::size_t							size_type;
 
@@ -89,7 +89,7 @@ namespace ft
 			template <class InputIterator>
 			vector (InputIterator first, InputIterator last,
 			const allocator_type &alloc = allocator_type(),
-			typename std::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0) :
+			typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0) :
 				alloc(alloc), vec_capacity(0), filled(0)
 			{
 				if (is_valid_input_iterator(first) == false) {
@@ -140,6 +140,7 @@ namespace ft
 				this->clear();
 				this->alloc.deallocate(this->first_elem, this->vec_capacity);
 				this->first_elem = this->alloc.allocate(other.vec_capacity);
+				this->vec_capacity = other.vec_capacity;
 				for (size_type i = 0; i < other.filled; i++) {
 					this->alloc.construct(this->first_elem + i, *(other.first_elem + i));
 					this->filled++;
@@ -279,8 +280,7 @@ namespace ft
 				} else if (n > this->max_size()) {
 					throw MaxSizeExceededException();
 				}
-				size_type	new_vec_capacity = (this->vec_capacity == 0 ?
-					new_vec_capacity = 1 : new_vec_capacity = this->vec_capacity);
+				size_type	new_vec_capacity = (this->vec_capacity == 0 ? 1 : this->vec_capacity);
 				while (new_vec_capacity <= n) {
 					new_vec_capacity *= 2;
 				}
@@ -368,7 +368,7 @@ namespace ft
 			// exceed vec_capacity.
 			template <class InputIt>
 			void	assign (InputIt first, InputIt last,
-				typename std::enable_if<!ft::is_integral<InputIt>::value>::type* = 0)
+				typename ft::enable_if<!ft::is_integral<InputIt>::value>::type* = 0)
 			{
 				if (is_valid_input_iterator(first) == false) {
 					throw InvalidIteratorTypeException();
@@ -411,7 +411,7 @@ namespace ft
 				if (this->filled == 0) {
 					return;
 				}
-				this->alloc.destroy(this->first_elem + this->filled);
+				this->alloc.destroy(this->first_elem + this->filled - 1);
 				this->filled--;
 			}
 
@@ -454,8 +454,8 @@ namespace ft
 			// Insert n elements of value val starting from iterator position.
 			// May cause reallocation if vec_capacity is exceeded.
 			void	insert (iterator position, size_type n, const value_type& value) {
-				if (n < 0) {
-					throw InvalidSizeException();
+				if (n == 0) {
+					return;
 				}
 				size_type	pos = 	std::distance(this->begin(), position);
 				size_type	new_vec_capacity = this->vec_capacity;
@@ -492,7 +492,7 @@ namespace ft
 			// position. May cause reallocation if vec_capacity is exceeded.
 			template <class InputIterator>
 			void	insert (iterator position, InputIterator first, InputIterator last,
-				typename std::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0)
+				typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0)
 			{
 				if (is_valid_input_iterator(first) == false) {
 					throw InvalidIteratorTypeException();

@@ -18,7 +18,7 @@
 
 template <template <typename, typename> class Vector>
 void	vector_tests(bool benchmark, std::fstream& out) {
-	vector_constructor<Vector>(benchmark, out);
+	//vector_constructor<Vector>(benchmark, out);
 	vector_assign<Vector>(benchmark, out);
 	vector_at<Vector>(benchmark, out);
 	vector_it<Vector>(benchmark, out);

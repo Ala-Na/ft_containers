@@ -2,29 +2,49 @@
 # define TESTS_UTILS_HPP
 
 #include <iostream>
+#include <iomanip>
 #include <string>
 #include <map>
 #include <vector>
+#include <stack>
 #include "../containers/map.hpp"
 #include "../containers/vector.hpp"
+#include "../containers/stack.hpp"
 #include <list>
 #include <fstream>
 #include <sys/stat.h>
 #include <cstddef>
 #include <string>
+#include <bits/stdc++.h>
+#include <deque>
 
-template <typename Tvecstack>
-void	print_vector_or_stack (std::string comment, const Tvecstack& vecstack)
+template <typename Tvec>
+void	print_vector (std::string comment, const Tvec& vec, std::fstream& out)
 {
-	std::cout << "------------------ " << std::endl;
-	std::cout << comment << std::endl;
-	std::cout << "Size: " << vecstack.size() << std::endl << std::endl;
-	typename Tvecstack::const_iterator	start = vecstack.begin();
-	typename Tvecstack::const_iterator	stop = vecstack.end();
+	out << "------------------ " << std::endl;
+	out << comment << std::endl;
+	out << "Size: " << vec.size() << std::endl << std::endl;
+	out << "Capacity: " << (vec.size() <= vec.capacity() ? "OK" : "KO") << std::endl;
+	typename Tvec::const_iterator	start = vec.begin();
+	typename Tvec::const_iterator	stop = vec.end();
 	for (; start != stop; start++) {
-		std::cout << *start << std::endl;
+		out << *start << std::endl;
 	}
-	std::cout << std::endl;
+	out << std::endl;
+};
+
+template <typename Tstack>
+void	print_stack (std::string comment, const Tstack& stack, std::fstream& out)
+{
+	out << "------------------ " << std::endl;
+	out << comment << std::endl;
+	out << "Size: " << stack.size() << std::endl << std::endl;
+	typename Tstack::const_iterator	start = stack.begin();
+	typename Tstack::const_iterator	stop = stack.end();
+	for (; start != stop; start++) {
+		out << *start << std::endl;
+	}
+	out << std::endl;
 };
 
 template <typename Tmap>

@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:57:47 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/26 17:39:57 by anadege          ###   ########.fr       */
+/*   Updated: 2022/03/03 23:05:51 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,7 +206,7 @@ namespace ft
 			// - Dereference iterator with offset at n position
 			reference	operator[] (difference_type n) const
 			{
-				return *(base()[-n - 1]);
+				return *(this->current - n - 1);
 			}
 	};
 
@@ -230,28 +230,28 @@ namespace ft
 	bool	operator<(const ft::reverse_iterator<T1>& lhs,
 		const ft::reverse_iterator<T2>& rhs)
 	{
-		return lhs.base() < rhs.base();
+		return lhs.base() > rhs.base();
 	};
 
 	template <typename T1, typename T2>
 	bool	operator<=(const ft::reverse_iterator<T1>& lhs,
 		const ft::reverse_iterator<T2>& rhs)
 	{
-		return lhs.base() <= rhs.base();
+		return lhs.base() >= rhs.base();
 	};
 
 	template <typename T1, typename T2>
 	bool	operator>(const ft::reverse_iterator<T1>& lhs,
 		const ft::reverse_iterator<T2>& rhs)
 	{
-		return lhs.base() > rhs.base();
+		return lhs.base() < rhs.base();
 	};
 
 	template <typename T1, typename T2>
 	bool	operator>=(const ft::reverse_iterator<T1>& lhs,
 		const ft::reverse_iterator<T2>& rhs)
 	{
-		return lhs.base() >= rhs.base();
+		return lhs.base() <= rhs.base();
 	};
 
 	// - Addition and substraction operator overloads
@@ -263,10 +263,10 @@ namespace ft
 		return reverse_iterator<T>(rev_it.base() - n);
 	};
 
-	template <typename T>
-	typename reverse_iterator<T>::difference_type operator- (
-		const reverse_iterator<T>& lhs,
-		const reverse_iterator<T>& rhs)
+	template <typename T1, typename T2>
+	typename reverse_iterator<T1>::difference_type operator- (
+		const reverse_iterator<T1>& lhs,
+		const reverse_iterator<T2>& rhs)
 	{
 		return rhs.base() - lhs.base();
 	};
@@ -313,7 +313,7 @@ namespace ft
 
 			// - Assignment operator
 			template <typename T>
-			random_access_iterator& operator= (const reverse_iterator<T>& other)
+			random_access_iterator& operator= (const ft::random_access_iterator<T>& other)
 			{
 				this->current = other.base();
 				return *this;
@@ -392,7 +392,7 @@ namespace ft
 			// - Dereference iterator with offset at n position
 			reference	operator[] (difference_type n) const
 			{
-				return *(base()[n - 1]);
+				return *(this->current + n);
 			}
 	};
 
@@ -449,10 +449,10 @@ namespace ft
 		return random_access_iterator<T>(it.base() + n);
 	};
 
-	template <typename T>
-	typename random_access_iterator<T>::difference_type operator- (
-		const random_access_iterator<T>& lhs,
-		const random_access_iterator<T>& rhs)
+	template <typename T1, typename T2>
+	typename random_access_iterator<T1>::difference_type operator- (
+		const random_access_iterator<T1>& lhs,
+		const random_access_iterator<T2>& rhs)
 	{
 		return lhs.base() - rhs.base();
 	};

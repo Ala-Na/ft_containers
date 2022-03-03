@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 13:48:52 by anadege           #+#    #+#             */
-/*   Updated: 2022/03/02 16:07:17 by anadege          ###   ########.fr       */
+/*   Updated: 2022/03/03 22:18:38 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,8 +134,8 @@ namespace ft
 	{
 		public:
 
-			typedef Type																			iterator_type;
-			typedef rb_tree_iterator<Type>															iterator;
+			typedef const Type																		iterator_type;
+			typedef rb_tree_iterator<const Type>													iterator;
 			typedef typename ft::iterator<std::bidirectional_iterator_tag, Type>::iterator_category	iterator_category;
 			typedef typename ft::iterator<std::bidirectional_iterator_tag, Type>::value_type		value_type;
 			typedef typename ft::iterator<std::bidirectional_iterator_tag, Type>::difference_type	difference_type;

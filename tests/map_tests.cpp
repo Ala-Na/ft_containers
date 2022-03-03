@@ -35,31 +35,31 @@ void	map_tests(bool benchmark, std::fstream& out) {
 
 double	benchmark_ft_map() {
 	std::fstream	null;
-	time_t	timer_start;
-	time_t	timer_end;
+	clock_t	timer_start;
+	clock_t	timer_end;
 
-	time(&timer_start);
+	timer_start = clock();
 	for (int i = 0; i < 10000; i++) {
 		map_tests<ft::map, ft::less, ft::pair>(true, null);
 	}
-	time(&timer_end);
-	double diff = difftime(timer_end, timer_start);
-	std::cout << "ft_map: " << diff << " seconds." << std::endl;
+	timer_end = clock();
+	double diff = (timer_end - timer_start);
+	std::cout << "ft_map: " << diff / double(CLOCKS_PER_SEC) << " seconds." << std::endl;
 	return diff;
 }
 
 double	benchmark_std_map() {
 	std::fstream	null;
-	time_t	timer_start;
-	time_t	timer_end;
+	clock_t	timer_start;
+	clock_t	timer_end;
 
-	time(&timer_start);
+	timer_start = clock();
 	for (int i = 0; i < 10000; i++) {
 		map_tests<std::map, std::less, std::pair>(true, null);
 	}
-	time(&timer_end);
-	double diff = difftime(timer_end, timer_start);
-	std::cout << "std_map: " << diff << " seconds." << std::endl;
+	timer_end = clock();
+	double diff = (timer_end - timer_start);
+	std::cout << "std_map: " << diff / double(CLOCKS_PER_SEC) << " seconds." << std::endl;
 	return diff;
 }
 
