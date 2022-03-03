@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 12:11:55 by anadege           #+#    #+#             */
-/*   Updated: 2022/03/02 17:19:27 by anadege          ###   ########.fr       */
+/*   Updated: 2022/03/03 13:26:17 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ namespace ft
 			}
 
 			// - Allocator getter
-			allocator_type&	get_allocator() {
+			allocator_type	get_allocator() const {
 				return this->alloc;
 			}
 
@@ -227,14 +227,6 @@ namespace ft
 			// Returns constant reverse iterator, starting from first element.
 			const_reverse_iterator	rend() const {
 				return static_cast<const_reverse_iterator>(this->begin());
-			}
-
-			// --------------
-			// --- MEMORY ---
-			// --------------
-
-			allocator_type	get_allocator() const {
-				return this->tree.alloc;
 			}
 
 			// - Function to create and allocate memory for a new node of data

@@ -25,16 +25,19 @@ void	map_constructor(bool benchmark, std::fstream &out) {
 	first['d']=70;
 	if (benchmark == false) {
 		print_map("Example map:", first, out);
+		out << first.max_size() << std::endl;
 	}
 
 	Map<char,int, Comp<char>, std::allocator<Pair<const char,int> > > second (first.begin(),first.end());
 	if (benchmark == false) {
 		print_map("Iterator construct map:", second, out);
+		out << second.max_size() << std::endl;
 	}
 
 	Map<char,int, Comp<char>, std::allocator<Pair<const char,int> > > third (second);
 	if (benchmark == false) {
 		print_map("Copy constructor map:", third, out);
+		out << third.max_size() << std::endl;
 	}
 
 	Map<char, int, classcomp, std::allocator<Pair<const char,int> > > fourth;
@@ -44,18 +47,21 @@ void	map_constructor(bool benchmark, std::fstream &out) {
 	fourth['d']=70;
 	if (benchmark == false) {
 		print_map("Special compare class map:", fourth, out);
+		out << fourth.max_size() << std::endl;
 	}
 
 	bool(*fn_pt)(char,char) = fncomp;
 	Map<char,int,bool(*)(char,char), std::allocator<Pair<const char,int> > > fifth (fn_pt);
 	if (benchmark == false) {
 		print_map("Pointer function compare map:", fifth, out);
+		out << fifth.max_size() << std::endl;
 	}
 
 	Map<char,int, Comp<char>, std::allocator<Pair<const char,int> > > copy;
 	copy = first;
 	if (benchmark == false) {
 		print_map("Assignment operator test:", copy, out);
+		out << copy.max_size() << std::endl;
 	}
 
 	// Taken and adapted from mli42 ft_containers tester
@@ -80,6 +86,9 @@ void	map_constructor(bool benchmark, std::fstream &out) {
 		print_map("Original:", mp, out);
 		print_map("Range constructor:", mp_range, out);
 		print_map("Copy:", mp_copy, out);
+		out << mp.max_size() << std::endl;
+		out << mp_range.max_size() << std::endl;
+		out << mp_copy.max_size() << std::endl;
 	}
 
 	mp = mp_copy;
@@ -91,6 +100,9 @@ void	map_constructor(bool benchmark, std::fstream &out) {
 		print_map("Original:", mp, out);
 		print_map("Range constructor:", mp_range, out);
 		print_map("Copy:", mp_copy, out);
+		out << mp.max_size() << std::endl;
+		out << mp_range.max_size() << std::endl;
+		out << mp_copy.max_size() << std::endl;
 	}
 
 	// Tricky construct from mli42
@@ -119,6 +131,8 @@ void	map_constructor(bool benchmark, std::fstream &out) {
 
 	if (benchmark == false) {
 		print_map("Mplst:", mplst, out);
+		out << mplst.max_size() << std::endl;
+		out << mplst.get_allocator().max_size() << std::endl;
 	}
 
 	Map<int, std::string, ft_more<int>, std::allocator<Pair<const int, std::string> > > mpmore;
@@ -132,5 +146,13 @@ void	map_constructor(bool benchmark, std::fstream &out) {
 	mpmore[90] = "8";
 	if (benchmark == false) {
 		print_map("Constructor with ft_more function map:", mpmore, out);
+		out << mpmore.max_size() << std::endl;
+		out << (mpmore.get_allocator()).max_size() << std::endl;
+	}
+	mpmore.clear();
+	if (benchmark == false) {
+		print_map("Constructor with ft_more function map:", mpmore, out);
+		out << mpmore.max_size() << std::endl;
+		out << (mpmore.get_allocator()).max_size() << std::endl;
 	}
 }

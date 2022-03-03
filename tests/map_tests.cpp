@@ -43,7 +43,9 @@ double	benchmark_ft_map() {
 		map_tests<ft::map, ft::less, ft::pair>(true, null);
 	}
 	time(&timer_end);
-	return difftime(timer_end, timer_start);
+	double diff = difftime(timer_end, timer_start);
+	std::cout << "ft_map: " << diff << " seconds." << std::endl;
+	return diff;
 }
 
 double	benchmark_std_map() {
@@ -56,7 +58,9 @@ double	benchmark_std_map() {
 		map_tests<std::map, std::less, std::pair>(true, null);
 	}
 	time(&timer_end);
-	return difftime(timer_end, timer_start);
+	double diff = difftime(timer_end, timer_start);
+	std::cout << "std_map: " << diff << " seconds." << std::endl;
+	return diff;
 }
 
 int main() {

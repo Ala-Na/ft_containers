@@ -4,7 +4,9 @@
 #include <iostream>
 #include <string>
 #include <map>
+#include <vector>
 #include "../containers/map.hpp"
+#include "../containers/vector.hpp"
 #include <list>
 #include <fstream>
 #include <sys/stat.h>
