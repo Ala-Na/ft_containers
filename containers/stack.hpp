@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:21:38 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/18 14:40:38 by anadege          ###   ########.fr       */
+/*   Updated: 2022/03/04 00:28:06 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 namespace ft
 {
-	template <class T, class Container = vector<T>>
+	template <class T, class Container = vector<T> >
 	class stack
 	{
 		public:
@@ -29,9 +29,9 @@ namespace ft
 			// Members types definitions :
 			// ---------------------------
 
-			typedef T							value_type;
-			typedef Container					container_type;
-			typedef typename Container::size_t	size_type;
+			typedef T								value_type;
+			typedef Container						container_type;
+			typedef typename Container::size_type	size_type;
 
 		protected:
 
@@ -77,6 +77,13 @@ namespace ft
 			void	pop() {
 				this->container.pop_back();
 			}
+			// Declarations of relationnals operators to access container
+			template<typename Type, typename Cont>
+			friend bool	operator== (const stack<Type, Cont>&, const stack<Type, Cont>&);
+
+			template<typename Type, typename Cont>
+			friend bool	operator< (const stack<Type, Cont>&, const stack<Type, Cont>&);
+
 	};
 	// ----------------------
 	// Non member functions :

@@ -42,7 +42,6 @@ double	benchmark_ft_vector() {
 	}
 	timer_end = clock();
 	double diff = (timer_end - timer_start);
-	std::cout << "ft_vector: " << diff / double(CLOCKS_PER_SEC) << " seconds." << std::endl;
 	return diff;
 }
 
@@ -57,7 +56,6 @@ double	benchmark_std_vector() {
 	}
 	timer_end = clock();
 	double diff = (timer_end - timer_start);
-	std::cout << "std_vector: " << diff / double(CLOCKS_PER_SEC) << " seconds." << std::endl;
 	return diff;
 }
 
@@ -120,5 +118,9 @@ int main() {
 	} else {
 		std::cout << "===> " << GREEN << "OK" << END << std::endl;
 	}
+
+	std::cout << "[std_map: " << std_time / double(CLOCKS_PER_SEC) << " seconds.]" << std::endl;
+	std::cout << "[ft_map: " << ft_time / double(CLOCKS_PER_SEC) << " seconds.]" << std::endl;
+
 	return 0;
 }

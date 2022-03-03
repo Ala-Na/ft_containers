@@ -34,15 +34,14 @@ void	print_vector (std::string comment, const Tvec& vec, std::fstream& out)
 };
 
 template <typename Tstack>
-void	print_stack (std::string comment, const Tstack& stack, std::fstream& out)
+void	print_stack (std::string comment, Tstack& stack, std::fstream& out)
 {
 	out << "------------------ " << std::endl;
 	out << comment << std::endl;
 	out << "Size: " << stack.size() << std::endl << std::endl;
-	typename Tstack::const_iterator	start = stack.begin();
-	typename Tstack::const_iterator	stop = stack.end();
-	for (; start != stop; start++) {
-		out << *start << std::endl;
+	while (stack.size() != 0) {
+		out << stack.top() << std::endl;
+		stack.pop();
 	}
 	out << std::endl;
 };

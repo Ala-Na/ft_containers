@@ -44,7 +44,6 @@ double	benchmark_ft_map() {
 	}
 	timer_end = clock();
 	double diff = (timer_end - timer_start);
-	std::cout << "ft_map: " << diff / double(CLOCKS_PER_SEC) << " seconds." << std::endl;
 	return diff;
 }
 
@@ -59,7 +58,6 @@ double	benchmark_std_map() {
 	}
 	timer_end = clock();
 	double diff = (timer_end - timer_start);
-	std::cout << "std_map: " << diff / double(CLOCKS_PER_SEC) << " seconds." << std::endl;
 	return diff;
 }
 
@@ -113,15 +111,14 @@ int main() {
 	double ft_time = benchmark_ft_map();
 	double std_time = benchmark_std_map();
 
-	if (std_time == 0 && ft_time != std_time) {
-		std_time += 1;
-	}
-
 	if (ft_time > std_time * 20) {
 		std::cout << "===> " << RED << "TIMEOUT !" << END << std::endl;
 	} else {
 		std::cout << "===> " << GREEN << "OK" << END << std::endl;
 	}
+
+	std::cout << "[std_map: " << std_time / double(CLOCKS_PER_SEC) << " seconds.]" << std::endl;
+	std::cout << "[ft_map: " << ft_time / double(CLOCKS_PER_SEC) << " seconds.]" << std::endl;
 
 	return 0;
 }

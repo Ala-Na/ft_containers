@@ -1,4 +1,119 @@
 ------------------ 
+Empty constructor vector:
+Size: 0
+
+Capacity: OK
+
+2305843009213693951
+------------------ 
+Fill constructor vector:
+Size: 4
+
+Capacity: OK
+100
+100
+100
+100
+
+2305843009213693951
+------------------ 
+Range constructor vector:
+Size: 4
+
+Capacity: OK
+100
+100
+100
+100
+
+2305843009213693951
+------------------ 
+Copy constructor vector:
+Size: 4
+
+Capacity: OK
+100
+100
+100
+100
+
+2305843009213693951
+------------------ 
+Another iterator constructor vector from array:
+Size: 4
+
+Capacity: OK
+16
+2
+77
+29
+
+2305843009213693951
+len: 5
+	-- PART ONE --
+------------------ 
+Original:
+Size: 5
+
+Capacity: OK
+7
+14
+21
+2
+1
+
+------------------ 
+Range:
+Size: 3
+
+Capacity: OK
+5
+4
+3
+
+------------------ 
+Copy:
+Size: 7
+
+Capacity: OK
+5
+10
+15
+2
+1
+42
+21
+
+	-- PART TWO --
+------------------ 
+Original:
+Size: 7
+
+Capacity: OK
+5
+10
+15
+2
+1
+42
+21
+
+------------------ 
+Range:
+Size: 0
+
+Capacity: OK
+
+------------------ 
+Copy:
+Size: 3
+
+Capacity: OK
+5
+4
+3
+
+------------------ 
 Vector 1 for assign:
 Size: 7
 
@@ -825,12 +940,12 @@ inf or eq:true
 sup:false
 sup or eq:true
 
-inf:true 5 49
+inf:true 5 0
 inf or eq:true
 sup:false
 sup or eq:false
 
-inf:false 49 5
+inf:false 0 5
 inf or eq:false
 sup:true
 sup or eq:true
@@ -856,12 +971,12 @@ inf or eq:true
 sup:false
 sup or eq:true
 
-inf:true 5 49
+inf:true 5 0
 inf or eq:true
 sup:false
 sup or eq:false
 
-inf:false 49 5
+inf:false 0 5
 inf or eq:false
 sup:true
 sup or eq:true
@@ -897,22 +1012,22 @@ inf or eq:true
 sup:false
 sup or eq:true
 
-inf:true 5 49
+inf:true 5 0
 inf or eq:true
 sup:false
 sup or eq:false
 
-inf:false 49 5
+inf:false 0 5
 inf or eq:false
 sup:true
 sup or eq:true
 
-inf:false 49 5
+inf:false 0 5
 inf or eq:false
 sup:true
 sup or eq:true
 
-inf:true 5 49
+inf:true 5 0
 inf or eq:true
 sup:false
 sup or eq:false
