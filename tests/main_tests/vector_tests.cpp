@@ -66,7 +66,7 @@ int main() {
 
 	std::cout << YELLOW << "Testing ft::vector and comparing to std::vector" << END << std::endl;
 
-	stat(".results", &st);
+	stat("../.results", &st);
 	if (!(st.st_mode & S_IFDIR) && mkdir("../.results", 0777) == -1)  {
 		std::cout << RED << "Error" << END << std::endl;
 		return -1;

@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 22:11:57 by anadege           #+#    #+#             */
-/*   Updated: 2022/03/01 21:12:31 by anadege          ###   ########.fr       */
+/*   Updated: 2022/03/04 15:16:42 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,23 @@ namespace ft
 
 		// - Constructors
 		node () :
-			data(), parent(NULL), left_child(NULL), right_child(NULL), color(black)
+			data(), parent(NULL), left_child(NULL), right_child(NULL),
+			color(black)
 		{}
 
 
 		node (Value& data) :
-			data(data), parent(NULL), left_child(NULL), right_child(NULL), color(black)
+			data(data), parent(NULL), left_child(NULL), right_child(NULL),
+			color(black)
 		{}
 
 		node (node*& other) :
-			data(other->data), parent(other->parent), left_child(other->left_child), right_child(other->right_child), color(other->color)
+			data(other->data), parent(other->parent),
+			left_child(other->left_child), right_child(other->right_child),
+			color(other->color)
 		{}
 
+		// - Return value operators
 		node&	operator* () const {
 			return *this;
 		}
@@ -86,7 +91,6 @@ namespace ft
 		}
 
 		// - Unsetters
-
 		void	unset_parent () {
 			this->parent = NULL;
 		}
@@ -152,6 +156,7 @@ namespace ft
 		}
 	};
 
+	// - Increment function, return node with closest bigger value than current.
 	template <typename T>
 	ft::node<T>*	increment_tree(ft::node<T>* node) {
 		ft::node<T>*	tmp_node;
@@ -173,6 +178,8 @@ namespace ft
 		return node;
 	};
 
+	// - Increment function, return node with closest bigger value than current.
+	// Constant version.
 	template <typename T>
 	const ft::node<T>*	increment_tree(const ft::node<T>* node) {
 		ft::node<T>*	tmp_node;
@@ -194,6 +201,8 @@ namespace ft
 		return node;
 	};
 
+
+	// - Decrement function, return node with closest smaller value than current.
 	template <typename T>
 	ft::node<T>*	decrement_tree(ft::node<T>* node) {
 		ft::node<T>*	tmp_node;
@@ -212,6 +221,8 @@ namespace ft
 		return tmp_node;
 	};
 
+	// - Decrement function, return node with closest smaller value than current.
+	// Constant version.
 	template <typename T>
 	const ft::node<T>*	decrement_tree(const ft::node<T>* node) {
 		ft::node<T>*	tmp_node;
@@ -230,7 +241,7 @@ namespace ft
 		return tmp_node;
 	};
 
-	// - Minimum function
+	// - Minimum function, return smallest value in tree from current.
 	template <typename T>
 	ft::node<T>*	tree_minimum(ft::node<T>* current) {
 		while (current && current->get_left_child() != NULL) {
@@ -239,7 +250,7 @@ namespace ft
 		return current;
 	};
 
-	// - Maximum function
+	// - Maximum function, return biggest value in tree from current.
 	template <typename T>
 	ft::node<T>*	tree_maximum(ft::node<T>* current) {
 		while (current && current->get_right_child() != NULL) {

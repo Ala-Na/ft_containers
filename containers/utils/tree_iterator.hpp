@@ -6,14 +6,13 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 13:48:52 by anadege           #+#    #+#             */
-/*   Updated: 2022/03/04 11:39:11 by anadege          ###   ########.fr       */
+/*   Updated: 2022/03/04 15:18:10 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TREE_ITERATOR_HPP
 # define TREE_ITERATOR_HPP
 
-#include <iterator>
 #include "./iterators.hpp"
 #include "./node.hpp"
 
@@ -156,10 +155,12 @@ namespace ft
 				node(static_cast<node_type*>(const_cast<node_type*>(node))) {}
 
 			template <typename T>
-			rb_tree_const_iterator(const ft::rb_tree_const_iterator<T>& x) : node(x.node) {}
+			rb_tree_const_iterator(const ft::rb_tree_const_iterator<T>& x) :
+				node(x.node) {}
 
 			template <typename T>
-			rb_tree_const_iterator(const ft::rb_tree_iterator<T>& x) : node(x.base()) {}
+			rb_tree_const_iterator(const ft::rb_tree_iterator<T>& x) :
+				node(x.base()) {}
 
 			// - Base function
 			node_type*	base() {

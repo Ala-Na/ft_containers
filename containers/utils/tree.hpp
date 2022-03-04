@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 12:11:55 by anadege           #+#    #+#             */
-/*   Updated: 2022/03/04 11:39:31 by anadege          ###   ########.fr       */
+/*   Updated: 2022/03/04 15:21:15 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,19 @@ namespace ft
 			// --------------------
 
 			// - Default constructor
-			rb_tree (const compare_function& comp = compare_function(), const allocator_type &alloc = allocator_type()) :
-				root(NULL), null_leave(NULL), node_count(0), comp(comp), alloc(alloc) {}
+			rb_tree (const compare_function& comp = compare_function(),
+				const allocator_type &alloc = allocator_type()) :
+				root(NULL), null_leave(NULL), node_count(0), comp(comp),
+				alloc(alloc)
+			{}
 
 			// - Range constructor
 			template <typename InputIterator>
-			rb_tree (InputIterator first, InputIterator last, const compare_function& comp = compare_function(), const allocator_type &alloc = allocator_type()) :
-				root(NULL), null_leave(NULL), node_count(0), comp(comp), alloc(alloc)
+			rb_tree (InputIterator first, InputIterator last,
+				const compare_function& comp = compare_function(),
+				const allocator_type &alloc = allocator_type()) :
+				root(NULL), null_leave(NULL), node_count(0), comp(comp),
+				alloc(alloc)
 			{
 				if (is_valid_input_iterator(first) == false) {
 					throw InvalidIteratorTypeException();
@@ -86,7 +92,8 @@ namespace ft
 
 			// - Copy constructor
 			rb_tree (const rb_tree& other, const allocator_type &alloc = allocator_type()) :
-				root(NULL), null_leave(NULL), node_count(0), comp(other.comp), alloc(alloc)
+				root(NULL), null_leave(NULL), node_count(0), comp(other.comp),
+				alloc(alloc)
 			{
 				if (other.empty() ==  true)
 					return;
@@ -419,7 +426,8 @@ namespace ft
 			const_iterator	lower_bound (key_type k) const {
 				extract_key	extract;
 				const_iterator	last = this->end();
-				for (const_iterator first = this->begin(); first != last; first++) {
+				for (const_iterator first = this->begin(); first != last; first++)
+				{
 					if (comp(extract(*first), k) == false)	{
 						return first;
 					}
@@ -432,7 +440,8 @@ namespace ft
 				iterator	first = this->begin();
 				iterator	last = this->end();
 				for (; first != last; first++) {
-					if (extract(*first) != k && comp(extract(*first), k) == false)	{
+					if (extract(*first) != k && comp(extract(*first), k) == false)
+					{
 						return first;
 					}
 				}
@@ -444,7 +453,8 @@ namespace ft
 				const_iterator	first = this->begin();
 				const_iterator	last = this->end();
 				for (; first != last; first++) {
-					if (extract(*first) != k && comp(extract(*first), k) == false)	{
+					if (extract(*first) != k && comp(extract(*first), k) == false)
+					{
 						return first;
 					}
 				}
@@ -459,7 +469,8 @@ namespace ft
 			// of new_node.
 			void	fix_tree(node_type*	new_node) {
 				node_type*	uncle_node;
-				while (new_node->get_parent() && (new_node->get_parent())->get_color() == red) {
+				while (new_node->get_parent()
+					&& (new_node->get_parent())->get_color() == red) {
 					if (new_node->get_parent() == new_node->get_left_uncle()) {
 						uncle_node = new_node->get_right_uncle();
 						if (uncle_node && uncle_node->get_color() == red) {
@@ -516,7 +527,8 @@ namespace ft
 				}
 				while (node_x != NULL) {
 					node_y = node_x;
-					if (this->comp(extract(data), extract(node_x->get_data()))) { // new_node key < node_x key
+					if (this->comp(extract(data), extract(node_x->get_data())))
+					{
 						node_x = node_x->get_left_child();
 					} else {
 						node_x = node_x->get_right_child();
@@ -619,7 +631,8 @@ namespace ft
 					ft::swap(successor->get_color(), node->get_color());
 				}
 				if (node->get_color() == black) {
-					while (child != root_track && (child == NULL || child->get_color() == black)) {
+					while (child != root_track && (child == NULL
+						|| child->get_color() == black)) {
 						if (child == child_parent->get_left_child()) {
 							node_type*	tmp = child_parent->get_right_child();
 							if (tmp->get_color() == red) {
@@ -629,13 +642,18 @@ namespace ft
 								root_track = this->root;
 								tmp = child_parent->get_right_child();
 							}
-							if ((tmp->get_left_child() == NULL || tmp->get_left_child()->get_color() == black)
-							&& (tmp->get_right_child() ==  NULL || tmp->get_right_child()->get_color() == black)) {
+							if ((tmp->get_left_child() == NULL
+								|| tmp->get_left_child()->get_color() == black)
+								&& (tmp->get_right_child() ==  NULL
+								|| tmp->get_right_child()->get_color() == black))
+							{
 								tmp->set_to_red();
 								child = child_parent;
 								child_parent = child_parent->get_parent();
 							} else {
-								if ((tmp->get_right_child() == NULL || tmp->get_right_child()->get_color() == black)) {
+								if ((tmp->get_right_child() == NULL
+								|| tmp->get_right_child()->get_color() == black))
+								{
 									tmp->get_left_child()->set_to_black();
 									tmp->set_to_red();
 									right_rotate(tmp);
@@ -661,13 +679,18 @@ namespace ft
 								root_track = this->root;
 								tmp = child_parent->get_left_child();
 							}
-							if ((tmp->get_left_child() == NULL || tmp->get_left_child()->get_color() ==  black)
-							&& (tmp->get_right_child() ==  NULL || tmp->get_right_child()->get_color() == black)) {
+							if ((tmp->get_left_child() == NULL
+								|| tmp->get_left_child()->get_color() ==  black)
+								&& (tmp->get_right_child() ==  NULL
+								|| tmp->get_right_child()->get_color() == black))
+							{
 								tmp->set_to_red();
 								child = child_parent;
 								child_parent = child_parent->get_parent();
 							} else {
-								if ((tmp->get_left_child() == NULL || tmp->get_left_child()->get_color() == black)) {
+								if ((tmp->get_left_child() == NULL
+									|| tmp->get_left_child()->get_color() == black))
+								{
 									tmp->get_right_child()->set_to_black();
 									tmp->set_to_red();
 									left_rotate(tmp);
