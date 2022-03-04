@@ -1,15 +1,15 @@
 #include "tests_utils.hpp"
-#include "./vector_subtests/constructors.cpp"
-#include "./vector_subtests/assign.cpp"
-#include "./vector_subtests/at.cpp"
-#include "./vector_subtests/it.cpp"
-#include "./vector_subtests/erase.cpp"
-#include "./vector_subtests/insert.cpp"
-#include "./vector_subtests/push_pop.cpp"
-#include "./vector_subtests/relationnal_ope.cpp"
-#include "./vector_subtests/rev_it.cpp"
-#include "./vector_subtests/size.cpp"
-#include "./vector_subtests/swap.cpp"
+#include "../vector_subtests/constructors.cpp"
+#include "../vector_subtests/assign.cpp"
+#include "../vector_subtests/at.cpp"
+#include "../vector_subtests/it.cpp"
+#include "../vector_subtests/erase.cpp"
+#include "../vector_subtests/insert.cpp"
+#include "../vector_subtests/push_pop.cpp"
+#include "../vector_subtests/relationnal_ope.cpp"
+#include "../vector_subtests/rev_it.cpp"
+#include "../vector_subtests/size.cpp"
+#include "../vector_subtests/swap.cpp"
 
 #define RED "\033[0;31m"
 #define YELLOW "\033[0;33m"
@@ -67,13 +67,13 @@ int main() {
 	std::cout << YELLOW << "Testing ft::vector and comparing to std::vector" << END << std::endl;
 
 	stat(".results", &st);
-	if (!(st.st_mode & S_IFDIR) && mkdir(".results", 0777) == -1)  {
+	if (!(st.st_mode & S_IFDIR) && mkdir("../.results", 0777) == -1)  {
 		std::cout << RED << "Error" << END << std::endl;
 		return -1;
 	}
 
-	ft_res.open("./.results/ft_vector_res.txt", std::fstream::in | std::fstream::out | std::fstream::trunc);
-	std_res.open("./.results/std_vector_res.txt", std::fstream::in | std::fstream::out | std::fstream::trunc);
+	ft_res.open("../.results/ft_vector_res.txt", std::fstream::in | std::fstream::out | std::fstream::trunc);
+	std_res.open("../.results/std_vector_res.txt", std::fstream::in | std::fstream::out | std::fstream::trunc);
 
 	if (ft_res.is_open() == false || std_res.is_open() == false) {
 		std::cout << RED << "Error" << END << std::endl;
@@ -104,23 +104,23 @@ int main() {
 	ft_res.close();
 	std_res.close();
 
-	//std::cout << YELLOW << "Benchmark testing" << END << std::endl;
+	std::cout << YELLOW << "Benchmark testing" << END << std::endl;
 
-	//double ft_time = benchmark_ft_vector();
-	//double std_time = benchmark_std_vector();
+	double ft_time = benchmark_ft_vector();
+	double std_time = benchmark_std_vector();
 
-	//if (std_time == 0 && ft_time != std_time) {
-	//	std_time += 1;
-	//}
+	if (std_time == 0 && ft_time != std_time) {
+		std_time += 1;
+	}
 
-	//if (ft_time > std_time * 20) {
-	//	std::cout << "===> " << RED << "TIMEOUT !" << END << std::endl;
-	//} else {
-	//	std::cout << "===> " << GREEN << "OK" << END << std::endl;
-	//}
+	if (ft_time > std_time * 20) {
+		std::cout << "===> " << RED << "TIMEOUT !" << END << std::endl;
+	} else {
+		std::cout << "===> " << GREEN << "OK" << END << std::endl;
+	}
 
-	//std::cout << "[std_map: " << std_time / double(CLOCKS_PER_SEC) << " seconds.]" << std::endl;
-	//std::cout << "[ft_map: " << ft_time / double(CLOCKS_PER_SEC) << " seconds.]" << std::endl;
+	std::cout << "[std_map: " << std_time / double(CLOCKS_PER_SEC) << " seconds.]" << std::endl;
+	std::cout << "[ft_map: " << ft_time / double(CLOCKS_PER_SEC) << " seconds.]" << std::endl;
 
 	return 0;
 }

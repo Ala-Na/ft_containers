@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:57:47 by anadege           #+#    #+#             */
-/*   Updated: 2022/03/04 11:38:27 by anadege          ###   ########.fr       */
+/*   Updated: 2022/03/04 13:52:09 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -504,7 +504,11 @@ namespace ft
 		if (it_cat != typeid(ft::input_iterator_tag)
 			&& it_cat != typeid(ft::forward_iterator_tag)
 			&& it_cat != typeid(ft::bidirectional_iterator_tag)
-			&& it_cat != typeid(ft::random_access_iterator_tag))
+			&& it_cat != typeid(ft::random_access_iterator_tag)
+			&& it_cat != typeid(std::input_iterator_tag)
+			&& it_cat != typeid(std::forward_iterator_tag)
+			&& it_cat != typeid(std::bidirectional_iterator_tag)
+			&& it_cat != typeid(std::random_access_iterator_tag))
 			return false;
 		return true;
 	};

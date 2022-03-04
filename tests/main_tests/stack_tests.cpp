@@ -1,6 +1,6 @@
 #include "tests_utils.hpp"
-#include "./stack_subtests/constructors.cpp"
-#include "./stack_subtests/relationnal_ope.cpp"
+#include "../stack_subtests/constructors.cpp"
+#include "../stack_subtests/relationnal_ope.cpp"
 
 #define RED "\033[0;31m"
 #define YELLOW "\033[0;33m"
@@ -50,13 +50,13 @@ int main() {
 	std::cout << YELLOW << "Testing ft::stack and comparing to std::stack" << END << std::endl;
 
 	stat(".results", &st);
-	if (!(st.st_mode & S_IFDIR) && mkdir(".results", 0777) == -1)  {
+	if (!(st.st_mode & S_IFDIR) && mkdir("../.results", 0777) == -1)  {
 		std::cout << RED << "Error" << END << std::endl;
 		return -1;
 	}
 
-	ft_res.open("./.results/ft_stack_res.txt", std::fstream::in | std::fstream::out | std::fstream::trunc);
-	std_res.open("./.results/std_stack_res.txt", std::fstream::in | std::fstream::out | std::fstream::trunc);
+	ft_res.open("../.results/ft_stack_res.txt", std::fstream::in | std::fstream::out | std::fstream::trunc);
+	std_res.open("../.results/std_stack_res.txt", std::fstream::in | std::fstream::out | std::fstream::trunc);
 
 	if (ft_res.is_open() == false || std_res.is_open() == false) {
 		std::cout << RED << "Error" << END << std::endl;

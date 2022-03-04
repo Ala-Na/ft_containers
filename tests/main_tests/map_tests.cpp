@@ -1,16 +1,16 @@
 #include "tests_utils.hpp"
-#include "./map_subtests/constructors.cpp"
-#include "./map_subtests/bounds.cpp"
-#include "./map_subtests/comp.cpp"
-#include "./map_subtests/empty.cpp"
-#include "./map_subtests/erase.cpp"
-#include "./map_subtests/find_count.cpp"
-#include "./map_subtests/insert.cpp"
-#include "./map_subtests/ite.cpp"
-#include "./map_subtests/op_sqbr.cpp"
-#include "./map_subtests/relationnal_ope.cpp"
-#include "./map_subtests/rev_it.cpp"
-#include "./map_subtests/swap.cpp"
+#include "../map_subtests/constructors.cpp"
+#include "../map_subtests/bounds.cpp"
+#include "../map_subtests/comp.cpp"
+#include "../map_subtests/empty.cpp"
+#include "../map_subtests/erase.cpp"
+#include "../map_subtests/find_count.cpp"
+#include "../map_subtests/insert.cpp"
+#include "../map_subtests/ite.cpp"
+#include "../map_subtests/op_sqbr.cpp"
+#include "../map_subtests/relationnal_ope.cpp"
+#include "../map_subtests/rev_it.cpp"
+#include "../map_subtests/swap.cpp"
 
 #define RED "\033[0;31m"
 #define YELLOW "\033[0;33m"
@@ -69,13 +69,13 @@ int main() {
 	std::cout << YELLOW << "Testing ft::map and comparing to std::map" << END << std::endl;
 
 	stat(".results", &st);
-	if (!(st.st_mode & S_IFDIR) && mkdir(".results", 0777) == -1)  {
+	if (!(st.st_mode & S_IFDIR) && mkdir("../.results", 0777) == -1)  {
 		std::cout << RED << "Error" << END << std::endl;
 		return -1;
 	}
 
-	ft_res.open("./.results/ft_map_res.txt", std::fstream::in | std::fstream::out | std::fstream::trunc);
-	std_res.open("./.results/std_map_res.txt", std::fstream::in | std::fstream::out | std::fstream::trunc);
+	ft_res.open("../.results/ft_map_res.txt", std::fstream::in | std::fstream::out | std::fstream::trunc);
+	std_res.open("../.results/std_map_res.txt", std::fstream::in | std::fstream::out | std::fstream::trunc);
 
 	if (ft_res.is_open() == false || std_res.is_open() == false) {
 		std::cout << RED << "Error" << END << std::endl;
