@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:21:45 by anadege           #+#    #+#             */
-/*   Updated: 2022/03/03 22:16:02 by anadege          ###   ########.fr       */
+/*   Updated: 2022/03/04 12:16:40 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,11 @@ namespace ft
 					this->first_elem = NULL;
 					return ;
 				}
-				this->vec_capacity = std::distance(first, last);
+				InputIterator	tmp = first;
+				while (tmp != last) {
+					++tmp;
+					++this->vec_capacity;
+				}
 				if (this->vec_capacity > this->max_size()) {
 						throw MaxSizeExceededException();
 				}
@@ -373,7 +377,12 @@ namespace ft
 				if (is_valid_input_iterator(first) == false) {
 					throw InvalidIteratorTypeException();
 				}
-				size_type	count = std::distance(first, last);
+				size_type	count = 0;
+				InputIt	tmp = first;
+				while (tmp != last) {
+					++tmp;
+					++count;
+				}
 				if (count > this->max_size()) {
 					throw MaxSizeExceededException();
 				}
@@ -420,7 +429,7 @@ namespace ft
 			// Insert element before the given position. May cause reallocation
 			// if vec_capacity is exceeded.
 			iterator	insert (iterator position, const value_type& val) {
-				size_type	pos = 	std::distance(this->begin(), position);
+				size_type	pos = position - this->begin();
 				size_type	new_vec_capacity = this->vec_capacity;
 				if (this->filled == this->vec_capacity) {
 					new_vec_capacity == 0 ? new_vec_capacity = 1 : new_vec_capacity *= 2;
@@ -457,7 +466,7 @@ namespace ft
 				if (n == 0) {
 					return;
 				}
-				size_type	pos = 	std::distance(this->begin(), position);
+				size_type	pos = 	position - this->begin();
 				size_type	new_vec_capacity = this->vec_capacity;
 				while (this->filled + n > new_vec_capacity) {
 					new_vec_capacity == 0 ? new_vec_capacity = 1 : new_vec_capacity *= 2;
@@ -500,8 +509,13 @@ namespace ft
 				if (first == last) {
 					return ;
 				}
-				size_type	size = std::distance(first, last);
-				size_type	pos = std::distance(this->begin(), position);
+				size_type	size = 0;
+				InputIterator	tmp = first;
+				while (tmp != last) {
+					++tmp;
+					++size;
+				}
+				size_type	pos = position - this->begin();
 				size_type	new_vec_capacity = this->vec_capacity;
 				while (this->filled + size > new_vec_capacity) {
 					new_vec_capacity == 0 ? new_vec_capacity = 1 : new_vec_capacity *= 2;
@@ -535,7 +549,7 @@ namespace ft
 			// Erase a single element of the container pointed by an iterator.
 			iterator	erase (iterator position)
 			{
-				size_type	pos = std::distance(this->begin(), position);
+				size_type	pos = position - this->begin();
 				this->alloc.destroy(this->first_elem + pos);
 				this->filled--;
 				if (pos != this->filled + 1) {
@@ -554,9 +568,9 @@ namespace ft
 			{
 				if (first == last)
 					return this->begin();
-				size_type start = std::distance(this->begin(), first);
-				size_type end = std::distance(this->begin(), last);
-				size_type size = std::distance(first, last);
+				size_type start = first - this->begin();
+				size_type end = last - this->begin();
+				size_type size = last - first;
 				for (size_type i = start; i < end; i++) {
 					this->alloc.destroy(this->first_elem + 1);
 				}

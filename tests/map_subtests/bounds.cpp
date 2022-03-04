@@ -62,9 +62,9 @@ void	ft_const_bound(const Map &mp, const int &param, bool benchmark, std::fstrea
 	}
 }
 
-template <template <class, class, class, class> class Map, template <class> class Comp, template <class, class> class Pair>
+template <template <class, class, class, class> class Map, template <class> class Comp, template <class, class> class Pair, template <typename, typename> class Vector>
 void	map_bounds(bool benchmark, std::fstream& out) {
-	std::list<Pair<int, int> > lst;
+	Vector<Pair<int, int>, std::allocator<Pair<int, int> > > lst;
 	unsigned int lst_size = 10;
 	for (unsigned int i = 0; i < lst_size; ++i)
 		lst.push_back(Pair<int,int>(i + 1, (i + 1) * 3));

@@ -28,12 +28,12 @@ void	ft_erase(Map &mp, U param, V param2, bool benchmark, std::fstream& out)
 	}
 }
 
-template <template <class, class, class, class> class Map, template <class> class Comp, template <class, class> class Pair>
+template <template <class, class, class, class> class Map, template <class> class Comp, template <class, class> class Pair, template <typename, typename> class Vector>
 void	map_erase(bool benchmark, std::fstream& out)
 {
 	// Erase from mli42
 
-	std::list<Pair<int, std::string> > lst;
+	Vector<Pair<int, std::string>, std::allocator<Pair<int, std::string> > > lst;
 	unsigned int lst_size = 10;
 	for (unsigned int i = 0; i < lst_size; ++i)
 		lst.push_back(Pair<int, std::string>(i, std::string((lst_size - i), i + 65)));

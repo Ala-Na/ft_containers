@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 13:48:52 by anadege           #+#    #+#             */
-/*   Updated: 2022/03/03 22:18:38 by anadege          ###   ########.fr       */
+/*   Updated: 2022/03/04 11:39:11 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ namespace ft
 		public:
 
 			typedef Type																			iterator_type;
-			typedef typename ft::iterator<std::bidirectional_iterator_tag, Type>::iterator_category	iterator_category;
-			typedef typename ft::iterator<std::bidirectional_iterator_tag, Type>::value_type		value_type;
-			typedef typename ft::iterator<std::bidirectional_iterator_tag, Type>::difference_type	difference_type;
-			typedef typename ft::iterator<std::bidirectional_iterator_tag, Type>::pointer			pointer;
-			typedef typename ft::iterator<std::bidirectional_iterator_tag, Type>::reference			reference;
+			typedef typename ft::iterator<ft::bidirectional_iterator_tag, Type>::iterator_category	iterator_category;
+			typedef typename ft::iterator<ft::bidirectional_iterator_tag, Type>::value_type		value_type;
+			typedef typename ft::iterator<ft::bidirectional_iterator_tag, Type>::difference_type	difference_type;
+			typedef typename ft::iterator<ft::bidirectional_iterator_tag, Type>::pointer			pointer;
+			typedef typename ft::iterator<ft::bidirectional_iterator_tag, Type>::reference			reference;
 			typedef typename ft::node<Type>															node_type;
 
 		protected:
@@ -136,11 +136,11 @@ namespace ft
 
 			typedef const Type																		iterator_type;
 			typedef rb_tree_iterator<const Type>													iterator;
-			typedef typename ft::iterator<std::bidirectional_iterator_tag, Type>::iterator_category	iterator_category;
-			typedef typename ft::iterator<std::bidirectional_iterator_tag, Type>::value_type		value_type;
-			typedef typename ft::iterator<std::bidirectional_iterator_tag, Type>::difference_type	difference_type;
-			typedef typename ft::iterator<std::bidirectional_iterator_tag, Type>::pointer			pointer;
-			typedef typename ft::iterator<std::bidirectional_iterator_tag, Type>::reference			reference;
+			typedef typename ft::iterator<ft::bidirectional_iterator_tag, Type>::iterator_category	iterator_category;
+			typedef typename ft::iterator<ft::bidirectional_iterator_tag, Type>::value_type		value_type;
+			typedef typename ft::iterator<ft::bidirectional_iterator_tag, Type>::difference_type	difference_type;
+			typedef typename ft::iterator<ft::bidirectional_iterator_tag, Type>::pointer			pointer;
+			typedef typename ft::iterator<ft::bidirectional_iterator_tag, Type>::reference			reference;
 			typedef typename ft::node<Type>															node_type;
 
 		protected:

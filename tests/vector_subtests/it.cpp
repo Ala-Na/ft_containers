@@ -85,29 +85,6 @@ void	prepost_incdec(Vector &vct, bool benchmark, std::fstream& out)
 
 template <template <typename, typename> class Vector>
 void	vector_it(bool benchmark, std::fstream& out) {
-	std::list<int> lst;
-	std::list<int>::iterator lst_it;
-	for (int i = 1; i < 5; ++i)
-		lst.push_back(i * 3);
-
-	Vector<int, std::allocator<int> > vct(lst.begin(), lst.end());
-	if (benchmark == false) {
-		print_vector("Vector for it - 1:", vct, out);
-	}
-
-	lst_it = lst.begin();
-	for (int i = 1; lst_it != lst.end(); ++i)
-		*lst_it++ = i * 5;
-	vct.assign(lst.begin(), lst.end());
-	if (benchmark == false) {
-		print_vector("Vector for it - 2:", vct, out);
-	}
-
-	vct.insert(vct.end(), lst.rbegin(), lst.rend());
-	if (benchmark == false) {
-		print_vector("Vector for it - 3:", vct, out);
-	}
-
 	const int size = 5;
 	Vector<int, std::allocator<int> > vct2(size);
 	typename Vector<int, std::allocator<int> >::iterator it = vct2.begin();

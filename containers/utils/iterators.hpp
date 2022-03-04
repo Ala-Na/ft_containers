@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:57:47 by anadege           #+#    #+#             */
-/*   Updated: 2022/03/03 23:05:51 by anadege          ###   ########.fr       */
+/*   Updated: 2022/03/04 11:38:27 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,24 @@
 
 // Librairy needed to use ptrdiff_t.
 #include <cstddef>
-// Librairy needed to use iterators tags
-#include <iterator>
 #include <typeinfo>
 
 namespace ft
 {
-	// -----------------------------------
+	// ---------------------------------------
+	// Implemantation of iterators tags struct
+	// ---------------------------------------
+
+	struct	input_iterator_tag {};
+	struct	output_iterator_tag {};
+	struct	forward_iterator_tag : public input_iterator_tag {};
+	struct	bidirectional_iterator_tag : public forward_iterator_tag {};
+	struct	random_access_iterator_tag : public bidirectional_iterator_tag {};
+	struct	contiguous_iterator_tag : public random_access_iterator_tag {};
+
+	// ----------------------------------
 	// Implementation of iterator struct
-	// -----------------------------------
+	// ----------------------------------
 
 	// It's a structure which is used by iterator_traits. It does nothing but
 	// define nested typedefs, which can be inherited from iterator classes and
@@ -62,7 +71,7 @@ namespace ft
 	// by default.
 	template <typename T>
 	struct iterator_traits<T*> {
-		typedef std::random_access_iterator_tag	iterator_category;
+		typedef ft::random_access_iterator_tag	iterator_category;
 		typedef T								value_type;
 		typedef std::ptrdiff_t					difference_type;
 		typedef T*								pointer;
@@ -73,7 +82,7 @@ namespace ft
 	// random_access_iterator by default.
 	template <typename T>
 	struct iterator_traits<const T*> {
-		typedef std::random_access_iterator_tag	iterator_category;
+		typedef ft::random_access_iterator_tag	iterator_category;
 		typedef T								value_type;
 		typedef std::ptrdiff_t					difference_type;
 		typedef const T*						pointer;
@@ -287,11 +296,11 @@ namespace ft
 		public:
 			// Member types :
 			typedef Type																			iterator_type;
-			typedef typename ft::iterator<std::random_access_iterator_tag, Type>::iterator_category	iterator_category;
-			typedef typename ft::iterator<std::random_access_iterator_tag, Type>::value_type		value_type;
-			typedef typename ft::iterator<std::random_access_iterator_tag, Type>::difference_type	difference_type;
-			typedef typename ft::iterator<std::random_access_iterator_tag, Type>::pointer			pointer;
-			typedef typename ft::iterator<std::random_access_iterator_tag, Type>::reference			reference;
+			typedef typename ft::iterator<ft::random_access_iterator_tag, Type>::iterator_category	iterator_category;
+			typedef typename ft::iterator<ft::random_access_iterator_tag, Type>::value_type		value_type;
+			typedef typename ft::iterator<ft::random_access_iterator_tag, Type>::difference_type	difference_type;
+			typedef typename ft::iterator<ft::random_access_iterator_tag, Type>::pointer			pointer;
+			typedef typename ft::iterator<ft::random_access_iterator_tag, Type>::reference			reference;
 
 			// Member functions :
 			// - Default constructor
@@ -492,10 +501,10 @@ namespace ft
 		(void)it;
 		const std::type_info&	it_cat = typeid(typename \
 			ft::iterator_traits<Iterator>::iterator_category);
-		if (it_cat != typeid(std::input_iterator_tag)
-			&& it_cat != typeid(std::forward_iterator_tag)
-			&& it_cat != typeid(std::bidirectional_iterator_tag)
-			&& it_cat != typeid(std::random_access_iterator_tag))
+		if (it_cat != typeid(ft::input_iterator_tag)
+			&& it_cat != typeid(ft::forward_iterator_tag)
+			&& it_cat != typeid(ft::bidirectional_iterator_tag)
+			&& it_cat != typeid(ft::random_access_iterator_tag))
 			return false;
 		return true;
 	};

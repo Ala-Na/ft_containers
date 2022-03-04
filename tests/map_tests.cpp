@@ -17,15 +17,15 @@
 #define GREEN "\033[0;32m"
 #define END "\033[0m"
 
-template <template <class, class, class, class> class Map, template <class> class Comp, template <class, class> class Pair>
+template <template <class, class, class, class> class Map, template <class> class Comp, template <class, class> class Pair, template <typename, typename> class Vector>
 void	map_tests(bool benchmark, std::fstream& out) {
-	map_constructor<Map, Comp, Pair>(benchmark, out);
-	map_bounds<Map, Comp, Pair>(benchmark, out);
+	map_constructor<Map, Comp, Pair, Vector>(benchmark, out);
+	map_bounds<Map, Comp, Pair, Vector>(benchmark, out);
 	map_comp<Map, Comp, Pair>(benchmark, out);
-	map_empty<Map, Comp, Pair>(benchmark, out);
-	map_erase<Map, Comp, Pair>(benchmark, out);
+	map_empty<Map, Comp, Pair, Vector>(benchmark, out);
+	map_erase<Map, Comp, Pair, Vector>(benchmark, out);
 	map_find_count<Map, Comp, Pair>(benchmark, out);
-	map_insert<Map, Comp, Pair>(benchmark, out);
+	map_insert<Map, Comp, Pair, Vector>(benchmark, out);
 	map_ite<Map, Comp, Pair>(benchmark, out);
 	map_op_sqbr<Map, Comp, Pair>(benchmark, out);
 	map_relationnal<Map, Comp, Pair>(benchmark, out);
@@ -40,7 +40,7 @@ double	benchmark_ft_map() {
 
 	timer_start = clock();
 	for (int i = 0; i < 10000; i++) {
-		map_tests<ft::map, ft::less, ft::pair>(true, null);
+		map_tests<ft::map, ft::less, ft::pair, ft::vector>(true, null);
 	}
 	timer_end = clock();
 	double diff = (timer_end - timer_start);
@@ -54,7 +54,7 @@ double	benchmark_std_map() {
 
 	timer_start = clock();
 	for (int i = 0; i < 10000; i++) {
-		map_tests<std::map, std::less, std::pair>(true, null);
+		map_tests<std::map, std::less, std::pair, std::vector>(true, null);
 	}
 	timer_end = clock();
 	double diff = (timer_end - timer_start);
@@ -82,8 +82,8 @@ int main() {
 		return -1;
 	}
 
-	map_tests<ft::map, ft::less, ft::pair>(false, ft_res);
-	map_tests<std::map, std::less, std::pair>(false, std_res);
+	map_tests<ft::map, ft::less, ft::pair, ft::vector>(false, ft_res);
+	map_tests<std::map, std::less, std::pair, std::vector>(false, std_res);
 
 	if (ft_res.tellg() != std_res.tellg()) {
 		std::cout << "===> " << RED << "DIFF !" << END << std::endl;

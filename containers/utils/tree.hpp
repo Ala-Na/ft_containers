@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 12:11:55 by anadege           #+#    #+#             */
-/*   Updated: 2022/03/03 13:26:17 by anadege          ###   ########.fr       */
+/*   Updated: 2022/03/04 11:39:31 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 #include <cstddef>
 #include <memory>
-#include <cstdio> //TODO delete, test purpose only
-#include <iostream> // TODO delete, test purpose only
 #include "./tree_iterator.hpp" // include node.hpp
 #include "./iterators.hpp"
 #include "./id_comp.hpp"
@@ -713,31 +711,6 @@ namespace ft
 				remove_node(to_del);
 				return 1;
 			}
-
-			// TODO DELETE FOLLOWING
-			void PreorderTraversal(node_type* temp) {
-				extract_key extract;
-				if(!temp){
-					std::cout << "--> end branch |\n";
-					return; }
-				std::cout << "--> " << temp << " " << extract(temp->get_data()) << "<" << temp->get_color() << "> (parent: ";
-				if (temp->get_parent()) {
-					std::cout << extract(temp->get_parent()->get_data()) << ")\n";
-				} else {
-					std::cout << "null)\n";
-				}
-				PreorderTraversal(temp->get_left_child());
-				PreorderTraversal(temp->get_right_child());
-			}
-
-			void PostorderTraversal(node_type* temp) {
-				extract_key extract;
-				if(!temp){ return; }
-				PostorderTraversal(temp->get_left_child());
-				PostorderTraversal(temp->get_right_child());
-				std::cout << "--> " << extract(temp->get_data()) << "<" << temp->get_color() << ">";
-			}
-
 	};
 };
 

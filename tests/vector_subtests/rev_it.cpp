@@ -39,6 +39,7 @@ void	vector_rev_it(bool benchmark, std::fstream& out) {
 	//Vector<int, std::allocator<int> >::reverse_iterator rit2(cit);
 	//Vector<int, std::allocator<int> >::iterator it2(rit);
 	//Vector<int, std::allocator<int> >::const_iterator cit2(crit);
+
 	if (benchmark == false)
 		out << "OK" << std::endl;
 
@@ -197,21 +198,21 @@ void	vector_rev_it(bool benchmark, std::fstream& out) {
 	if (benchmark == false)
 		out << "regular it" << std::endl;
 	ft_eq_ope_rev(it_0 + 3, it_mid, benchmark, out);
-	ft_eq_ope_rev(it_0, it_1, benchmark, out);
+	ft_eq_ope_rev(it_0, it_1 - 1, benchmark, out);
 	ft_eq_ope_rev(it_1 - 3, it_mid, benchmark, out);
 
 	if (benchmark == false)
 		out << "constant it" << std::endl;
 	ft_eq_ope_rev(cit_0 + 3, cit_mid, benchmark, out);
-	ft_eq_ope_rev(cit_0, cit_1, benchmark, out);
+	ft_eq_ope_rev(cit_0, cit_1 - 1, benchmark, out);
 	ft_eq_ope_rev(cit_1 - 3, cit_mid, benchmark, out);
 
 	if (benchmark == false)
 		out << "both it" << std::endl;
 	ft_eq_ope_rev(it_0 + 3, cit_mid, benchmark, out);
 	ft_eq_ope_rev(it_mid, cit_0 + 3, benchmark, out);
-	ft_eq_ope_rev(it_0, cit_1, benchmark, out);
-	ft_eq_ope_rev(it_1, cit_0, benchmark, out);
+	ft_eq_ope_rev(it_0, cit_1 - 1, benchmark, out);
+	ft_eq_ope_rev(it_1 - 1, cit_0, benchmark, out);
 	ft_eq_ope_rev(it_1 - 3, cit_mid, benchmark, out);
 	ft_eq_ope_rev(it_mid, cit_1 - 3, benchmark, out);
 

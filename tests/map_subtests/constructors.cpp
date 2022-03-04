@@ -14,7 +14,7 @@ struct ft_more {
 	}
 };
 
-template <template <class, class, class, class> class Map, template <class> class Comp, template <class, class> class Pair>
+template <template <class, class, class, class> class Map, template <class> class Comp, template <class, class> class Pair, template <typename, typename> class Vector>
 void	map_constructor(bool benchmark, std::fstream &out) {
 
 	Map<char,int, Comp<char>, std::allocator<Pair<const char,int> > > first;
@@ -66,7 +66,7 @@ void	map_constructor(bool benchmark, std::fstream &out) {
 
 	// Taken and adapted from mli42 ft_containers tester
 
-	std::list<Pair<const int, int> > lst;
+	Vector<Pair<const int, int>, std::allocator<Pair<const int, int> > > lst;
 	unsigned int lst_size = 7;
 	for (unsigned int i = 0; i < lst_size; ++i)
 		lst.push_back(Pair<const int, int>(lst_size - i, i));
@@ -106,8 +106,8 @@ void	map_constructor(bool benchmark, std::fstream &out) {
 	}
 
 	// Tricky construct from mli42
-	std::list<Pair<int, std::string> > lst2;
-	typename std::list<Pair<int, std::string> >::iterator itlst;
+	Vector<Pair<int, std::string>, std::allocator<Pair<int, std::string> > > lst2;
+	typename Vector<Pair<int, std::string>, std::allocator<Pair<int, std::string> > >::iterator itlst;
 
 	lst2.push_back(Pair<int, std::string>(42, "lol"));
 	lst2.push_back(Pair<int, std::string>(50, "mdr"));

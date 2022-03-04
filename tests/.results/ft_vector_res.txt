@@ -277,40 +277,6 @@ Capacity: OK
 6
 3
 
------------------- 
-Vector for it - 1:
-Size: 4
-
-Capacity: OK
-3
-6
-9
-12
-
------------------- 
-Vector for it - 2:
-Size: 4
-
-Capacity: OK
-5
-10
-15
-20
-
------------------- 
-Vector for it - 3:
-Size: 8
-
-Capacity: OK
-5
-10
-15
-20
-20
-15
-10
-5
-
 Pre inc
 20 | 20
 Pre dec
@@ -940,12 +906,12 @@ inf or eq:true
 sup:false
 sup or eq:true
 
-inf:true 5 0
+inf:true 5 1
 inf or eq:true
 sup:false
 sup or eq:false
 
-inf:false 0 5
+inf:false 1 5
 inf or eq:false
 sup:true
 sup or eq:true
@@ -971,12 +937,12 @@ inf or eq:true
 sup:false
 sup or eq:true
 
-inf:true 5 0
+inf:true 5 1
 inf or eq:true
 sup:false
 sup or eq:false
 
-inf:false 0 5
+inf:false 1 5
 inf or eq:false
 sup:true
 sup or eq:true
@@ -1012,22 +978,22 @@ inf or eq:true
 sup:false
 sup or eq:true
 
-inf:true 5 0
+inf:true 5 1
 inf or eq:true
 sup:false
 sup or eq:false
 
-inf:false 0 5
+inf:false 1 5
 inf or eq:false
 sup:true
 sup or eq:true
 
-inf:false 0 5
+inf:false 1 5
 inf or eq:false
 sup:true
 sup or eq:true
 
-inf:true 5 0
+inf:true 5 1
 inf or eq:true
 sup:false
 sup or eq:false

@@ -12,10 +12,10 @@ void	is_empty(T const &mp, bool benchmark, std::fstream& out)
 	}
 }
 
-template <template <class, class, class, class> class Map, template <class> class Comp, template <class, class> class Pair>
+template <template <class, class, class, class> class Map, template <class> class Comp, template <class, class> class Pair, template <typename, typename> class Vector>
 void	map_empty(bool benchmark, std::fstream& out)
 {
-	std::list<Pair<char, int> > lst;
+	Vector<Pair<char, int>, std::allocator<Pair<char, int> > > lst;
 	unsigned int lst_size = 7;
 	for (unsigned int i = 0; i < lst_size; ++i)
 		lst.push_back(Pair<char, int>('a' + i, lst_size - i));

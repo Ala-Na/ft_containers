@@ -49,7 +49,7 @@ void	ft_insert(Map &mp, Pair param, Pair param2, bool benchmark, std::fstream& o
 	}
 }
 
-template <template <class, class, class, class> class Map, template <class> class Comp, template <class, class> class Pair>
+template <template <class, class, class, class> class Map, template <class> class Comp, template <class, class> class Pair, template <typename, typename> class Vector>
 void	map_insert(bool benchmark, std::fstream& out)
 {
 	// Insert from mli42
@@ -73,8 +73,8 @@ void	map_insert(bool benchmark, std::fstream& out)
 	ft_insert(mp2, mp2.end(), Pair<int, std::string>(1500, "World"), benchmark, out);
 
 	// Insert2 from mli42
-	std::list<Pair<int, std::string> > lst;
-	typename std::list<Pair<int, std::string> >::iterator itlst;
+	Vector<Pair<int, std::string>, std::allocator<Pair<int, std::string> > > lst;
+	typename Vector<Pair<int, std::string>, std::allocator<Pair<int, std::string> > >::iterator itlst;
 
 	lst.push_back(Pair<int, std::string>(42, "lol"));
 

@@ -6,12 +6,14 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:27:59 by anadege           #+#    #+#             */
-/*   Updated: 2022/02/28 14:58:10 by anadege          ###   ########.fr       */
+/*   Updated: 2022/03/04 12:15:07 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ID_COMP_HPP
 # define ID_COMP_HPP
+
+#include "./iterators.hpp"
 
 namespace ft
 {
