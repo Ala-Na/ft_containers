@@ -6,16 +6,14 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:21:45 by anadege           #+#    #+#             */
-/*   Updated: 2022/03/04 12:16:40 by anadege          ###   ########.fr       */
+/*   Updated: 2022/03/04 16:03:14 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
 
-#include <cstddef>
 #include <memory>
-#include "./utils/iterators.hpp"
 #include "./utils/id_comp.hpp"
 #include "./utils/exceptions.hpp"
 

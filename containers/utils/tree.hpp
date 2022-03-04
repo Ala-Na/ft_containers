@@ -6,20 +6,18 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 12:11:55 by anadege           #+#    #+#             */
-/*   Updated: 2022/03/04 15:21:15 by anadege          ###   ########.fr       */
+/*   Updated: 2022/03/04 16:02:39 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TREE_HPP
 # define TREE_HPP
 
-#include <cstddef>
 #include <memory>
 #include "./tree_iterator.hpp" // include node.hpp
 #include "./iterators.hpp"
 #include "./id_comp.hpp"
 #include "./exceptions.hpp"
-#include "./pair.hpp"
 
 namespace ft
 {

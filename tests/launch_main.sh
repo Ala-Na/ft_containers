@@ -1,3 +1,4 @@
+mkdir .results
 g++ -std=c++98 -Wall -Werror -Wextra -D STL=1 ./main_tests/main.cpp -o main_std
 echo -e "\033[0;33mNamespace: STD (seed = 0)\033[0m"
 echo -e "\033[0;33m-------------------------\033[0m"

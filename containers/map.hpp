@@ -6,22 +6,15 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:21:47 by anadege           #+#    #+#             */
-/*   Updated: 2022/03/02 17:05:44 by anadege          ###   ########.fr       */
+/*   Updated: 2022/03/04 16:22:35 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAP_HPP
 # define MAP_HPP
 
-#include <functional>
-#include <cstddef>
-#include <memory>
-#include "./utils/exceptions.hpp"
 #include "./utils/pair.hpp"
-#include "./utils/id_comp.hpp"
-#include "./utils/iterators.hpp"
 #include "./utils/tree.hpp"
-#include "./utils/tree_iterator.hpp"
 
 namespace ft
 {
@@ -43,7 +36,7 @@ namespace ft
 		protected:
 			typedef typename allocator_type::template rebind<value_type>::other	tree_alloc;
 			typedef rb_tree<key_type, value_type, key_compare, tree_alloc,
-							ft::use_first< ft::pair<const Key, T> > >				tree_type;
+							ft::use_first< ft::pair<const Key, T> > >			tree_type;
 			typedef typename tree_type::node_type								node_type;
 
 		public:
@@ -91,6 +84,7 @@ namespace ft
 					}
 			};
 
+
 			// -----------------
 			// Member functions :
 			// -----------------
@@ -100,7 +94,8 @@ namespace ft
 			// --------------------
 
 			// - Default constructor
-			explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) :
+			explicit map (const key_compare& comp = key_compare(),
+				const allocator_type& alloc = allocator_type()) :
 				tree(comp, alloc)
 			{}
 
@@ -229,7 +224,9 @@ namespace ft
 
 			// - Insert range of iterators
 			template <class InputIterator>
-			void	insert (InputIterator first, InputIterator last) {
+			void	insert (InputIterator first, InputIterator last,
+			typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0)
+			{
 				if (is_valid_input_iterator(first) == false) {
 					throw InvalidIteratorTypeException();
 				} else if (first == last) {

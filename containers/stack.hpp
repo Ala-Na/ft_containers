@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:21:38 by anadege           #+#    #+#             */
-/*   Updated: 2022/03/04 00:28:06 by anadege          ###   ########.fr       */
+/*   Updated: 2022/03/04 16:01:56 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 # define STACK_HPP
 
 #include "./vector.hpp"
-#include "./utils/iterators.hpp"
-#include "./utils/id_comp.hpp"
-#include "./utils/exceptions.hpp"
 
 namespace ft
 {
