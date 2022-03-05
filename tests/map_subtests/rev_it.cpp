@@ -97,7 +97,7 @@ void	map_rev_it(bool benchmark, std::fstream& out)
 	std::list<Pair<float, foo<int> > > lst3;
 	unsigned int lst_size3 = 5;
 	for (unsigned int i = 0; i < lst_size3; ++i)
-		lst3.push_back(Pair<float, foo<int> >(2.5 - i, foo<int>(out, (i + 1) * 7)));
+		lst3.push_back(Pair<float, foo<int> >(2.5 - i, foo<int>((i + 1) * 7)));
 
 	Map<float, foo<int>, Comp<float>, std::allocator<Pair<const float, foo<int> > > > mp3(lst3.begin(), lst3.end());
 	typename Map<float, foo<int>, Comp<float>, std::allocator<Pair<const float, foo<int> > > >::reverse_iterator it3(mp3.rbegin());
@@ -117,8 +117,8 @@ void	map_rev_it(bool benchmark, std::fstream& out)
 		tmpe = ++ite3;
 		out << tmpe->first << " => " << tmpe->second << std::endl;
 
-		it3->second.m();
-		ite3->second.m();
+		out << it3->second.getValue() << std::endl;
+		out << ite3->second.getValue() << std::endl;
 
 		typename Map<float, foo<int>, Comp<float>, std::allocator<Pair<const float, foo<int> > > >::reverse_iterator tmp;
 
@@ -140,8 +140,8 @@ void	map_rev_it(bool benchmark, std::fstream& out)
 		tmpe = ite3--;
 		out << tmpe->first << " => " << tmpe->second << std::endl;
 
-		(*it3).second.m();
-		(*ite3).second.m();
+		out << (*it3).second.getValue() << std::endl;
+		out << (*ite3).second.getValue() << std::endl;
 
 		tmp = --it3;
 		out << tmp->first << " => " << tmp->second << std::endl;

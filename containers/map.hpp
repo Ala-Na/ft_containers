@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:21:47 by anadege           #+#    #+#             */
-/*   Updated: 2022/03/04 16:22:35 by anadege          ###   ########.fr       */
+/*   Updated: 2022/03/05 01:22:55 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -295,7 +295,7 @@ namespace ft
 			const_iterator	find (const key_type& k) const {
 				node_type*	found = this->tree.seek_node(k);
 				if (found == NULL)	{
-					return this->end();
+					return this->tree.end();
 				}
 				return iterator(found);
 			}

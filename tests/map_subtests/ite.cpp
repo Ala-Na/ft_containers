@@ -7,17 +7,12 @@ class foo {
 	public:
 		typedef T	value_type;
 
-		foo(std::fstream& out) : value(), _verbose(false), out(out) { };
-		foo(std::fstream& out, value_type src, const bool verbose = false) : value(src), _verbose(verbose), out(out) { };
-		foo(std::fstream& out, foo const &src, const bool verbose = false) : value(src.value), _verbose(verbose), out(out) { };
-		~foo(void) { if (this->_verbose) std::cout << "~foo::foo()" << std::endl; };
-		void m(void) { out << "foo::m called [" << this->value << "]" << std::endl; };
-		void m(void) const { out << "foo::m called [" << this->value << "]" << std::endl; };
-		void stream(std::fstream& out) { this->out = out; };
+		foo() : value(), _verbose(false) { };
+		foo(value_type src, const bool verbose = false) : value(src), _verbose(verbose) { };
+		foo(foo const &src, const bool verbose = false) : value(src.value), _verbose(verbose) { };
+		~foo(void) {};
 		foo &operator=(value_type src) { this->value = src; return *this; };
 		foo &operator=(foo const &src) {
-			if (this->_verbose || src._verbose)
-				out << "foo::operator=(foo) CALLED" << std::endl;
 			this->value = src.value;
 			return *this;
 		};
@@ -30,7 +25,6 @@ class foo {
 	private:
 		value_type		value;
 		bool			_verbose;
-		std::fstream&	out;
 };
 
 template <template <class, class, class, class> class Map, template <class> class Comp, template <class, class> class Pair>
@@ -38,12 +32,12 @@ void	map_ite(bool benchmark, std::fstream& out)
 {
 	// Ite_arrow from mli42
 
-	foo<int> c_foo(out);
+	foo<int> c_foo();
 
 	std::list<Pair<float, foo<int> > > lst;
 	unsigned int lst_size = 5;
 	for (unsigned int i = 0; i < lst_size; ++i)
-		lst.push_back(Pair<float, foo<int> >(2.5 + i, foo<int>(out, i + 1)));
+		lst.push_back(Pair<float, foo<int> >(2.5 + i, foo<int>(i + 1)));
 
 	Map<float, foo<int>, Comp<float>, std::allocator<Pair<const float, foo<int> > > > mp(lst.begin(), lst.end());
 	typename Map<float, foo<int>, Comp<float>, std::allocator<Pair<const float, foo<int> > > >::iterator it(mp.begin());
@@ -62,8 +56,8 @@ void	map_ite(bool benchmark, std::fstream& out)
 		tmpe = ++ite;
 		out << tmpe->first << " => " << tmpe->second << std::endl;
 
-		it->second.m();
-		ite->second.m();
+		out << it->second.getValue() << std::endl;
+		out << ite->second.getValue() << std::endl;
 
 		typename Map<float, foo<int>, Comp<float>, std::allocator<Pair<const float, foo<int> > > >::iterator tmp;
 
@@ -85,8 +79,9 @@ void	map_ite(bool benchmark, std::fstream& out)
 		tmpe = ite--;
 		out << tmpe->first << " => " << tmpe->second << std::endl;
 
-		(*it).second.m();
-		(*ite).second.m();
+
+		out << (*it).second.getValue() << std::endl;
+		out << (*ite).second.getValue() << std::endl;
 
 		tmp = --it;
 		out << tmp->first << " => " << tmp->second << std::endl;

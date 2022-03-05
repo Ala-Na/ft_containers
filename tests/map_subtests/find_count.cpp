@@ -2,15 +2,18 @@
 
 // Taken and adapted from mli42 ft_containers tester
 
+
 template <class T1, class Map>
 void	ft_find(Map mp, T1 const &k, bool benchmark, std::fstream& out)
 {
 	typename Map::iterator ret = mp.find(k);
 
-	if (ret != mp.end() && benchmark == false)
+	if (ret != mp.end() && benchmark == false) {
 		out << ret->first << " => " << ret->second << std::endl;
-	else if (benchmark == false)
+	}
+	else if (benchmark == false) {
 		out << "map::find(" << k << ") returned end()" << std::endl;
+	}
 }
 
 template <class T1, class Map>
@@ -31,6 +34,7 @@ void		map_find_count(bool benchmark, std::fstream& out)
 	mp[12] = "no";
 	mp[27] = "bee";
 	mp[90] = "8";
+
 	if (benchmark == false) {
 		print_map("Map for find:", mp, out);
 	}

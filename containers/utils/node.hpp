@@ -6,12 +6,14 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 22:11:57 by anadege           #+#    #+#             */
-/*   Updated: 2022/03/04 15:16:42 by anadege          ###   ########.fr       */
+/*   Updated: 2022/03/04 23:21:41 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef NODE_HPP
 # define NODE_HPP
+
+#include "./id_comp.hpp"
 
 namespace ft
 {

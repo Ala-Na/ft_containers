@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 12:11:55 by anadege           #+#    #+#             */
-/*   Updated: 2022/03/04 16:02:39 by anadege          ###   ########.fr       */
+/*   Updated: 2022/03/05 01:19:45 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,9 @@ namespace ft
 				const allocator_type &alloc = allocator_type()) :
 				root(NULL), null_leave(NULL), node_count(0), comp(comp),
 				alloc(alloc)
-			{}
+			{
+				this->null_leave = create_node();
+			}
 
 			// - Range constructor
 			template <typename InputIterator>
@@ -80,8 +82,8 @@ namespace ft
 				if (is_valid_input_iterator(first) == false) {
 					throw InvalidIteratorTypeException();
 				}
+				this->null_leave = create_node();
 				if (first == last) {
-					this->first_elem = NULL;
 					return ;
 				}
 				for (; first != last; ++first)
@@ -93,8 +95,10 @@ namespace ft
 				root(NULL), null_leave(NULL), node_count(0), comp(other.comp),
 				alloc(alloc)
 			{
-				if (other.empty() ==  true)
+				this->null_leave = create_node();
+				if (other.empty() ==  true) {
 					return;
+				}
 				for (const_iterator it = other.begin(); it != other.end(); ++it) {
 					this->insert_value(*it);
 				}
@@ -106,6 +110,7 @@ namespace ft
 
 			~rb_tree () {
 				delete_tree();
+				delete_node(this->null_leave);
 			}
 
 			// ---------------------------
@@ -116,9 +121,10 @@ namespace ft
 				if (this == &other) {
 					return *this;
 				}
+				node_type*	save_null = this->null_leave;
+				forget_null_leave();
 				delete_tree();
-				this->null_leave = NULL;
-				this->root = NULL;
+				this->null_leave = save_null;
 				this->comp = other.comp;
 				this->alloc = other.alloc;
 				const_iterator	first = other.begin();
@@ -254,16 +260,27 @@ namespace ft
 				return new_node;
 			}
 
+			node_type*	create_node(void) {
+				node_type*	new_node = this->alloc.allocate(1);
+				node_type	filler;
+				alloc.construct(new_node, filler);
+				new_node->set_parent(NULL);
+				new_node->set_right_child(NULL);
+				new_node->set_left_child(NULL);
+				return new_node;
+			}
+
 			void	delete_node(node_type* to_delete) {
 				this->alloc.destroy(to_delete);
 				this->alloc.deallocate(to_delete, 1);
+				to_delete = NULL;
 			}
 
 			void	delete_tree(node_type* to_del = NULL) {
 				if (to_del == NULL) {
 					to_del = this->root;
 				}
-				while (to_del) {
+				while (to_del && to_del != this->null_leave) {
 					node_type*	tmp = NULL;
 					if (to_del->get_right_child()) {
 						delete_tree(to_del->get_right_child());
@@ -278,7 +295,6 @@ namespace ft
 				this->node_count = 0;
 			}
 
-
 			void	forget_null_leave () {
 				if (this->null_leave->get_parent() != NULL) {
 					node_type*	max = this->null_leave->get_parent();
@@ -288,14 +304,13 @@ namespace ft
 			}
 
 			void	assign_parent_null_leave () {
-				if (!this->root && this->null_leave) {
-					delete_node(this->null_leave);
-					this->null_leave = NULL;
-					return ;
+				if (!this->root) {
+					return;
+				} else {
+					node_type*	max = tree_maximum(this->root);
+					max->set_right_child(this->null_leave);
+					this->null_leave->set_parent(max);
 				}
-				node_type*	max = tree_maximum(this->root);
-				max->set_right_child(this->null_leave);
-				this->null_leave->set_parent(max);
 			}
 
 			// ---------------------
@@ -369,10 +384,10 @@ namespace ft
 			node_type*	seek_node (key_type node_key) {
 				node_type* tmp = this->root;
 				extract_key	extract;
-				if (!tmp) {
+				if (!tmp || this->root == this->null_leave) {
 					return NULL;
 				}
-				while (tmp) {
+				while (tmp && tmp != this->null_leave) {
 					key_type	tmp_key = extract(tmp->get_data());
 					if (tmp_key == node_key) {
 						return tmp;
@@ -388,10 +403,10 @@ namespace ft
 			node_type*	seek_node (const key_type node_key) const {
 				node_type* tmp = this->root;
 				extract_key	extract;
-				if (!tmp) {
+				if (!tmp || tmp == this->null_leave) {
 					return NULL;
 				}
-				while (tmp) {
+				while (tmp && tmp != this->null_leave) {
 					key_type	tmp_key = extract(tmp->get_data());
 					if (tmp_key == node_key) {
 						return tmp;
@@ -518,11 +533,7 @@ namespace ft
 				node_type*	node_x = this->root;
 				node_type*	node_y = NULL;
 				extract_key	extract;
-				if (this->null_leave == NULL) {
-					this->null_leave = create_node(data);
-				} else {
-					forget_null_leave();
-				}
+				forget_null_leave();
 				while (node_x != NULL) {
 					node_y = node_x;
 					if (this->comp(extract(data), extract(node_x->get_data())))
@@ -561,9 +572,7 @@ namespace ft
 				node_type*	child = NULL;
 				node_type*	child_parent = NULL;
 				node_type*	successor = node;
-				if (this->null_leave) {
-					forget_null_leave();
-				}
+				forget_null_leave();
 				if (successor->get_left_child() == NULL) {
 					child = node->get_right_child();
 				} else if (successor->get_right_child() == NULL) {
@@ -712,9 +721,7 @@ namespace ft
 				}
 				delete_node(node);
 				this->node_count -= 1;
-				if (this->null_leave) {
-					assign_parent_null_leave();
-				}
+				assign_parent_null_leave();
 			}
 
 			size_t	remove_node (key_type& val) {
