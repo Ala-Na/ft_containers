@@ -32,7 +32,7 @@ void	map_ite(bool benchmark, std::fstream& out)
 {
 	// Ite_arrow from mli42
 
-	foo<int> c_foo();
+	foo<int> c_foo;
 
 	std::list<Pair<float, foo<int> > > lst;
 	unsigned int lst_size = 5;

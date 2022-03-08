@@ -13,12 +13,12 @@ void	cmp(const Map &lhs, const Map &rhs, bool benchmark, std::fstream& out)
 		out << "lt: " << (lhs <  rhs) << " | le: " << (lhs <= rhs) << std::endl;
 		out << "gt: " << (lhs >  rhs) << " | ge: " << (lhs >= rhs) << std::endl;
 	} else {
-		lhs == rhs;
-		lhs != rhs;
-		lhs < rhs;
-		lhs <= rhs;
-		lhs > rhs;
-		lhs >= rhs;
+		(void)(lhs == rhs);
+		(void)(lhs != rhs);
+		(void)(lhs < rhs);
+		(void)(lhs <= rhs);
+		(void)(lhs > rhs);
+		(void)(lhs >= rhs);
 	}
 }
 

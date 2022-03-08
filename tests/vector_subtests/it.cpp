@@ -41,10 +41,10 @@ void ft_eq_ope(const Ite_1 &first, const Ite_2 &second, bool benchmark, std::fst
 		out << (first > second) << std::endl;
 		out << (first >= second) << std::endl;
 	} else {
-		first < second;
-		first <= second;
-		first > second;
-		first >= second;
+		(void)(first < second);
+		(void)(first <= second);
+		(void)(first > second);
+		(void)(first >= second);
 	}
 	if (redo)
 		ft_eq_ope(second, first, benchmark, out, 0);
@@ -120,9 +120,9 @@ void	vector_it(bool benchmark, std::fstream& out) {
 	} else {
 		ite += 2;
 		ite -= 2;
-		ite == it;
+		(void)(ite == it);
 		ite - 1;
-		ite + 3 == it;
+		(void)(ite + 3 == it);
 	}
 
 	const int size3 = 5;
@@ -191,8 +191,8 @@ void	vector_it(bool benchmark, std::fstream& out) {
 		out << ((it_0 + 3 == cit_0 + 3) && (cit_0 + 3 == it_mid)) << std::endl;
 		out << "\t\tft_eq_ope:" << std::endl;
 	} else {
-		it_0 + 3 == cit_0 + 3;
-		cit_0 + 3 == it_mid;
+		(void)(it_0 + 3 == cit_0 + 3);
+		(void)(cit_0 + 3 == it_mid);
 	}
 	// regular it
 	ft_eq_ope(it_0 + 3, it_mid, benchmark, out);

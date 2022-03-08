@@ -13,10 +13,10 @@ void ft_eq_ope_rev(const Ite_1 &first, const Ite_2 &second, bool benchmark, std:
 		out << "sup or eq:" << (first >= second) << std::endl;
 		out << std::endl;
 	} else {
-		first < second;
-		first <= second;
-		first > second;
-		first >= second;
+		(void)(first < second);
+		(void)(first <= second);
+		(void)(first > second);
+		(void)(first >= second);
 	}
 	if (redo)
 		ft_eq_ope_rev(second, first, benchmark, out, 0);

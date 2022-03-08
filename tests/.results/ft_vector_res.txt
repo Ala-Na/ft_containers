@@ -1,0 +1,1231 @@
+------------------ 
+Empty constructor vector:
+Size: 0
+
+Capacity: OK
+
+2305843009213693951
+------------------ 
+Fill constructor vector:
+Size: 4
+
+Capacity: OK
+100
+100
+100
+100
+
+2305843009213693951
+------------------ 
+Range constructor vector:
+Size: 4
+
+Capacity: OK
+100
+100
+100
+100
+
+2305843009213693951
+------------------ 
+Copy constructor vector:
+Size: 4
+
+Capacity: OK
+100
+100
+100
+100
+
+2305843009213693951
+------------------ 
+Another iterator constructor vector from array:
+Size: 4
+
+Capacity: OK
+16
+2
+77
+29
+
+2305843009213693951
+len: 5
+	-- PART ONE --
+------------------ 
+Original:
+Size: 5
+
+Capacity: OK
+7
+14
+21
+2
+1
+
+------------------ 
+Range:
+Size: 3
+
+Capacity: OK
+5
+4
+3
+
+------------------ 
+Copy:
+Size: 7
+
+Capacity: OK
+5
+10
+15
+2
+1
+42
+21
+
+	-- PART TWO --
+------------------ 
+Original:
+Size: 7
+
+Capacity: OK
+5
+10
+15
+2
+1
+42
+21
+
+------------------ 
+Range:
+Size: 0
+
+Capacity: OK
+
+------------------ 
+Copy:
+Size: 3
+
+Capacity: OK
+5
+4
+3
+
+------------------ 
+Vector 1 for assign:
+Size: 7
+
+Capacity: OK
+21
+18
+15
+12
+9
+6
+3
+
+------------------ 
+Vector 2 for assign:
+Size: 4
+
+Capacity: OK
+20
+15
+10
+5
+
+	### After assign(): ###
+------------------ 
+Vector 1 after assign:
+Size: 4
+
+Capacity: OK
+20
+15
+10
+5
+
+------------------ 
+Vector 2 after assign:
+Size: 2
+
+Capacity: OK
+42
+42
+
+------------------ 
+Vector 3 after assign:
+Size: 7
+
+Capacity: OK
+21
+18
+15
+12
+9
+6
+3
+
+------------------ 
+Vector 4 after assign:
+Size: 4
+
+Capacity: OK
+21
+21
+21
+21
+
+------------------ 
+Vector 4 after 2nd assign:
+Size: 6
+
+Capacity: OK
+84
+84
+84
+84
+84
+84
+
+	### assign() on enough capacity and low size: ###
+------------------ 
+Vector 1 after finals assign:
+Size: 5
+
+Capacity: OK
+53
+53
+53
+53
+53
+
+------------------ 
+Vector 2 after finals assign:
+Size: 3
+
+Capacity: OK
+21
+18
+15
+
+vct.at(): 21 | vct[]: 21
+vct.at(): 18 | vct[]: 18
+vct.at(): 15 | vct[]: 15
+vct.at(): 12 | vct[]: 12
+vct.at(): 9 | vct[]: 9
+vct.at(): 6 | vct[]: 6
+vct.at(): 3 | vct[]: 3
+------------------ 
+Vector for at:
+Size: 7
+
+Capacity: OK
+21
+18
+15
+12
+9
+6
+3
+
+front(): 21 21
+back(): 3 3
+Out of range exception (message may differ from ft and std)
+vct2[]: 21
+vct2[]: 18
+vct2[]: 15
+vct2[]: 12
+vct2[]: 9
+vct2[]: 6
+vct2[]: 3
+------------------ 
+Vector for 2nd at:
+Size: 7
+
+Capacity: OK
+21
+18
+15
+12
+9
+6
+3
+
+front(): 21 21
+back(): 3 3
+vct_c2.at(): 21
+vct_c2.at(): 18
+vct_c2.at(): 15
+vct_c2.at(): 12
+vct_c2.at(): 9
+vct_c2.at(): 6
+vct_c2.at(): 3
+Catch exception: Out of range (messages may differ from std and ft)
+------------------ 
+Vector constant:
+Size: 7
+
+Capacity: OK
+21
+18
+15
+12
+9
+6
+3
+
+Pre inc
+20 | 20
+Pre dec
+25 | 25
+Post inc
+25 | 20
+Post dec
+20 | 25
+###############################################
+5
+10
+const_ite +=: 15
+const_ite -=: 25
+(it == const_it): 0
+(const_ite - it): -3
+(ite + 3 == it): 1
+------------------ 
+Vector in ite at end:
+Size: 5
+
+Capacity: OK
+25
+42
+15
+21
+5
+
+------------------ 
+Vector for iterator 3:
+Size: 5
+
+Capacity: OK
+1
+2
+3
+4
+5
+
+2
+2
+3
+5
+1
+5
+2
+2
+3
+5
+4
+4
+2
+2
+5
+1
+4
+4
+3
+1
+------------------ 
+Vector for equal operator iterator:
+Size: 5
+
+Capacity: OK
+5
+4
+3
+2
+1
+
+true
+		ft_eq_ope:
+false
+true
+false
+true
+false
+true
+false
+true
+true
+true
+false
+false
+false
+false
+true
+true
+true
+true
+false
+false
+false
+false
+true
+true
+false
+true
+false
+true
+false
+true
+false
+true
+true
+true
+false
+false
+false
+false
+true
+true
+true
+true
+false
+false
+false
+false
+true
+true
+false
+true
+false
+true
+false
+true
+false
+true
+false
+true
+false
+true
+false
+true
+false
+true
+true
+true
+false
+false
+false
+false
+true
+true
+false
+false
+true
+true
+true
+true
+false
+false
+true
+true
+false
+false
+false
+false
+true
+true
+false
+false
+true
+true
+true
+true
+false
+false
+------------------ 
+Vector erase:
+Size: 10
+
+Capacity: OK
+AAAAAAAAAA
+BBBBBBBBB
+CCCCCCCC
+DDDDDDD
+EEEEEE
+FFFFF
+GGGG
+HHH
+II
+J
+
+[0] erase: 2
+------------------ 
+Vector erase:
+Size: 9
+
+Capacity: OK
+AAAAAAAAAA
+BBBBBBBBB
+DDDDDDD
+EEEEEE
+FFFFF
+GGGG
+HHH
+II
+J
+
+[1] erase: 0
+------------------ 
+Vector erase:
+Size: 8
+
+Capacity: OK
+BBBBBBBBB
+DDDDDDD
+EEEEEE
+FFFFF
+GGGG
+HHH
+II
+J
+
+[2] erase: 7
+------------------ 
+Vector erase:
+Size: 7
+
+Capacity: OK
+BBBBBBBBB
+DDDDDDD
+EEEEEE
+FFFFF
+GGGG
+HHH
+II
+
+[3] erase: 0
+------------------ 
+Vector erase:
+Size: 4
+
+Capacity: OK
+FFFFF
+GGGG
+HHH
+II
+
+[4] erase: 1
+------------------ 
+Vector erase:
+Size: 2
+
+Capacity: OK
+FFFFF
+II
+
+------------------ 
+Vector erase:
+Size: 4
+
+Capacity: OK
+FFFFF
+II
+Hello
+Hi there
+
+[5] erase: 1
+------------------ 
+Vector erase:
+Size: 1
+
+Capacity: OK
+FFFFF
+
+------------------ 
+Vector erase:
+Size: 5
+
+Capacity: OK
+FFFFF
+ONE
+TWO
+THREE
+FOUR
+
+[6] erase: 0
+------------------ 
+Vector erase:
+Size: 0
+
+Capacity: OK
+
+------------------ 
+Vector for insert 1:
+Size: 10
+
+Capacity: OK
+30
+27
+24
+21
+18
+15
+12
+9
+6
+3
+
+------------------ 
+Vector for insert 2:
+Size: 3
+
+Capacity: OK
+21
+21
+42
+
+------------------ 
+Vector for insert 2:
+Size: 4
+
+Capacity: OK
+21
+42
+21
+42
+
+------------------ 
+Vector for insert 2:
+Size: 6
+
+Capacity: OK
+21
+42
+21
+42
+84
+84
+
+------------------ 
+Vector for insert 2:
+Size: 4
+
+Capacity: OK
+21
+42
+21
+42
+
+------------------ 
+Vector for insert 2:
+Size: 14
+
+Capacity: OK
+21
+42
+30
+27
+24
+21
+18
+15
+12
+9
+6
+3
+21
+42
+
+------------------ 
+Vector for insert 1:
+Size: 0
+
+Capacity: OK
+
+------------------ 
+Vector for insert 3:
+Size: 5
+
+Capacity: OK
+35
+28
+21
+14
+7
+
+------------------ 
+Vector for insert 4:
+Size: 3
+
+Capacity: OK
+35
+28
+21
+
+------------------ 
+Vector for insert 4:
+Size: 5
+
+Capacity: OK
+14
+7
+35
+28
+21
+
+------------------ 
+Vector for insert 4:
+Size: 8
+
+Capacity: OK
+14
+7
+35
+28
+21
+35
+28
+21
+
+insert return:
+42
+84
+----------------------------------------
+------------------ 
+Vector for insert:
+Size: 10
+
+Capacity: OK
+14
+7
+35
+28
+21
+84
+35
+28
+21
+42
+
+------------------ 
+Vector for push/back:
+Size: 8
+
+Capacity: OK
+AAAAAAAA
+BBBBBBB
+CCCCCC
+DDDDD
+EEEE
+FFF
+GG
+H
+
+push_back():
+
+------------------ 
+Vector for push/back:
+Size: 9
+
+Capacity: OK
+AAAAAAAA
+BBBBBBB
+CCCCCC
+DDDDD
+EEEE
+FFF
+GG
+H
+One long string
+
+------------------ 
+Vector for push/back:
+Size: 1
+
+Capacity: OK
+Another long string
+
+------------------ 
+Vector for push/back:
+Size: 8
+
+Capacity: OK
+AAAAAAAA
+BBBBBBB
+CCCCCC
+DDDDD
+EEEE
+FFF
+GG
+H
+
+------------------ 
+Vector for push/back:
+Size: 0
+
+Capacity: OK
+
+############### [0] ###############
+eq: true | ne: false
+lt: false | le: true
+gt: false | ge: true
+############### [1] ###############
+eq: true | ne: false
+lt: false | le: true
+gt: false | ge: true
+############### [2] ###############
+eq: false | ne: true
+lt: true | le: true
+gt: false | ge: false
+############### [3] ###############
+eq: false | ne: true
+lt: false | le: false
+gt: true | ge: true
+############### [4] ###############
+eq: false | ne: true
+lt: false | le: false
+gt: true | ge: true
+############### [5] ###############
+eq: false | ne: true
+lt: true | le: true
+gt: false | ge: false
+############### [6] ###############
+eq: false | ne: true
+lt: true | le: true
+gt: false | ge: false
+############### [7] ###############
+eq: false | ne: true
+lt: false | le: false
+gt: true | ge: true
+OK
+------------------ 
+Vector for rev_it:
+Size: 5
+
+Capacity: OK
+5
+10
+15
+20
+25
+
+true
+false
+10
+15
+20
+20
+TEST OFFSET
+15
+20
+15
+20
+25
+5
+10
+const_ite +=/-=: 15 | 25
+(it3 == const_it): false
+(const_ite - it3): -3
+(ite3 + 3 == it3): true
+------------------ 
+Vector for rev_it:
+Size: 5
+
+Capacity: OK
+5
+21
+15
+42
+25
+
+------------------ 
+Vector for rev_it:
+Size: 5
+
+Capacity: OK
+35
+28
+21
+14
+7
+
+14
+14
+21
+35
+7
+35
+14
+14
+21
+35
+28
+28
+14
+14
+35
+7
+28
+28
+21
+7
+------------------ 
+Vector for rev_it:
+Size: 5
+
+Capacity: OK
+1
+2
+3
+4
+5
+
+true
+		ft_eq_ope:
+------------------ 
+Vector for rev_it:
+Size: 5
+
+Capacity: OK
+1
+2
+3
+4
+5
+
+regular it
+inf:false 2 2
+inf or eq:true
+sup:false
+sup or eq:true
+
+inf:false 2 2
+inf or eq:true
+sup:false
+sup or eq:true
+
+inf:true 5 1
+inf or eq:true
+sup:false
+sup or eq:false
+
+inf:false 1 5
+inf or eq:false
+sup:true
+sup or eq:true
+
+inf:true 3 2
+inf or eq:true
+sup:false
+sup or eq:false
+
+inf:false 2 3
+inf or eq:false
+sup:true
+sup or eq:true
+
+constant it
+inf:false 2 2
+inf or eq:true
+sup:false
+sup or eq:true
+
+inf:false 2 2
+inf or eq:true
+sup:false
+sup or eq:true
+
+inf:true 5 1
+inf or eq:true
+sup:false
+sup or eq:false
+
+inf:false 1 5
+inf or eq:false
+sup:true
+sup or eq:true
+
+inf:true 3 2
+inf or eq:true
+sup:false
+sup or eq:false
+
+inf:false 2 3
+inf or eq:false
+sup:true
+sup or eq:true
+
+both it
+inf:false 2 2
+inf or eq:true
+sup:false
+sup or eq:true
+
+inf:false 2 2
+inf or eq:true
+sup:false
+sup or eq:true
+
+inf:false 2 2
+inf or eq:true
+sup:false
+sup or eq:true
+
+inf:false 2 2
+inf or eq:true
+sup:false
+sup or eq:true
+
+inf:true 5 1
+inf or eq:true
+sup:false
+sup or eq:false
+
+inf:false 1 5
+inf or eq:false
+sup:true
+sup or eq:true
+
+inf:false 1 5
+inf or eq:false
+sup:true
+sup or eq:true
+
+inf:true 5 1
+inf or eq:true
+sup:false
+sup or eq:false
+
+inf:true 3 2
+inf or eq:true
+sup:false
+sup or eq:false
+
+inf:false 2 3
+inf or eq:false
+sup:true
+sup or eq:true
+
+inf:false 2 3
+inf or eq:false
+sup:true
+sup or eq:true
+
+inf:true 3 2
+inf or eq:true
+sup:false
+sup or eq:false
+
+------------------ 
+Vector for size:
+Size: 7
+
+Capacity: OK
+20
+20
+15
+12
+9
+6
+3
+
+------------------ 
+Vector for size:
+Size: 10
+
+Capacity: OK
+20
+20
+15
+12
+9
+6
+3
+42
+42
+42
+
+------------------ 
+Vector for size:
+Size: 18
+
+Capacity: OK
+20
+20
+15
+12
+9
+6
+3
+42
+42
+42
+43
+43
+43
+43
+43
+43
+43
+43
+
+------------------ 
+Vector for size:
+Size: 10
+
+Capacity: OK
+20
+20
+15
+12
+9
+6
+3
+42
+42
+42
+
+------------------ 
+Vector for size:
+Size: 23
+
+Capacity: OK
+20
+20
+15
+12
+9
+6
+3
+42
+42
+42
+44
+44
+44
+44
+44
+44
+44
+44
+44
+44
+44
+44
+44
+
+------------------ 
+Vector for size:
+Size: 5
+
+Capacity: OK
+20
+20
+15
+12
+9
+
+------------------ 
+Vector for size:
+Size: 5
+
+Capacity: OK
+20
+20
+15
+12
+9
+
+------------------ 
+Vector for size:
+Size: 5
+
+Capacity: OK
+20
+20
+15
+12
+9
+
+is_empty: true
+is_empty: false
+------------------ 
+Vector for size:
+Size: 5
+
+Capacity: OK
+20
+20
+15
+12
+9
+
+------------------ 
+Vector for size:
+Size: 5
+
+Capacity: OK
+20
+20
+15
+12
+9
+
+is_empty: true
+------------------ 
+Vector for size:
+Size: 0
+
+Capacity: OK
+
+BEFORE SWAP
+foo contains:
+------------------ 
+Vector for swap:
+Size: 3
+
+Capacity: OK
+15
+15
+15
+
+bar contains:
+------------------ 
+Vector for swap:
+Size: 5
+
+Capacity: OK
+42
+42
+42
+42
+42
+
+AFTER SWAP
+foo contains:
+------------------ 
+Vector for swap:
+Size: 5
+
+Capacity: OK
+42
+42
+42
+42
+42
+
+bar contains:
+------------------ 
+Vector for swap:
+Size: 3
+
+Capacity: OK
+15
+15
+15
+
+Iterator validity:
+true
+true
