@@ -6,7 +6,7 @@
 /*   By: anadege <anadege@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:21:45 by anadege           #+#    #+#             */
-/*   Updated: 2022/03/04 16:03:14 by anadege          ###   ########.fr       */
+/*   Updated: 2022/03/16 22:03:17 by anadege          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -624,7 +624,7 @@ namespace ft
 		if (lhs.size() != rhs.size()) {
 			return false;
 		}
-		return equal(lhs.begin(), lhs.end(), rhs.begin());
+		return ft::equal(lhs.begin(), lhs.end(), rhs.begin());
 	};
 
 	template <typename T, class Alloc>
@@ -636,7 +636,7 @@ namespace ft
 	template <typename T, class Alloc>
 	bool	operator< (const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
 	{
-		return lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+		return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
 	};
 
 	template <typename T, class Alloc>
